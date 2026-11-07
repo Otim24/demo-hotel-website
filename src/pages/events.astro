@@ -33,9 +33,21 @@ import { EVENT_SPACES } from '../data/hotelData';
     </div>
   </section>
 
-  <!-- Event Spaces Detailed Showcase -->
-  <section class="py-20 px-4 sm:px-6 lg:px-12 bg-hotel-dark">
-    <div class="max-w-7xl mx-auto space-y-24">
+  <!-- Event Spaces Detailed Showcase with Atmospheric Architectural Backdrop -->
+  <section class="py-20 px-4 sm:px-6 lg:px-12 bg-hotel-dark relative overflow-hidden">
+    <!-- Atmospheric architectural background layer -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=2200&q=80"
+        alt="Ballroom & Architecture Texture"
+        class="w-full h-full object-cover opacity-15 filter brightness-40 contrast-125"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-hotel-dark via-hotel-dark/90 to-hotel-dark"></div>
+      <div class="ambient-glow top-1/3 right-10 opacity-20"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto space-y-24 relative z-10">
       {
         EVENT_SPACES.map((space, idx) => {
           const isReversed = idx % 2 === 1;

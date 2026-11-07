@@ -33,9 +33,21 @@ import { HOTEL_INFO } from '../data/hotelData';
     </div>
   </section>
 
-  <!-- Interactive Google Map Section -->
-  <section class="py-16 px-4 sm:px-6 lg:px-12 bg-hotel-dark">
-    <div class="max-w-7xl mx-auto">
+  <!-- Interactive Google Map Section with Architectural Backdrop -->
+  <section class="py-16 px-4 sm:px-6 lg:px-12 bg-hotel-dark relative overflow-hidden">
+    <!-- Atmospheric architectural background layer -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=2200&q=80"
+        alt="Stone Texture Backdrop"
+        class="w-full h-full object-cover opacity-10 filter brightness-40 contrast-125"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-hotel-dark via-hotel-dark/90 to-hotel-dark"></div>
+      <div class="ambient-glow top-1/2 left-0 opacity-20"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
       <div class="glass-panel p-4 sm:p-8 rounded-xl border border-hotel-border/40 space-y-6">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
           <div>

@@ -33,9 +33,21 @@ import { DINING_VENUES } from '../data/hotelData';
     </div>
   </section>
 
-  <!-- Detailed Venues Section -->
-  <section class="py-20 px-4 sm:px-6 lg:px-12 bg-hotel-dark">
-    <div class="max-w-7xl mx-auto space-y-24">
+  <!-- Detailed Venues Section with Atmospheric Architectural Backdrop -->
+  <section class="py-20 px-4 sm:px-6 lg:px-12 bg-hotel-dark relative overflow-hidden">
+    <!-- Atmospheric architectural background layer -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=2200&q=80"
+        alt="Cellar & Dining Architecture Texture"
+        class="w-full h-full object-cover opacity-15 filter brightness-40 contrast-125"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-hotel-dark via-hotel-dark/90 to-hotel-dark"></div>
+      <div class="ambient-glow top-1/4 right-0 opacity-20"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto space-y-24 relative z-10">
       {
         DINING_VENUES.map((venue, idx) => {
           const isReversed = idx % 2 === 1;

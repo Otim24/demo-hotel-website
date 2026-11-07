@@ -64,9 +64,21 @@ const SPA_TREATMENTS = [
     </div>
   </section>
 
-  <!-- Detailed Amenities List -->
-  <section class="py-20 px-4 sm:px-6 lg:px-12 bg-hotel-dark">
-    <div class="max-w-7xl mx-auto space-y-20">
+  <!-- Detailed Amenities List with Atmospheric Backdrop -->
+  <section class="py-20 px-4 sm:px-6 lg:px-12 bg-hotel-dark relative overflow-hidden">
+    <!-- Atmospheric architectural background layer -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=2200&q=80"
+        alt="Wellness & Resort Architecture Texture"
+        class="w-full h-full object-cover opacity-15 filter brightness-40 contrast-125"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-hotel-dark via-hotel-dark/90 to-hotel-dark"></div>
+      <div class="ambient-glow top-1/4 left-0 opacity-20"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto space-y-20 relative z-10">
       {
         HOTEL_AMENITIES.map((amenity, idx) => {
           const isReversed = idx % 2 === 1;
