@@ -2,6 +2,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import BookingModal from '../components/BookingModal.astro';
+import FloorplanModal from '../components/FloorplanModal.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -37,6 +38,30 @@ const {
     <!-- Google Fonts Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- JSON-LD Hotel Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Hotel",
+        "name": "The Northern Grand Hotel",
+        "description": "Luxury hotel sanctuary in Northern Uganda featuring executive suites, fine dining, wellness spa, and conference ballrooms.",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Plot 14 Churchill Way",
+          "addressLocality": "Gulu",
+          "addressRegion": "Northern Province",
+          "addressCountry": "UG"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "2.7746",
+          "longitude": "32.2990"
+        },
+        "telephone": "+256 784 811 929",
+        "priceRange": "$$$$"
+      }
+    </script>
   </head>
   <body class="bg-hotel-dark text-hotel-sand selection:bg-hotel-gold/30 selection:text-white flex flex-col min-h-screen">
     <!-- Header with dynamic blur and smooth mobile drawer -->
@@ -52,6 +77,9 @@ const {
 
     <!-- Global Reservation Engine Modal -->
     <BookingModal />
+
+    <!-- Floorplan & Spatial Configuration Modal -->
+    <FloorplanModal />
 
     <!-- Scroll Reveal and Seamless Fade Script -->
     <script>

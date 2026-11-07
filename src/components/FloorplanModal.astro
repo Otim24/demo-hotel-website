@@ -1,0 +1,210 @@
+---
+import { ROOMS } from '../data/hotelData';
+---
+
+<div
+  id="floorplan-modal-backdrop"
+  class="fixed inset-0 z-50 bg-hotel-dark/85 backdrop-blur-xl flex items-center justify-center p-4 sm:p-6 opacity-0 pointer-events-none transition-all duration-500"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="floorplan-title"
+>
+  <div
+    id="floorplan-modal-box"
+    class="relative w-full max-w-4xl glass-panel-heavy rounded-lg shadow-2xl p-6 sm:p-10 transform scale-95 opacity-0 transition-all duration-500 max-h-[90vh] overflow-y-auto"
+  >
+    <!-- Close Button -->
+    <button
+      id="floorplan-close-btn"
+      type="button"
+      class="absolute top-6 right-6 w-9 h-9 rounded-sm border border-hotel-gold/30 flex items-center justify-center text-hotel-sand/80 hover:text-hotel-gold hover:border-hotel-gold transition-colors focus:outline-none"
+      aria-label="Close Floorplan Specification"
+    >
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <!-- Header -->
+    <div class="mb-8 border-b border-white/10 pb-5">
+      <div class="text-[11px] uppercase tracking-[0.25em] text-hotel-gold font-semibold mb-1">
+        Architectural Spatial Specifications
+      </div>
+      <h3 id="floorplan-title" class="font-serif text-2xl sm:text-3xl text-hotel-sand-light tracking-wide">
+        Suite Spatial Configuration & Layout
+      </h3>
+      <p id="floorplan-tagline" class="text-xs text-hotel-muted mt-1.5 font-light">
+        Detailed breakdown of interior living areas, outdoor verandas, and luxury en-suite dimensions.
+      </p>
+    </div>
+
+    <!-- Active Room Switcher inside Modal -->
+    <div class="flex items-center gap-2 mb-8 overflow-x-auto pb-2">
+      {
+        ROOMS.map((room, idx) => (
+          <button
+            type="button"
+            data-fp-room={room.id}
+            class={`floorplan-tab-btn px-4 py-2 rounded-sm text-[11px] uppercase tracking-wider transition-all font-medium whitespace-nowrap ${
+              idx === 0
+                ? 'bg-hotel-gold text-hotel-dark font-semibold'
+                : 'glass-card text-hotel-sand/80 hover:text-hotel-gold'
+            }`}
+          >
+            {room.name}
+          </button>
+        ))
+      }
+    </div>
+
+    <!-- Room Layout Display Area -->
+    <div id="floorplan-content-area" class="space-y-6">
+      <!-- Dynamic Room Zone Cards will be toggled here -->
+      {
+        ROOMS.map((room, rIdx) => (
+          <div
+            id={`fp-panel-${room.id}`}
+            class={`floorplan-panel ${rIdx === 0 ? 'block' : 'hidden'} space-y-6`}
+          >
+            <!-- Room Overview Bar -->
+            <div class="glass-panel p-5 rounded-sm border border-hotel-border/30 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+              <div>
+                <span class="text-[10px] uppercase text-hotel-muted block">Total Space</span>
+                <span class="font-serif text-lg text-hotel-sand-light font-semibold">{room.sizeSqM} SQM</span>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase text-hotel-muted block">Bedding</span>
+                <span class="font-sans text-xs text-hotel-sand-light font-medium">{room.bed}</span>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase text-hotel-muted block">Orientation</span>
+                <span class="font-sans text-xs text-hotel-gold font-medium">{room.view}</span>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase text-hotel-muted block">Tariff</span>
+                <span class="font-serif text-lg text-hotel-gold font-semibold">${room.pricePerNight} / Night</span>
+              </div>
+            </div>
+
+            <!-- Architectural Zones -->
+            <div class="space-y-3">
+              <span class="text-[11px] uppercase tracking-[0.2em] text-hotel-gold font-semibold block">
+                Zoned Spatial Breakdown
+              </span>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {(room.floorplan?.zones || []).map((zone, zIdx) => (
+                  <div class="glass-card p-5 rounded-sm border border-white/5 space-y-2">
+                    <div class="flex items-center justify-between border-b border-white/10 pb-2">
+                      <span class="font-serif text-base text-hotel-sand-light font-medium">{zone.name}</span>
+                      <span class="font-mono text-xs text-hotel-gold font-semibold">{zone.dimension}</span>
+                    </div>
+                    <p class="text-xs text-hotel-muted font-light leading-relaxed">
+                      {zone.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <!-- Inclusions Footer -->
+            <div class="border-t border-white/10 pt-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div class="text-xs text-hotel-muted font-light">
+                All suites feature acoustic double-glazing, individual multi-zone climate control, and encrypted fiber optics.
+              </div>
+              <button
+                type="button"
+                data-open-reserve-modal
+                data-room-id={room.id}
+                class="bg-hotel-gold hover:bg-hotel-gold-light text-hotel-dark font-sans text-xs tracking-[0.2em] uppercase font-semibold py-3 px-6 rounded-sm transition-colors whitespace-nowrap"
+              >
+                Reserve This Suite
+              </button>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<script>
+  const fpBackdrop = document.getElementById('floorplan-modal-backdrop');
+  const fpBox = document.getElementById('floorplan-modal-box');
+  const fpCloseBtn = document.getElementById('floorplan-close-btn');
+  const fpTabBtns = document.querySelectorAll('.floorplan-tab-btn');
+  const fpPanels = document.querySelectorAll('.floorplan-panel');
+
+  function openFloorplan(roomId?: string) {
+    if (!fpBackdrop || !fpBox) return;
+
+    if (roomId) {
+      switchFloorplanTab(roomId);
+    }
+
+    fpBackdrop.classList.remove('opacity-0', 'pointer-events-none');
+    fpBackdrop.classList.add('opacity-100', 'pointer-events-auto');
+
+    fpBox.classList.remove('scale-95', 'opacity-0');
+    fpBox.classList.add('scale-100', 'opacity-100');
+
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeFloorplan() {
+    if (!fpBackdrop || !fpBox) return;
+
+    fpBox.classList.remove('scale-100', 'opacity-100');
+    fpBox.classList.add('scale-95', 'opacity-0');
+
+    fpBackdrop.classList.remove('opacity-100');
+    fpBackdrop.classList.add('opacity-0');
+
+    setTimeout(() => {
+      fpBackdrop.classList.add('pointer-events-none');
+      fpBackdrop.classList.remove('pointer-events-auto');
+      document.body.style.overflow = '';
+    }, 400);
+  }
+
+  function switchFloorplanTab(targetId: string) {
+    fpTabBtns.forEach((btn) => {
+      const isTarget = btn.getAttribute('data-fp-room') === targetId;
+      if (isTarget) {
+        btn.classList.add('bg-hotel-gold', 'text-hotel-dark', 'font-semibold');
+        btn.classList.remove('glass-card', 'text-hotel-sand/80');
+      } else {
+        btn.classList.remove('bg-hotel-gold', 'text-hotel-dark', 'font-semibold');
+        btn.classList.add('glass-card', 'text-hotel-sand/80');
+      }
+    });
+
+    fpPanels.forEach((panel) => {
+      if (panel.id === `fp-panel-${targetId}`) {
+        panel.classList.remove('hidden');
+      } else {
+        panel.classList.add('hidden');
+      }
+    });
+  }
+
+  fpTabBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const roomId = btn.getAttribute('data-fp-room');
+      if (roomId) switchFloorplanTab(roomId);
+    });
+  });
+
+  // Attach trigger listeners
+  document.querySelectorAll('[data-open-floorplan]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const target = e.currentTarget as HTMLElement;
+      const roomId = target.getAttribute('data-room-id') || undefined;
+      openFloorplan(roomId);
+    });
+  });
+
+  fpCloseBtn?.addEventListener('click', closeFloorplan);
+  fpBackdrop?.addEventListener('click', (e) => {
+    if (e.target === fpBackdrop) closeFloorplan();
+  });
+</script>

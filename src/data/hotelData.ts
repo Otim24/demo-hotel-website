@@ -14,6 +14,9 @@ export interface Room {
   gallery: string[];
   amenities: string[];
   highlights: { label: string; value: string }[];
+  floorplan: {
+    zones: { name: string; dimension: string; description: string }[];
+  };
 }
 
 export interface DiningVenue {
@@ -76,8 +79,8 @@ export const HOTEL_INFO = {
     ],
   },
   contact: {
-    reservationsPhone: '+256 471 432 900',
-    conciergePhone: '+256 782 110 404',
+    reservationsPhone: '+256 784 811 929',
+    conciergePhone: '+256 784 811 929',
     email: 'reservations@thenorthern-hotel.com',
     conciergeEmail: 'concierge@thenorthern-hotel.com',
     checkInTime: '14:00',
@@ -119,6 +122,14 @@ export const ROOMS: Room[] = [
       { label: 'Service Level', value: 'Bespoke Private Butler' },
       { label: 'Climate', value: 'Whisper-Quiet Multi-Zone Control' },
     ],
+    floorplan: {
+      zones: [
+        { name: 'Grand Master Suite', dimension: '65 sqm', description: 'Sculpted king bed framed by floor-to-ceiling glass and dual walk-in dressing parlors.' },
+        { name: 'Living Salon & Fireplace', dimension: '70 sqm', description: 'Central stone fireplace, library corner, and hand-woven silk seating.' },
+        { name: 'Terrazzo Spa Bath', dimension: '35 sqm', description: 'Freestanding circular stone bath, twin basalt vanities, and rain chamber.' },
+        { name: 'Panoramic Veranda & Plunge Pool', dimension: '110 sqm', description: 'Covered teak sundeck with heated stone plunge pool and sunset daybeds.' },
+      ],
+    },
   },
   {
     id: 'acholi-heritage-villa',
@@ -153,6 +164,14 @@ export const ROOMS: Room[] = [
       { label: 'Bath Experience', value: 'Freestanding Stone Tub' },
       { label: 'Entertainment', value: 'Acoustic Soundstage & Curated Library' },
     ],
+    floorplan: {
+      zones: [
+        { name: 'Villa Master Chamber', dimension: '55 sqm', description: 'Understated luxury with handcrafted indigenous timber rafters and garden outlook.' },
+        { name: 'Enclosed Garden Courtyard', dimension: '45 sqm', description: 'Private courtyard with volcanic stone fountain and outdoor rain shower.' },
+        { name: 'En-Suite Basalt Bathroom', dimension: '30 sqm', description: 'Dual carved stone basins and floor-to-ceiling garden glazed doors.' },
+        { name: 'Covered Veranda Lounge', dimension: '45 sqm', description: 'Deep outdoor dining table and cushioned daybeds overlooking courtyard grounds.' },
+      ],
+    },
   },
   {
     id: 'executive-horizon-suite',
@@ -187,6 +206,14 @@ export const ROOMS: Room[] = [
       { label: 'Club Privileges', value: 'Full Executive Lounge Access' },
       { label: 'Connectivity', value: 'Dedicated 500Mbps Fiber Port' },
     ],
+    floorplan: {
+      zones: [
+        { name: 'Executive Master Quarters', dimension: '48 sqm', description: 'Acoustically isolated sleeping chamber with walk-in security safe.' },
+        { name: 'Private Briefing Salon', dimension: '38 sqm', description: 'Meeting lounge with encrypted video conference portal and bar cabinet.' },
+        { name: 'Calacatta Marble Bath', dimension: '24 sqm', description: 'Dual marble vanities, rainfall shower stall, and luxury grooming station.' },
+        { name: 'City Horizon Balcony', dimension: '18 sqm', description: 'Private balcony facing north-west with panoramic skyline views.' },
+      ],
+    },
   },
   {
     id: 'terrace-deluxe-room',
@@ -220,6 +247,13 @@ export const ROOMS: Room[] = [
       { label: 'Bed Options', value: 'King or Double Twin' },
       { label: 'Location', value: 'Quiet Wing West' },
     ],
+    floorplan: {
+      zones: [
+        { name: 'Deluxe Sleeping Chamber', dimension: '42 sqm', description: 'Crisp Egyptian cotton linens and bespoke timber nightstands.' },
+        { name: 'Basalt Stone Bathroom', dimension: '18 sqm', description: 'Stone walk-in rainfall shower and botanical bath products.' },
+        { name: 'Private Shaded Veranda', dimension: '25 sqm', description: 'Teak daybed and outdoor breakfast table overlooking the pool gardens.' },
+      ],
+    },
   },
 ];
 
