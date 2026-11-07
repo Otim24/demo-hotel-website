@@ -131,9 +131,21 @@ import { DINING_VENUES } from '../data/hotelData';
     </div>
   </section>
 
-  <!-- Table Reservation & Private Dining Section -->
-  <section class="py-20 px-4 sm:px-6 lg:px-12 bg-hotel-surface border-t border-white/5">
-    <div class="max-w-4xl mx-auto glass-panel p-8 sm:p-12 rounded-xl border border-hotel-border/40">
+  <!-- Table Reservation & Private Dining Section with Atmospheric Backdrop -->
+  <section class="relative py-28 px-4 sm:px-6 lg:px-12 bg-hotel-dark overflow-hidden border-t border-white/5">
+    <!-- Atmospheric Background Image Layer -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=2200&q=80"
+        alt="Candlelit Dining Ambiance"
+        class="w-full h-full object-cover filter brightness-[0.22] contrast-125"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-hotel-dark via-hotel-dark/85 to-hotel-dark"></div>
+      <div class="ambient-glow top-0 right-1/4 opacity-20"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto relative z-10 glass-panel-heavy p-8 sm:p-14 rounded-xl border border-hotel-border/40 shadow-2xl">
       <div class="text-center max-w-xl mx-auto mb-8">
         <span class="text-[11px] uppercase tracking-[0.25em] text-hotel-gold font-semibold block mb-2">
           Table & Private Dining Reservations

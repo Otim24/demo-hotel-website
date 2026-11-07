@@ -119,9 +119,21 @@ import { EVENT_SPACES } from '../data/hotelData';
     </div>
   </section>
 
-  <!-- Event RFP & Inquiry Form -->
-  <section id="event-inquiry" class="py-20 px-4 sm:px-6 lg:px-12 bg-hotel-surface border-t border-white/5">
-    <div class="max-w-3xl mx-auto glass-panel p-8 sm:p-12 rounded-xl border border-hotel-border/40">
+  <!-- Event RFP & Inquiry Form with Atmospheric Image Backdrop -->
+  <section id="event-inquiry" class="relative py-28 px-4 sm:px-6 lg:px-12 bg-hotel-dark overflow-hidden border-t border-white/5">
+    <!-- Atmospheric Background Image Layer -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=2200&q=80"
+        alt="The Grand Karuma Ballroom Architecture"
+        class="w-full h-full object-cover filter brightness-[0.20] contrast-125"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-hotel-dark via-hotel-dark/85 to-hotel-dark"></div>
+      <div class="ambient-glow top-1/4 left-1/3 opacity-25"></div>
+    </div>
+
+    <div class="max-w-3xl mx-auto relative z-10 glass-panel-heavy p-8 sm:p-14 rounded-xl border border-hotel-border/40 shadow-2xl">
       <div class="text-center max-w-xl mx-auto mb-8">
         <span class="text-[11px] uppercase tracking-[0.25em] text-hotel-gold font-semibold block mb-2">
           Private RFP Submission

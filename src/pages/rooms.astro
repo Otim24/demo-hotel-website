@@ -33,9 +33,21 @@ import { ROOMS } from '../data/hotelData';
     </div>
   </section>
 
-  <!-- Filter & Presentation Section -->
-  <section class="py-16 px-4 sm:px-6 lg:px-12 bg-hotel-dark relative">
-    <div class="max-w-7xl mx-auto">
+  <!-- Filter & Presentation Section with Atmospheric Background Image -->
+  <section class="py-20 px-4 sm:px-6 lg:px-12 bg-hotel-dark relative overflow-hidden">
+    <!-- Atmospheric architectural background layer -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=2200&q=80"
+        alt="Interior Architectural Texture"
+        class="w-full h-full object-cover opacity-10 filter brightness-50 contrast-125"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-hotel-dark via-hotel-dark/90 to-hotel-dark"></div>
+      <div class="ambient-glow top-1/4 right-0 opacity-20"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
       <!-- Filter Switcher -->
       <div class="flex items-center justify-center gap-3 mb-16 overflow-x-auto pb-2">
         <button
@@ -171,14 +183,22 @@ import { ROOMS } from '../data/hotelData';
                     </div>
                   </div>
 
-                  <div class="border-t border-white/10 pt-6">
+                  <div class="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center gap-3">
                     <button
                       type="button"
                       data-open-reserve-modal
                       data-room-id={room.id}
-                      class="w-full bg-hotel-gold hover:bg-hotel-gold-light text-hotel-dark font-sans text-xs tracking-[0.2em] uppercase font-semibold py-3.5 px-6 rounded-sm transition-all duration-300 shadow-lg text-center"
+                      class="flex-1 w-full bg-hotel-gold hover:bg-hotel-gold-light text-hotel-dark font-sans text-xs tracking-[0.2em] uppercase font-semibold py-3.5 px-6 rounded-sm transition-all duration-300 shadow-lg text-center"
                     >
                       Reserve {room.name}
+                    </button>
+                    <button
+                      type="button"
+                      data-open-floorplan
+                      data-room-id={room.id}
+                      class="w-full sm:w-auto glass-card hover:border-hotel-gold text-hotel-sand-light font-sans text-xs tracking-[0.18em] uppercase font-medium py-3.5 px-5 rounded-sm transition-colors text-center whitespace-nowrap"
+                    >
+                      Floorplan Specs
                     </button>
                   </div>
                 </div>
@@ -190,21 +210,36 @@ import { ROOMS } from '../data/hotelData';
     </div>
   </section>
 
-  <!-- Included Signature Inclusions Banner -->
-  <section class="py-20 px-4 sm:px-6 lg:px-12 bg-hotel-surface border-t border-white/5">
-    <div class="max-w-7xl mx-auto">
-      <div class="text-center max-w-xl mx-auto mb-12">
+  <!-- Included Signature Inclusions Banner with Rich Image Backdrop -->
+  <section class="relative py-28 px-4 sm:px-6 lg:px-12 bg-hotel-dark overflow-hidden border-t border-white/5">
+    <!-- Atmospheric Background Image Layer -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=2200&q=80"
+        alt="The Northern Suite Ambiance"
+        class="w-full h-full object-cover filter brightness-[0.22] contrast-125"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-hotel-dark via-hotel-dark/80 to-hotel-dark"></div>
+      <div class="ambient-glow -bottom-32 left-1/3 opacity-25"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="text-center max-w-xl mx-auto mb-16">
         <span class="text-xs uppercase tracking-[0.25em] text-hotel-gold font-semibold block mb-2">
           Sanctuary Standard
         </span>
-        <h3 class="font-serif text-3xl text-hotel-sand-light tracking-tight">
+        <h3 class="font-serif text-3xl sm:text-4xl text-hotel-sand-light tracking-tight">
           Every Reservation Includes
         </h3>
+        <p class="text-xs text-hotel-muted font-light mt-3">
+          Complimentary executive appointments provided standard with every suite and garden villa booking.
+        </p>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="glass-card p-6 rounded-lg text-center space-y-3">
-          <div class="w-12 h-12 mx-auto rounded-full border border-hotel-gold/30 flex items-center justify-center text-hotel-gold">
+        <div class="glass-panel p-7 rounded-lg text-center space-y-3.5 border border-hotel-border/40 hover:border-hotel-gold/50 transition-colors">
+          <div class="w-12 h-12 mx-auto rounded-full border border-hotel-gold/30 flex items-center justify-center text-hotel-gold bg-hotel-gold/10">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -215,20 +250,20 @@ import { ROOMS } from '../data/hotelData';
           </p>
         </div>
 
-        <div class="glass-card p-6 rounded-lg text-center space-y-3">
-          <div class="w-12 h-12 mx-auto rounded-full border border-hotel-gold/30 flex items-center justify-center text-hotel-gold">
+        <div class="glass-panel p-7 rounded-lg text-center space-y-3.5 border border-hotel-border/40 hover:border-hotel-gold/50 transition-colors">
+          <div class="w-12 h-12 mx-auto rounded-full border border-hotel-gold/30 flex items-center justify-center text-hotel-gold bg-hotel-gold/10">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
             </svg>
           </div>
           <h4 class="font-serif text-lg text-hotel-sand-light">Artisanal Breakfast</h4>
           <p class="text-xs text-hotel-muted font-light leading-relaxed">
-            Daily gourmet breakfast served either on your private veranda or within The Savanna Hearth.
+            Daily gourmet breakfast served either on your private veranda or within The Hearth Restaurant.
           </p>
         </div>
 
-        <div class="glass-card p-6 rounded-lg text-center space-y-3">
-          <div class="w-12 h-12 mx-auto rounded-full border border-hotel-gold/30 flex items-center justify-center text-hotel-gold">
+        <div class="glass-panel p-7 rounded-lg text-center space-y-3.5 border border-hotel-border/40 hover:border-hotel-gold/50 transition-colors">
+          <div class="w-12 h-12 mx-auto rounded-full border border-hotel-gold/30 flex items-center justify-center text-hotel-gold bg-hotel-gold/10">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
             </svg>
@@ -239,8 +274,8 @@ import { ROOMS } from '../data/hotelData';
           </p>
         </div>
 
-        <div class="glass-card p-6 rounded-lg text-center space-y-3">
-          <div class="w-12 h-12 mx-auto rounded-full border border-hotel-gold/30 flex items-center justify-center text-hotel-gold">
+        <div class="glass-panel p-7 rounded-lg text-center space-y-3.5 border border-hotel-border/40 hover:border-hotel-gold/50 transition-colors">
+          <div class="w-12 h-12 mx-auto rounded-full border border-hotel-gold/30 flex items-center justify-center text-hotel-gold bg-hotel-gold/10">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
             </svg>
@@ -250,6 +285,9 @@ import { ROOMS } from '../data/hotelData';
             Organic skincare and bath oils cold-formulated by local herbalists from northern wild botanicals.
           </p>
         </div>
+      </div>
+    </div>
+  </section>
       </div>
     </div>
   </section>

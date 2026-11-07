@@ -87,9 +87,21 @@ import { HOTEL_INFO } from '../data/hotelData';
     </div>
   </section>
 
-  <!-- Contact Folio & Inquiry Form Grid -->
-  <section class="py-16 px-4 sm:px-6 lg:px-12 bg-hotel-surface border-t border-white/5">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10">
+  <!-- Contact Folio & Inquiry Form Grid with Atmospheric Image Backdrop -->
+  <section class="relative py-24 px-4 sm:px-6 lg:px-12 bg-hotel-dark overflow-hidden border-t border-white/5">
+    <!-- Atmospheric Background Image Layer -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=2200&q=80"
+        alt="The Northern Night Facade"
+        class="w-full h-full object-cover filter brightness-[0.20] contrast-125"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-hotel-dark via-hotel-dark/85 to-hotel-dark"></div>
+      <div class="ambient-glow -top-24 left-1/3 opacity-20"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10">
       <!-- Left: Direct Channels (5 Cols) -->
       <div class="lg:col-span-5 space-y-6">
         <div>
@@ -194,9 +206,146 @@ import { HOTEL_INFO } from '../data/hotelData';
       </div>
     </div>
   </section>
+
+  <!-- Guest Protocol & Frequently Asked Questions Accordion with Ambient Image Backdrop -->
+  <section class="relative py-28 px-4 sm:px-6 lg:px-12 bg-hotel-dark overflow-hidden border-t border-white/5">
+    <!-- Atmospheric Background Image Layer -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&w=2200&q=80"
+        alt="Artisanal Stonework Texture"
+        class="w-full h-full object-cover filter brightness-[0.18] contrast-125"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-hotel-dark via-hotel-dark/85 to-hotel-dark"></div>
+      <div class="ambient-glow bottom-0 right-1/4 opacity-20"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto relative z-10">
+      <div class="text-center max-w-xl mx-auto mb-14">
+        <span class="text-xs uppercase tracking-[0.25em] text-hotel-gold font-semibold block mb-2">
+          Concierge Guidance
+        </span>
+        <h3 class="font-serif text-3xl text-hotel-sand-light tracking-tight">
+          Arrival Protocol & Guest Inquiries
+        </h3>
+      </div>
+
+      <div class="space-y-4">
+        <!-- Item 1 -->
+        <div class="faq-item glass-panel rounded-lg border border-hotel-border/30 overflow-hidden transition-all duration-300">
+          <button
+            type="button"
+            class="faq-trigger w-full p-6 text-left flex items-center justify-between text-hotel-sand-light hover:text-hotel-gold transition-colors focus:outline-none"
+            aria-expanded="false"
+          >
+            <span class="font-serif text-lg">What are the hotel check-in and departure hours?</span>
+            <svg class="faq-icon w-4 h-4 text-hotel-gold transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 pb-0">
+            <p class="text-xs text-hotel-muted font-light leading-relaxed pb-6">
+              Official check-in commences at 14:00, and suite check-out is requested by 11:00. Early arrivals and late departures are accommodated with pleasure, subject to room availability. Our concierge team secures luggage in private holding suites for guests arriving prior to check-in.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="faq-item glass-panel rounded-lg border border-hotel-border/30 overflow-hidden transition-all duration-300">
+          <button
+            type="button"
+            class="faq-trigger w-full p-6 text-left flex items-center justify-between text-hotel-sand-light hover:text-hotel-gold transition-colors focus:outline-none"
+            aria-expanded="false"
+          >
+            <span class="font-serif text-lg">How are airport and regional transfers arranged?</span>
+            <svg class="faq-icon w-4 h-4 text-hotel-gold transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 pb-0">
+            <p class="text-xs text-hotel-muted font-light leading-relaxed pb-6">
+              Complimentary chauffeured vehicle transfers are provided between Gulu Airport and the hotel grounds (10 minutes transit). For guests arriving from Entebbe International Airport or Kampala, we coordinate chartered flights, tarmac meet-and-greets, and private executive cruisers via Karuma Parkway.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="faq-item glass-panel rounded-lg border border-hotel-border/30 overflow-hidden transition-all duration-300">
+          <button
+            type="button"
+            class="faq-trigger w-full p-6 text-left flex items-center justify-between text-hotel-sand-light hover:text-hotel-gold transition-colors focus:outline-none"
+            aria-expanded="false"
+          >
+            <span class="font-serif text-lg">Are executive security protocols and private helipads available?</span>
+            <svg class="faq-icon w-4 h-4 text-hotel-gold transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 pb-0">
+            <p class="text-xs text-hotel-muted font-light leading-relaxed pb-6">
+              Yes. The Northern is equipped with a certified on-ground helipad with discrete coordinates shared following reservation confirmation. Our perimeter operates under 24-hour private diplomatic security protocols, secure subterranean parking, and encrypted communication lines.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="faq-item glass-panel rounded-lg border border-hotel-border/30 overflow-hidden transition-all duration-300">
+          <button
+            type="button"
+            class="faq-trigger w-full p-6 text-left flex items-center justify-between text-hotel-sand-light hover:text-hotel-gold transition-colors focus:outline-none"
+            aria-expanded="false"
+          >
+            <span class="font-serif text-lg">What is the dress code for dining and lounges?</span>
+            <svg class="faq-icon w-4 h-4 text-hotel-gold transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 pb-0">
+            <p class="text-xs text-hotel-muted font-light leading-relaxed pb-6">
+              We observe an elegant smart-casual dress code at The Hearth Restaurant and Churchill Terrace & Bar during evening dinner services. Resort leisure attire is welcomed at The Pool Pavilion throughout the daytime.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </Layout>
 
 <script>
+  // FAQ accordion logic
+  const faqTriggers = document.querySelectorAll('.faq-trigger');
+  faqTriggers.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const parent = btn.closest('.faq-item');
+      const content = parent?.querySelector('.faq-content') as HTMLElement;
+      const icon = btn.querySelector('.faq-icon') as HTMLElement;
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+
+      // Close all other items
+      faqTriggers.forEach((otherBtn) => {
+        if (otherBtn !== btn) {
+          otherBtn.setAttribute('aria-expanded', 'false');
+          const otherParent = otherBtn.closest('.faq-item');
+          const otherContent = otherParent?.querySelector('.faq-content') as HTMLElement;
+          const otherIcon = otherBtn.querySelector('.faq-icon') as HTMLElement;
+          if (otherContent) otherContent.style.maxHeight = '0px';
+          if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+        }
+      });
+
+      if (isExpanded) {
+        btn.setAttribute('aria-expanded', 'false');
+        if (content) content.style.maxHeight = '0px';
+        if (icon) icon.style.transform = 'rotate(0deg)';
+      } else {
+        btn.setAttribute('aria-expanded', 'true');
+        if (content) content.style.maxHeight = `${content.scrollHeight}px`;
+        if (icon) icon.style.transform = 'rotate(180deg)';
+      }
+    });
+  });
+
   const contactForm = document.getElementById('contact-inquiry-form');
   const contactFeedback = document.getElementById('contact-feedback');
   contactForm?.addEventListener('submit', (e) => {

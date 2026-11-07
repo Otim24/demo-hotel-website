@@ -188,16 +188,28 @@ import { ROOMS } from '../data/hotelData';
                     type="button"
                     data-open-reserve-modal
                     data-room-id={room.id}
-                    class="flex-1 bg-hotel-gold hover:bg-hotel-gold-light text-hotel-dark font-sans text-xs tracking-[0.2em] uppercase font-semibold py-3.5 px-6 rounded-sm transition-all duration-300 text-center shadow-lg hover:shadow-[0_0_20px_rgba(197,160,89,0.35)]"
+                    class="flex-1 bg-hotel-gold hover:bg-hotel-gold-light text-hotel-dark font-sans text-xs tracking-[0.2em] uppercase font-semibold py-3.5 px-5 rounded-sm transition-all duration-300 text-center shadow-lg hover:shadow-[0_0_20px_rgba(197,160,89,0.35)]"
                   >
-                    Reserve This Sanctuary
+                    Reserve Suite
+                  </button>
+
+                  <button
+                    type="button"
+                    data-open-floorplan
+                    data-room-id={room.id}
+                    class="glass-card hover:border-hotel-gold text-hotel-sand-light font-sans text-xs tracking-[0.18em] uppercase font-medium py-3.5 px-4 rounded-sm transition-colors text-center flex items-center justify-center gap-1.5"
+                  >
+                    <span>Floorplan</span>
+                    <svg class="w-3.5 h-3.5 text-hotel-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
                   </button>
 
                   <a
                     href={`/rooms#${room.id}`}
-                    class="glass-card hover:border-hotel-gold text-hotel-sand-light font-sans text-xs tracking-[0.18em] uppercase font-medium py-3.5 px-5 rounded-sm transition-colors text-center"
+                    class="glass-card hover:border-hotel-gold text-hotel-sand-light font-sans text-xs tracking-[0.18em] uppercase font-medium py-3.5 px-4 rounded-sm transition-colors text-center"
                   >
-                    Full Room Folio
+                    Full Folio
                   </a>
                 </div>
               </div>

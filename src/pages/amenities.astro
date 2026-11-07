@@ -145,9 +145,21 @@ const SPA_TREATMENTS = [
     </div>
   </section>
 
-  <!-- The Aswa Spa Treatment Menu Preview -->
-  <section class="py-20 px-4 sm:px-6 lg:px-12 bg-hotel-surface border-t border-white/5">
-    <div class="max-w-7xl mx-auto">
+  <!-- The Aswa Spa Treatment Menu Preview with Atmospheric Image Backdrop -->
+  <section class="relative py-28 px-4 sm:px-6 lg:px-12 bg-hotel-dark overflow-hidden border-t border-white/5">
+    <!-- Atmospheric Background Image Layer -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=2200&q=80"
+        alt="The Aswa Spa Hydrotherapy Waters"
+        class="w-full h-full object-cover filter brightness-[0.20] contrast-125"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-hotel-dark via-hotel-dark/85 to-hotel-dark"></div>
+      <div class="ambient-glow -top-32 right-1/4 opacity-25"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
       <div class="text-center max-w-xl mx-auto mb-16">
         <span class="text-xs uppercase tracking-[0.25em] text-hotel-gold font-semibold block mb-2">
           The Aswa Spa Menu
@@ -163,7 +175,7 @@ const SPA_TREATMENTS = [
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {
           SPA_TREATMENTS.map((treatment) => (
-            <div class="glass-card p-6 sm:p-8 rounded-lg border border-white/5 space-y-4">
+            <div class="glass-panel p-6 sm:p-8 rounded-lg border border-hotel-border/40 hover:border-hotel-gold/40 transition-colors space-y-4">
               <div class="flex items-baseline justify-between gap-4 border-b border-white/10 pb-3">
                 <div>
                   <h4 class="font-serif text-xl text-hotel-sand-light">{treatment.name}</h4>
@@ -181,9 +193,21 @@ const SPA_TREATMENTS = [
     </div>
   </section>
 
-  <!-- Spa & Facility Reservation Form -->
-  <section id="spa-inquiry" class="py-20 px-4 sm:px-6 lg:px-12 bg-hotel-dark border-t border-white/5">
-    <div class="max-w-3xl mx-auto glass-panel p-8 sm:p-12 rounded-xl border border-hotel-border/40">
+  <!-- Spa & Facility Reservation Form with Ambient Image Backdrop -->
+  <section id="spa-inquiry" class="relative py-28 px-4 sm:px-6 lg:px-12 bg-hotel-dark overflow-hidden border-t border-white/5">
+    <!-- Atmospheric Background Image Layer -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=2200&q=80"
+        alt="The Pool Pavilion Twilight Reflection"
+        class="w-full h-full object-cover filter brightness-[0.20] contrast-125"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-hotel-dark via-hotel-dark/85 to-hotel-dark"></div>
+      <div class="ambient-glow bottom-0 left-1/4 opacity-20"></div>
+    </div>
+
+    <div class="max-w-3xl mx-auto relative z-10 glass-panel-heavy p-8 sm:p-14 rounded-xl border border-hotel-border/40 shadow-2xl">
       <div class="text-center max-w-xl mx-auto mb-8">
         <span class="text-[11px] uppercase tracking-[0.25em] text-hotel-gold font-semibold block mb-2">
           Facility Concierge
