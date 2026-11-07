@@ -1,0 +1,79 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import BookingModal from '../components/BookingModal.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  currentPath?: string;
+}
+
+const {
+  title = 'The Northern | Grand Hotel & Safari Sanctuary, Gulu',
+  description = 'A distinguished luxury sanctuary in Northern Uganda offering private suites, bespoke Kidepo safaris, fine dining at Savanna Hearth, and executive privacy.',
+  currentPath = '/',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0b0e0c" />
+
+    <!-- Open Graph / Social Tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80" />
+
+    <!-- Google Fonts Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body class="bg-hotel-dark text-hotel-sand selection:bg-hotel-gold/30 selection:text-white flex flex-col min-h-screen">
+    <!-- Header with dynamic blur and smooth mobile drawer -->
+    <Header currentPath={currentPath} />
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <Footer />
+
+    <!-- Global Reservation Engine Modal -->
+    <BookingModal />
+
+    <!-- Scroll Reveal and Seamless Fade Script -->
+    <script>
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.12,
+      };
+
+      const revealCallback: IntersectionObserverCallback = (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('reveal-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      };
+
+      const observer = new IntersectionObserver(revealCallback, observerOptions);
+      document.querySelectorAll('.reveal-init').forEach((el) => {
+        observer.observe(el);
+      });
+    </script>
+  </body>
+</html>

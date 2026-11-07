@@ -1,0 +1,118 @@
+---
+import { DINING_VENUES } from '../data/hotelData';
+---
+
+<section id="culinary-feature" class="relative py-28 px-4 sm:px-6 lg:px-12 bg-hotel-charcoal overflow-hidden">
+  <!-- Textured Background Image with Deep Overlay -->
+  <div class="absolute inset-0 z-0">
+    <img
+      src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=2000&q=80"
+      alt="Atmospheric dining textures"
+      class="w-full h-full object-cover opacity-10 filter contrast-150"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-hotel-dark via-hotel-charcoal/95 to-hotel-dark"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto">
+    <!-- Section Header -->
+    <div class="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
+      <div class="inline-flex items-center gap-2 mb-3">
+        <span class="w-6 h-[1px] bg-hotel-gold"></span>
+        <span class="text-xs uppercase tracking-[0.3em] text-hotel-gold font-semibold">Gastronomic Artistry</span>
+        <span class="w-6 h-[1px] bg-hotel-gold"></span>
+      </div>
+      <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-hotel-sand-light tracking-tight mb-4">
+        Earth, Ember & Regional Heritage
+      </h2>
+      <p class="text-xs sm:text-sm text-hotel-muted font-light leading-relaxed">
+        From open charcoal hearths to sunset botanical infusions, our three venues celebrate indigenous northern grains, pasture-raised cattle, and rare cellar vintages.
+      </p>
+    </div>
+
+    <!-- Featured Venues Dynamic Split Layout (NOT a basic card grid) -->
+    <div class="space-y-16">
+      {
+        DINING_VENUES.map((venue, idx) => {
+          const isReversed = idx % 2 === 1;
+          return (
+            <div class={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center ${isReversed ? 'lg:flex-row-reverse' : ''}`}>
+              <!-- Visual Column (7 Cols) -->
+              <div class={`lg:col-span-7 ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}>
+                <div class="relative rounded-lg overflow-hidden border border-hotel-border/40 shadow-2xl group h-[380px] sm:h-[460px]">
+                  <img
+                    src={venue.image}
+                    alt={venue.name}
+                    class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-hotel-dark/80 via-transparent to-transparent"></div>
+
+                  <div class="absolute top-4 left-4 glass-panel px-3.5 py-1.5 rounded-sm">
+                    <span class="text-[11px] uppercase tracking-widest text-hotel-gold font-medium">
+                      {venue.type}
+                    </span>
+                  </div>
+
+                  <div class="absolute bottom-4 left-4 right-4 glass-panel p-4 rounded-sm">
+                    <div class="text-[10px] uppercase tracking-wider text-hotel-muted">Atmosphere</div>
+                    <div class="text-xs text-hotel-sand font-serif italic">{venue.atmosphere}</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Content Column (5 Cols) -->
+              <div class={`lg:col-span-5 glass-panel p-6 sm:p-10 rounded-lg border border-hotel-border/40 space-y-6 ${isReversed ? 'lg:order-1' : 'lg:order-2'}`}>
+                <div>
+                  <div class="text-[10px] uppercase tracking-[0.25em] text-hotel-gold font-mono mb-1">
+                    Hours: {venue.hours}
+                  </div>
+                  <h3 class="font-serif text-2xl sm:text-3xl text-hotel-sand-light tracking-wide mb-2">
+                    {venue.name}
+                  </h3>
+                  <div class="text-xs uppercase tracking-wider text-hotel-gold/85 font-medium mb-4">
+                    {venue.subtitle}
+                  </div>
+                  <p class="text-xs sm:text-sm text-hotel-muted font-light leading-relaxed mb-6">
+                    {venue.description}
+                  </p>
+
+                  <div class="border-t border-white/10 pt-5 space-y-2.5">
+                    <div class="text-[11px] uppercase tracking-wider text-hotel-sand-light font-semibold mb-2">
+                      Culinary Distinctions
+                    </div>
+                    {venue.highlights.map((h) => (
+                      <div class="flex items-center gap-2.5 text-xs text-hotel-sand/85">
+                        <span class="w-1.5 h-1.5 rounded-full bg-hotel-gold"></span>
+                        <span>{h}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div class="border-t border-white/10 pt-6 flex items-center justify-between">
+                  <a
+                    href="/dining"
+                    class="text-xs uppercase tracking-[0.2em] text-hotel-gold hover:text-hotel-sand-light font-semibold transition-colors flex items-center gap-2"
+                  >
+                    <span>View Tasting Menu</span>
+                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </a>
+
+                  <a
+                    href="tel:+256471432900"
+                    class="text-[11px] uppercase tracking-wider text-hotel-muted hover:text-hotel-sand transition-colors font-mono"
+                  >
+                    Reserve Table
+                  </a>
+                </div>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

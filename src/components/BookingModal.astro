@@ -1,0 +1,317 @@
+---
+import { ROOMS } from '../data/hotelData';
+---
+
+<div
+  id="reservation-modal-backdrop"
+  class="fixed inset-0 z-50 bg-hotel-dark/85 backdrop-blur-xl flex items-center justify-center p-4 sm:p-6 opacity-0 pointer-events-none transition-all duration-500"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-headline"
+>
+  <div
+    id="reservation-modal-box"
+    class="relative w-full max-w-3xl glass-panel-heavy rounded-lg shadow-2xl p-6 sm:p-10 transform scale-95 opacity-0 transition-all duration-500 max-h-[92vh] overflow-y-auto"
+  >
+    <!-- Modal Close Button -->
+    <button
+      id="modal-close-btn"
+      type="button"
+      class="absolute top-6 right-6 w-9 h-9 rounded-sm border border-hotel-gold/30 flex items-center justify-center text-hotel-sand/80 hover:text-hotel-gold hover:border-hotel-gold transition-colors focus:outline-none"
+      aria-label="Close Reservation Window"
+    >
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <!-- Header -->
+    <div class="mb-8 border-b border-white/10 pb-5">
+      <div class="text-[11px] uppercase tracking-[0.25em] text-hotel-gold font-semibold mb-1">
+        Direct Sanctuary Reservation
+      </div>
+      <h2 id="modal-headline" class="font-serif text-2xl sm:text-3xl text-hotel-sand-light tracking-wide">
+        Request Your Stay at The Northern
+      </h2>
+      <p class="text-xs sm:text-sm text-hotel-muted mt-2 font-sans font-light">
+        Complimentary airport meet and greet, welcome botanicals, and personalized butler itinerary included.
+      </p>
+    </div>
+
+    <!-- Booking Form -->
+    <form id="reservation-form" class="space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div>
+          <label for="res-checkin" class="block text-xs uppercase tracking-wider text-hotel-sand/90 font-medium mb-2">
+            Check-In Date
+          </label>
+          <input
+            type="date"
+            id="res-checkin"
+            required
+            class="w-full glass-input px-4 py-3 rounded-sm text-sm text-hotel-sand focus:ring-1 focus:ring-hotel-gold"
+          />
+        </div>
+
+        <div>
+          <label for="res-checkout" class="block text-xs uppercase tracking-wider text-hotel-sand/90 font-medium mb-2">
+            Check-Out Date
+          </label>
+          <input
+            type="date"
+            id="res-checkout"
+            required
+            class="w-full glass-input px-4 py-3 rounded-sm text-sm text-hotel-sand focus:ring-1 focus:ring-hotel-gold"
+          />
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div>
+          <label for="res-room" class="block text-xs uppercase tracking-wider text-hotel-sand/90 font-medium mb-2">
+            Accommodation Category
+          </label>
+          <select
+            id="res-room"
+            class="w-full glass-input px-4 py-3 rounded-sm text-sm text-hotel-sand bg-hotel-charcoal focus:ring-1 focus:ring-hotel-gold"
+          >
+            {
+              ROOMS.map((room) => (
+                <option value={room.id} data-price={room.pricePerNight}>
+                  {room.name} (${room.pricePerNight} / Night)
+                </option>
+              ))
+            }
+          </select>
+        </div>
+
+        <div>
+          <label for="res-guests" class="block text-xs uppercase tracking-wider text-hotel-sand/90 font-medium mb-2">
+            Guests
+          </label>
+          <select
+            id="res-guests"
+            class="w-full glass-input px-4 py-3 rounded-sm text-sm text-hotel-sand bg-hotel-charcoal focus:ring-1 focus:ring-hotel-gold"
+          >
+            <option value="1">1 Guest</option>
+            <option value="2" selected>2 Guests</option>
+            <option value="3">3 Guests</option>
+            <option value="4">4 Guests</option>
+            <option value="private-delegation">Private Delegation (5+ Guests)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div>
+          <label for="res-fullname" class="block text-xs uppercase tracking-wider text-hotel-sand/90 font-medium mb-2">
+            Full Name
+          </label>
+          <input
+            type="text"
+            id="res-fullname"
+            placeholder="Hon. / Dr. / Mr. / Ms. Full Name"
+            required
+            class="w-full glass-input px-4 py-3 rounded-sm text-sm text-hotel-sand placeholder:text-hotel-muted/60 focus:ring-1 focus:ring-hotel-gold"
+          />
+        </div>
+
+        <div>
+          <label for="res-email" class="block text-xs uppercase tracking-wider text-hotel-sand/90 font-medium mb-2">
+            Email Address
+          </label>
+          <input
+            type="email"
+            id="res-email"
+            placeholder="client@organization.com"
+            required
+            class="w-full glass-input px-4 py-3 rounded-sm text-sm text-hotel-sand placeholder:text-hotel-muted/60 focus:ring-1 focus:ring-hotel-gold"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label for="res-requests" class="block text-xs uppercase tracking-wider text-hotel-sand/90 font-medium mb-2">
+          Concierge & Dietary Preferences (Optional)
+        </label>
+        <textarea
+          id="res-requests"
+          rows="2"
+          placeholder="Airport arrival flight, dietary specifications, pillow preferences, or private safari requests."
+          class="w-full glass-input px-4 py-3 rounded-sm text-sm text-hotel-sand placeholder:text-hotel-muted/60 focus:ring-1 focus:ring-hotel-gold"
+        ></textarea>
+      </div>
+
+      <!-- Live Price Estimation Panel -->
+      <div id="booking-summary" class="glass-panel p-4 rounded-sm border border-hotel-gold/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div>
+          <div class="text-[11px] uppercase tracking-wider text-hotel-gold font-medium">Estimated Stay Total</div>
+          <div class="text-xs text-hotel-muted">Inclusive of taxes, daily savanna breakfast, and butler service</div>
+        </div>
+        <div class="text-right">
+          <span id="summary-price" class="font-serif text-2xl text-hotel-sand-light font-semibold">$1,250</span>
+          <span class="text-xs text-hotel-muted font-sans ml-1">USD</span>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="flex items-center justify-end gap-4 pt-2">
+        <button
+          type="button"
+          id="btn-cancel"
+          class="text-xs uppercase tracking-wider text-hotel-muted hover:text-hotel-sand transition-colors px-4 py-2"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="bg-hotel-gold hover:bg-hotel-gold-light text-hotel-dark font-sans text-xs tracking-[0.2em] uppercase font-semibold px-8 py-3.5 rounded-sm transition-all duration-300 shadow-lg hover:shadow-[0_0_20px_rgba(197,160,89,0.4)]"
+        >
+          Confirm Reservation Request
+        </button>
+      </div>
+    </form>
+
+    <!-- Success Feedback Overlay -->
+    <div
+      id="booking-success"
+      class="hidden py-12 flex flex-col items-center justify-center text-center space-y-5 animate-fade-in"
+    >
+      <div class="w-16 h-16 rounded-full border border-hotel-gold flex items-center justify-center bg-hotel-gold/10">
+        <svg class="w-8 h-8 text-hotel-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+      <div>
+        <span class="text-xs font-mono tracking-widest text-hotel-gold uppercase block mb-1">Confirmation Reference #TN-8492</span>
+        <h3 class="font-serif text-3xl text-hotel-sand-light">Reservation Request Received</h3>
+      </div>
+      <p class="max-w-md text-sm text-hotel-muted leading-relaxed">
+        Thank you. Our Head Concierge will contact you within two hours with your personalized reservation folio, flight coordinates, and butler arrival consultation.
+      </p>
+      <div class="pt-4">
+        <button
+          type="button"
+          id="btn-finish"
+          class="bg-hotel-gold hover:bg-hotel-gold-light text-hotel-dark text-xs uppercase tracking-[0.2em] font-semibold px-8 py-3 rounded-sm transition-colors"
+        >
+          Return to Experience
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Setup modal handling
+  const modalBackdrop = document.getElementById('reservation-modal-backdrop');
+  const modalBox = document.getElementById('reservation-modal-box');
+  const closeBtn = document.getElementById('modal-close-btn');
+  const cancelBtn = document.getElementById('btn-cancel');
+  const finishBtn = document.getElementById('btn-finish');
+  const bookingForm = document.getElementById('reservation-form');
+  const bookingSuccess = document.getElementById('booking-success');
+
+  const checkinInput = document.getElementById('res-checkin') as HTMLInputElement;
+  const checkoutInput = document.getElementById('res-checkout') as HTMLInputElement;
+  const roomSelect = document.getElementById('res-room') as HTMLSelectElement;
+  const summaryPrice = document.getElementById('summary-price');
+
+  // Set default dates
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const nextThree = new Date(today);
+  nextThree.setDate(nextThree.getDate() + 3);
+
+  if (checkinInput && checkoutInput) {
+    checkinInput.min = tomorrow.toISOString().split('T')[0];
+    checkinInput.value = tomorrow.toISOString().split('T')[0];
+    checkoutInput.min = nextThree.toISOString().split('T')[0];
+    checkoutInput.value = nextThree.toISOString().split('T')[0];
+  }
+
+  function updatePrice() {
+    if (!checkinInput || !checkoutInput || !roomSelect || !summaryPrice) return;
+    const checkin = new Date(checkinInput.value);
+    const checkout = new Date(checkoutInput.value);
+
+    let nights = 1;
+    if (checkout > checkin) {
+      const diffTime = Math.abs(checkout.getTime() - checkin.getTime());
+      nights = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    }
+    const selectedOption = roomSelect.options[roomSelect.selectedIndex];
+    const pricePerNight = selectedOption ? parseInt(selectedOption.getAttribute('data-price') || '500') : 500;
+    const total = nights * pricePerNight;
+    summaryPrice.textContent = `$${total.toLocaleString()}`;
+  }
+
+  checkinInput?.addEventListener('change', updatePrice);
+  checkoutInput?.addEventListener('change', updatePrice);
+  roomSelect?.addEventListener('change', updatePrice);
+
+  function openModal(preselectRoomId?: string) {
+    if (preselectRoomId && roomSelect) {
+      roomSelect.value = preselectRoomId;
+    }
+    updatePrice();
+    if (!modalBackdrop || !modalBox) return;
+
+    modalBackdrop.classList.remove('opacity-0', 'pointer-events-none');
+    modalBackdrop.classList.add('opacity-100', 'pointer-events-auto');
+
+    modalBox.classList.remove('scale-95', 'opacity-0');
+    modalBox.classList.add('scale-100', 'opacity-100');
+
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    if (!modalBackdrop || !modalBox) return;
+
+    modalBox.classList.remove('scale-100', 'opacity-100');
+    modalBox.classList.add('scale-95', 'opacity-0');
+
+    modalBackdrop.classList.remove('opacity-100');
+    modalBackdrop.classList.add('opacity-0');
+
+    setTimeout(() => {
+      modalBackdrop.classList.add('pointer-events-none');
+      modalBackdrop.classList.remove('pointer-events-auto');
+      document.body.style.overflow = '';
+      if (bookingForm && bookingSuccess) {
+        bookingForm.classList.remove('hidden');
+        bookingSuccess.classList.add('hidden');
+      }
+    }, 400);
+  }
+
+  // Attach open listeners
+  document.querySelectorAll('[data-open-reserve-modal]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const target = e.currentTarget as HTMLElement;
+      const roomId = target.getAttribute('data-room-id') || undefined;
+      openModal(roomId);
+    });
+  });
+
+  closeBtn?.addEventListener('click', closeModal);
+  cancelBtn?.addEventListener('click', closeModal);
+  finishBtn?.addEventListener('click', closeModal);
+
+  modalBackdrop?.addEventListener('click', (e) => {
+    if (e.target === modalBackdrop) {
+      closeModal();
+    }
+  });
+
+  // Handle submit
+  bookingForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (bookingForm && bookingSuccess) {
+      bookingForm.classList.add('hidden');
+      bookingSuccess.classList.remove('hidden');
+    }
+  });
+</script>

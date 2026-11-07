@@ -1,0 +1,164 @@
+---
+import { ROOMS } from '../data/hotelData';
+---
+
+<section class="relative min-h-[92vh] lg:min-h-screen flex flex-col justify-between pt-28 pb-12 px-4 sm:px-6 lg:px-12 overflow-hidden bg-hotel-dark">
+  <!-- Cinematic Background with slow zoom and gradient overlays -->
+  <div class="absolute inset-0 z-0 overflow-hidden">
+    <img
+      src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=2400&q=85"
+      alt="The Northern Hotel architectural sanctuary at twilight"
+      class="w-full h-full object-cover object-center animate-slow-zoom filter brightness-[0.7] contrast-[1.1]"
+    />
+    <!-- Deep luxury vignettes -->
+    <div class="absolute inset-0 bg-gradient-to-t from-hotel-dark via-hotel-dark/40 to-hotel-dark/70"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-hotel-dark/80 via-transparent to-hotel-dark/60"></div>
+  </div>
+
+  <!-- Ambient light glow -->
+  <div class="ambient-glow top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 opacity-25"></div>
+
+  <!-- Top spacing dummy for layout balance -->
+  <div></div>
+
+  <!-- Hero Content Center -->
+  <div class="relative z-10 max-w-5xl mx-auto text-center py-10 sm:py-16">
+    <div class="inline-flex items-center gap-3 glass-panel px-5 py-2 rounded-full mb-6 border border-hotel-gold/30">
+      <span class="w-2 h-2 rounded-full bg-hotel-gold animate-pulse"></span>
+      <span class="text-[11px] uppercase tracking-[0.3em] text-hotel-gold font-semibold">
+        Northern Uganda Premier Sanctuary
+      </span>
+    </div>
+
+    <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-hotel-sand-light tracking-tight font-normal leading-[1.08] mb-6 drop-shadow-lg">
+      Where Timeless Savanna Meets Refined Grace
+    </h1>
+
+    <p class="max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-hotel-sand/90 font-light font-sans leading-relaxed mb-10 drop-shadow">
+      Nestled along historic Churchill Way in Gulu. An architectural oasis crafted from local volcanic stone and hand-hewn mahogany, offering absolute discretion, private butler service, and unhurried northern horizon vistas.
+    </p>
+
+    <!-- Call to Actions -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <button
+        type="button"
+        data-open-reserve-modal
+        class="w-full sm:w-auto bg-hotel-gold hover:bg-hotel-gold-light text-hotel-dark font-sans text-xs tracking-[0.25em] uppercase font-semibold py-4 px-9 rounded-sm transition-all duration-300 shadow-2xl hover:shadow-[0_0_25px_rgba(197,160,89,0.45)]"
+      >
+        Reserve Your Stay
+      </button>
+
+      <a
+        href="/rooms"
+        class="w-full sm:w-auto glass-panel hover:bg-white/10 text-hotel-sand-light font-sans text-xs tracking-[0.2em] uppercase font-medium py-4 px-8 rounded-sm transition-all duration-300 text-center"
+      >
+        Explore Accommodations
+      </a>
+    </div>
+  </div>
+
+  <!-- Glassmorphic Booking Search Bar (Integrated at Bottom) -->
+  <div class="relative z-10 max-w-6xl w-full mx-auto">
+    <div class="glass-panel-heavy p-4 sm:p-6 rounded-lg shadow-2xl border border-hotel-border/50">
+      <form id="hero-quick-book" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
+        <div>
+          <label for="hero-checkin" class="block text-[11px] uppercase tracking-[0.2em] text-hotel-gold font-medium mb-1.5">
+            Arrival Date
+          </label>
+          <input
+            type="date"
+            id="hero-checkin"
+            class="w-full glass-input px-3 py-2.5 rounded-sm text-xs text-hotel-sand font-mono"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="hero-checkout" class="block text-[11px] uppercase tracking-[0.2em] text-hotel-gold font-medium mb-1.5">
+            Departure Date
+          </label>
+          <input
+            type="date"
+            id="hero-checkout"
+            class="w-full glass-input px-3 py-2.5 rounded-sm text-xs text-hotel-sand font-mono"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="hero-category" class="block text-[11px] uppercase tracking-[0.2em] text-hotel-gold font-medium mb-1.5">
+            Suite Category
+          </label>
+          <select
+            id="hero-category"
+            class="w-full glass-input px-3 py-2.5 rounded-sm text-xs text-hotel-sand bg-hotel-charcoal"
+          >
+            {
+              ROOMS.map((r) => (
+                <option value={r.id}>{r.name}</option>
+              ))
+            }
+          </select>
+        </div>
+
+        <div>
+          <label for="hero-guests" class="block text-[11px] uppercase tracking-[0.2em] text-hotel-gold font-medium mb-1.5">
+            Guests
+          </label>
+          <select
+            id="hero-guests"
+            class="w-full glass-input px-3 py-2.5 rounded-sm text-xs text-hotel-sand bg-hotel-charcoal"
+          >
+            <option value="1">1 Guest</option>
+            <option value="2" selected>2 Guests</option>
+            <option value="3">3 Guests</option>
+            <option value="4">4 Guests</option>
+          </select>
+        </div>
+
+        <div>
+          <button
+            type="submit"
+            class="w-full bg-hotel-gold hover:bg-hotel-gold-light text-hotel-dark font-sans text-xs tracking-[0.2em] uppercase font-semibold py-3 px-4 rounded-sm transition-all duration-300 shadow-md flex items-center justify-center gap-2"
+          >
+            <span>Inquire Stay</span>
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Setup quick book defaults and submission
+  const heroForm = document.getElementById('hero-quick-book');
+  const heroIn = document.getElementById('hero-checkin') as HTMLInputElement;
+  const heroOut = document.getElementById('hero-checkout') as HTMLInputElement;
+  const heroCat = document.getElementById('hero-category') as HTMLSelectElement;
+
+  const now = new Date();
+  const nextDay = new Date(now);
+  nextDay.setDate(nextDay.getDate() + 1);
+  const nextThreeDays = new Date(now);
+  nextThreeDays.setDate(nextThreeDays.getDate() + 4);
+
+  if (heroIn && heroOut) {
+    heroIn.min = nextDay.toISOString().split('T')[0];
+    heroIn.value = nextDay.toISOString().split('T')[0];
+    heroOut.min = nextThreeDays.toISOString().split('T')[0];
+    heroOut.value = nextThreeDays.toISOString().split('T')[0];
+  }
+
+  heroForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const selectedRoom = heroCat?.value;
+    const modalTrigger = document.querySelector('[data-open-reserve-modal]') as HTMLElement;
+    if (modalTrigger) {
+      modalTrigger.setAttribute('data-room-id', selectedRoom || '');
+      modalTrigger.click();
+    }
+  });
+</script>

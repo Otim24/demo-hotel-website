@@ -1,0 +1,89 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import DynamicRoomShowcase from '../components/DynamicRoomShowcase.astro';
+import DiningFeature from '../components/DiningFeature.astro';
+import ExperienceShowcase from '../components/ExperienceShowcase.astro';
+import HeritagePhilosophy from '../components/HeritagePhilosophy.astro';
+import GoogleMapSection from '../components/GoogleMapSection.astro';
+import TestimonialsSection from '../components/TestimonialsSection.astro';
+---
+
+<Layout
+  title="The Northern | Grand Hotel & Safari Sanctuary, Gulu, Uganda"
+  description="An architectural sanctuary in Northern Uganda featuring private suites, bespoke fly-in safaris to Kidepo Valley, progressive regional gastronomy, and refined diplomatic security."
+  currentPath="/"
+>
+  <!-- Full Viewport Hero Section with Ambient Background & Quick Booking -->
+  <Hero />
+
+  <!-- Dynamic Room & Suite Presentation (Magazine Editorial Format, NOT basic card grid) -->
+  <div class="reveal-init">
+    <DynamicRoomShowcase />
+  </div>
+
+  <!-- Heritage, Architectural Stonework & Quiet Luxury Narrative -->
+  <div class="reveal-init">
+    <HeritagePhilosophy />
+  </div>
+
+  <!-- Dining & Libations Showcase with Atmospheric Layers -->
+  <div class="reveal-init">
+    <DiningFeature />
+  </div>
+
+  <!-- Bespoke Safari Expeditions (Kidepo Valley, Aruu Cascades, Stargazing) -->
+  <div class="reveal-init">
+    <ExperienceShowcase />
+  </div>
+
+  <!-- Dedicated Google Map & Transit Section -->
+  <div class="reveal-init">
+    <GoogleMapSection />
+  </div>
+
+  <!-- Testimonials & Press Impressions -->
+  <div class="reveal-init">
+    <TestimonialsSection />
+  </div>
+
+  <!-- Final Reservation Callout Banner with Parallax Background -->
+  <section class="relative py-28 px-4 sm:px-6 lg:px-12 bg-hotel-dark overflow-hidden border-t border-white/10">
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=2200&q=80"
+        alt="The Northern Suite interior at dusk"
+        class="w-full h-full object-cover filter brightness-[0.35]"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-hotel-dark via-hotel-dark/60 to-hotel-dark"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto text-center glass-panel-heavy p-8 sm:p-14 rounded-xl border border-hotel-border/50 shadow-2xl">
+      <span class="text-xs uppercase tracking-[0.3em] text-hotel-gold font-semibold block mb-3">
+        Your Northern Sanctuary Awaits
+      </span>
+      <h2 class="font-serif text-3xl sm:text-5xl text-hotel-sand-light tracking-tight mb-6">
+        Experience Unhurried Elegance in Northern Uganda
+      </h2>
+      <p class="text-xs sm:text-base text-hotel-muted font-light leading-relaxed max-w-2xl mx-auto mb-8">
+        Reserve directly with our private concierge team to enjoy complimentary VIP airport transfers, flexible cancellation, and bespoke itinerary consultation.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button
+          type="button"
+          data-open-reserve-modal
+          class="w-full sm:w-auto bg-hotel-gold hover:bg-hotel-gold-light text-hotel-dark font-sans text-xs tracking-[0.25em] uppercase font-semibold py-4 px-10 rounded-sm transition-all duration-300 shadow-xl"
+        >
+          Check Availability
+        </button>
+        <a
+          href="/contact"
+          class="w-full sm:w-auto glass-card hover:border-hotel-gold text-hotel-sand-light font-sans text-xs tracking-[0.2em] uppercase font-medium py-4 px-8 rounded-sm transition-colors text-center"
+        >
+          Speak with Concierge
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

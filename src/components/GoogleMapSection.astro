@@ -1,0 +1,132 @@
+---
+import { HOTEL_INFO } from '../data/hotelData';
+---
+
+<section id="location-map" class="relative py-24 px-4 sm:px-6 lg:px-12 bg-hotel-dark overflow-hidden border-t border-white/5">
+  <!-- Subtle background glow -->
+  <div class="ambient-glow -top-32 -left-32 opacity-30"></div>
+
+  <div class="max-w-7xl mx-auto relative z-10">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16">
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-8 h-[1px] bg-hotel-gold"></span>
+          <span class="text-xs uppercase tracking-[0.3em] text-hotel-gold font-semibold">Gateway to the Northern Savanna</span>
+        </div>
+        <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-hotel-sand-light tracking-tight">
+          Location & Pristine Access
+        </h2>
+      </div>
+
+      <p class="text-xs sm:text-sm text-hotel-muted max-w-md font-light mt-4 md:mt-0 leading-relaxed">
+        Situated along historic Churchill Way in Gulu, providing seamless transit between Kampala, Murchison Falls, and Kidepo Valley.
+      </p>
+    </div>
+
+    <!-- Map & Location HUD Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+      <!-- Left: Interactive Map Container (8 Cols) -->
+      <div class="lg:col-span-8 flex flex-col space-y-4">
+        <!-- Map Card with Glassmorphic frame -->
+        <div class="relative w-full h-[380px] sm:h-[480px] rounded-lg overflow-hidden border border-hotel-border/40 shadow-2xl bg-hotel-charcoal">
+          <!-- The Google Map Iframe -->
+          <iframe
+            title="The Northern Hotel Location Map"
+            src={HOTEL_INFO.location.mapEmbedUrl}
+            class="w-full h-full border-0 filter grayscale contrast-125 invert-[0.9] hue-rotate-180 opacity-90 transition-opacity hover:opacity-100"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+
+          <!-- Floating Coordinates Badge -->
+          <div class="absolute top-4 left-4 glass-panel px-4 py-2 rounded-sm pointer-events-none">
+            <span class="text-[10px] uppercase tracking-[0.2em] text-hotel-muted block">GPS Coordinates</span>
+            <span class="font-mono text-xs text-hotel-gold">{HOTEL_INFO.location.coordinates}</span>
+          </div>
+
+          <!-- Direct Google Map External Link -->
+          <div class="absolute bottom-4 right-4">
+            <a
+              href="https://maps.google.com/?q=Gulu+Uganda"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="glass-panel hover:bg-hotel-gold hover:text-hotel-dark text-hotel-sand text-xs uppercase tracking-[0.18em] px-4 py-2 rounded-sm transition-all duration-300 font-medium flex items-center gap-2 shadow-lg"
+            >
+              <span>Open in Google Maps</span>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Coordinates & Elevation Pill Bar -->
+        <div class="glass-panel p-4 rounded-sm flex flex-wrap items-center justify-between gap-4 text-xs">
+          <div class="flex items-center gap-2 text-hotel-sand/90">
+            <svg class="w-4 h-4 text-hotel-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span>{HOTEL_INFO.location.address}</span>
+          </div>
+
+          <div class="flex items-center gap-4 text-hotel-muted font-mono text-[11px]">
+            <span>ALT: {HOTEL_INFO.location.elevation}</span>
+            <span>TIME: EAT (UTC+3)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Transit & Arrival Logistics (4 Cols) -->
+      <div class="lg:col-span-4 flex flex-col justify-between glass-panel p-6 sm:p-8 rounded-lg border border-hotel-border/40 shadow-xl space-y-6">
+        <div>
+          <div class="text-[11px] uppercase tracking-[0.25em] text-hotel-gold font-semibold mb-2">
+            Seamless Arrivals
+          </div>
+          <h3 class="font-serif text-2xl text-hotel-sand-light tracking-wide mb-4">
+            Private Transfers & Charter Access
+          </h3>
+          <p class="text-xs text-hotel-muted leading-relaxed font-light mb-6">
+            Our dedicated concierge team coordinates bespoke private aircraft clearances, tarmac escorts, and chauffeured safari transfers.
+          </p>
+
+          <!-- Modes of Access -->
+          <div class="space-y-4">
+            {
+              HOTEL_INFO.location.access.map((item, idx) => (
+                <div class="glass-card p-4 rounded-sm border border-white/5">
+                  <div class="flex items-center justify-between mb-1">
+                    <span class="text-xs uppercase tracking-wider text-hotel-gold font-medium">
+                      {item.mode}
+                    </span>
+                    <span class="font-mono text-[10px] text-hotel-muted">0{idx + 1}</span>
+                  </div>
+                  <p class="text-xs text-hotel-sand/85 font-light leading-relaxed">
+                    {item.detail}
+                  </p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="border-t border-white/10 pt-6">
+          <div class="text-[11px] uppercase tracking-wider text-hotel-muted mb-2">Concierge Transit Desk</div>
+          <a
+            href="tel:+256782110404"
+            class="font-mono text-sm text-hotel-gold hover:text-hotel-gold-light transition-colors block mb-4"
+          >
+            +256 782 110 404
+          </a>
+          <a
+            href="/contact"
+            class="block w-full text-center bg-hotel-gold hover:bg-hotel-gold-light text-hotel-dark font-sans text-xs tracking-[0.2em] uppercase font-semibold py-3 px-4 rounded-sm transition-colors"
+          >
+            Arrange Chauffeur or Helicopter Transfer
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

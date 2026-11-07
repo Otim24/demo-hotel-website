@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-dark: #0b0e0c;
+    --bg-surface: #121614;
+    --gold: #c5a059;
+    --gold-light: #dfbe7e;
+    --sand: #f3ede2;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--bg-dark);
+    color: var(--sand);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    overflow-x: hidden;
+    min-height: 100vh;
+    background-color: #0b0e0c;
+  }
+
+  ::selection {
+    background-color: rgba(197, 160, 89, 0.35);
+    color: #ffffff;
+  }
+}
+
+/* Glassmorphism primitives */
+.glass-panel {
+  background: rgba(19, 23, 20, 0.65);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(214, 184, 134, 0.16);
+}
+
+.glass-panel-heavy {
+  background: rgba(12, 15, 13, 0.82);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(214, 184, 134, 0.22);
+}
+
+.glass-card {
+  background: rgba(22, 27, 24, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  background: rgba(28, 34, 30, 0.75);
+  border-color: rgba(197, 160, 89, 0.35);
+  transform: translateY(-3px);
+}
+
+.glass-input {
+  background: rgba(15, 19, 17, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(214, 184, 134, 0.2);
+  color: #f3ede2;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.glass-input:focus {
+  outline: none;
+  border-color: #c5a059;
+  background: rgba(20, 26, 23, 0.85);
+}
+
+/* Gold Gradient Accents */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #f0dfb8 0%, #c5a059 50%, #9d7c38 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.border-gold-gradient {
+  border-image: linear-gradient(to right, rgba(197, 160, 89, 0.4), rgba(197, 160, 89, 0.05)) 1;
+}
+
+/* Atmospheric Ambient Vignettes */
+.ambient-glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(197, 160, 89, 0.12) 0%, rgba(11, 14, 12, 0) 70%);
+  pointer-events: none;
+}
+
+/* Scroll Animation Utilities */
+.reveal-init {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Custom Luxury Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b0e0c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27312b;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c5a059;
+}

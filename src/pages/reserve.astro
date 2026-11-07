@@ -1,0 +1,288 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { ROOMS } from '../data/hotelData';
+---
+
+<Layout
+  title="Direct Reservations | The Northern Grand Hotel, Gulu"
+  description="Reserve your private residence at The Northern. Direct bookings include complimentary VIP airport transfer, welcome champagne, and personalized butler itinerary."
+  currentPath="/reserve"
+>
+  <!-- Page Header -->
+  <section class="relative pt-36 pb-16 px-4 sm:px-6 lg:px-12 bg-hotel-dark overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=2200&q=80"
+        alt="The Northern Suite Serenity"
+        class="w-full h-full object-cover filter brightness-[0.35]"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-hotel-dark via-hotel-dark/60 to-hotel-dark/80"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 glass-panel px-4 py-1.5 rounded-full mb-4 border border-hotel-gold/30">
+        <span class="w-1.5 h-1.5 rounded-full bg-hotel-gold"></span>
+        <span class="text-[11px] uppercase tracking-[0.25em] text-hotel-gold font-semibold">Direct Sanctuary Reservations</span>
+      </div>
+      <h1 class="font-serif text-4xl sm:text-6xl text-hotel-sand-light tracking-tight mb-3">
+        Your Stay at The Northern
+      </h1>
+      <p class="text-xs sm:text-base text-hotel-sand/90 font-light leading-relaxed max-w-xl mx-auto">
+        Best rate guarantee, personalized butler consultation, and flexible cancellation up to 72 hours prior to arrival.
+      </p>
+    </div>
+  </section>
+
+  <!-- Reservation Workflow Engine -->
+  <section class="py-16 px-4 sm:px-6 lg:px-12 bg-hotel-dark">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Main Form (8 Cols) -->
+        <div class="lg:col-span-8 glass-panel p-6 sm:p-10 rounded-xl border border-hotel-border/40">
+          <form id="full-reserve-form" class="space-y-8">
+            <!-- Step 1: Dates -->
+            <div class="border-b border-white/10 pb-8">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="w-6 h-6 rounded-full bg-hotel-gold text-hotel-dark flex items-center justify-center font-mono text-xs font-bold">1</span>
+                <h3 class="font-serif text-xl sm:text-2xl text-hotel-sand-light">Select Your Dates</h3>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <label for="page-checkin" class="block text-xs uppercase tracking-wider text-hotel-sand font-medium mb-2">Check-In Date</label>
+                  <input type="date" id="page-checkin" required class="w-full glass-input px-4 py-3 rounded-sm text-sm text-hotel-sand font-mono" />
+                </div>
+                <div>
+                  <label for="page-checkout" class="block text-xs uppercase tracking-wider text-hotel-sand font-medium mb-2">Check-Out Date</label>
+                  <input type="date" id="page-checkout" required class="w-full glass-input px-4 py-3 rounded-sm text-sm text-hotel-sand font-mono" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2: Choose Room -->
+            <div class="border-b border-white/10 pb-8">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="w-6 h-6 rounded-full bg-hotel-gold text-hotel-dark flex items-center justify-center font-mono text-xs font-bold">2</span>
+                <h3 class="font-serif text-xl sm:text-2xl text-hotel-sand-light">Choose Residence</h3>
+              </div>
+
+              <div class="space-y-4">
+                {
+                  ROOMS.map((room, idx) => (
+                    <label class="block cursor-pointer">
+                      <input
+                        type="radio"
+                        name="residence"
+                        value={room.id}
+                        data-price={room.pricePerNight}
+                        data-name={room.name}
+                        checked={idx === 0}
+                        class="peer sr-only residence-radio"
+                      />
+                      <div class="glass-card peer-checked:border-hotel-gold peer-checked:bg-hotel-elevated p-5 rounded-lg border border-white/10 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div class="flex items-center gap-4">
+                          <img src={room.heroImage} alt="" class="w-20 h-16 object-cover rounded-sm border border-white/10 flex-shrink-0" />
+                          <div>
+                            <div class="font-serif text-lg text-hotel-sand-light">{room.name}</div>
+                            <div class="text-xs text-hotel-muted font-sans">{room.sizeSqM} sqm | {room.bed}</div>
+                          </div>
+                        </div>
+
+                        <div class="text-right sm:text-right">
+                          <span class="font-serif text-xl text-hotel-gold font-semibold">${room.pricePerNight}</span>
+                          <span class="text-[10px] text-hotel-muted uppercase"> / Night</span>
+                        </div>
+                      </div>
+                    </label>
+                  ))
+                }
+              </div>
+            </div>
+
+            <!-- Step 3: Guest & Contact Information -->
+            <div class="border-b border-white/10 pb-8">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="w-6 h-6 rounded-full bg-hotel-gold text-hotel-dark flex items-center justify-center font-mono text-xs font-bold">3</span>
+                <h3 class="font-serif text-xl sm:text-2xl text-hotel-sand-light">Guest Folio & Preferences</h3>
+              </div>
+
+              <div class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label for="page-guestname" class="block text-xs uppercase tracking-wider text-hotel-sand font-medium mb-1.5">Full Name</label>
+                    <input type="text" id="page-guestname" placeholder="Title & Full Name" required class="w-full glass-input px-3.5 py-2.5 rounded-sm text-xs text-hotel-sand" />
+                  </div>
+                  <div>
+                    <label for="page-guestemail" class="block text-xs uppercase tracking-wider text-hotel-sand font-medium mb-1.5">Official Email</label>
+                    <input type="email" id="page-guestemail" placeholder="name@domain.com" required class="w-full glass-input px-3.5 py-2.5 rounded-sm text-xs text-hotel-sand" />
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label for="page-guestphone" class="block text-xs uppercase tracking-wider text-hotel-sand font-medium mb-1.5">Telephone / Mobile</label>
+                    <input type="tel" id="page-guestphone" placeholder="+256 ..." required class="w-full glass-input px-3.5 py-2.5 rounded-sm text-xs text-hotel-sand" />
+                  </div>
+                  <div>
+                    <label for="page-transfer" class="block text-xs uppercase tracking-wider text-hotel-sand font-medium mb-1.5">Arrival Transit Requirement</label>
+                    <select id="page-transfer" class="w-full glass-input px-3.5 py-2.5 rounded-sm text-xs text-hotel-sand bg-hotel-charcoal">
+                      <option value="none">Self Drive / Independent Arrival</option>
+                      <option value="gulu-airport">Complimentary Gulu Airport Meet & Escort</option>
+                      <option value="kampala-chauffeur">Chauffeured Land Cruiser from Kampala</option>
+                      <option value="helipad">Estate Helipad Landing Clearance</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="page-specialreq" class="block text-xs uppercase tracking-wider text-hotel-sand font-medium mb-1.5">Special Requests or Dietary Notes</label>
+                  <textarea id="page-specialreq" rows="2" placeholder="Tell our head butler about dietary restrictions, pillow preferences, or safari requests." class="w-full glass-input px-3.5 py-2.5 rounded-sm text-xs text-hotel-sand"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              class="w-full bg-hotel-gold hover:bg-hotel-gold-light text-hotel-dark font-sans text-xs tracking-[0.25em] uppercase font-semibold py-4 px-8 rounded-sm transition-all duration-300 shadow-2xl hover:shadow-[0_0_25px_rgba(197,160,89,0.45)]"
+            >
+              Complete Reservation Request
+            </button>
+          </form>
+
+          <!-- Success State -->
+          <div id="page-reserve-success" class="hidden py-16 text-center space-y-6 animate-fade-in">
+            <div class="w-16 h-16 rounded-full border border-hotel-gold flex items-center justify-center mx-auto bg-hotel-gold/10">
+              <svg class="w-8 h-8 text-hotel-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <div>
+              <span class="font-mono text-xs text-hotel-gold tracking-widest block uppercase mb-1">Folio Reservation TN-9521</span>
+              <h3 class="font-serif text-3xl text-hotel-sand-light">Your Request is Registered</h3>
+            </div>
+            <p class="max-w-md mx-auto text-xs sm:text-sm text-hotel-muted font-light leading-relaxed">
+              We have received your reservation request for The Northern. Our head concierge is reviewing your dates and flight details, and will deliver your formal reservation confirmation letter and security coordinates within two hours.
+            </p>
+            <div class="pt-4">
+              <a href="/" class="inline-block bg-hotel-gold text-hotel-dark font-sans text-xs uppercase tracking-widest font-semibold px-8 py-3 rounded-sm">
+                Return to Home
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar Summary (4 Cols) -->
+        <div class="lg:col-span-4 glass-panel p-6 sm:p-8 rounded-xl border border-hotel-border/40 sticky top-28 space-y-6">
+          <div class="border-b border-white/10 pb-4">
+            <span class="text-[10px] uppercase font-mono tracking-widest text-hotel-gold block">Summary</span>
+            <h4 class="font-serif text-2xl text-hotel-sand-light">Reservation Folio</h4>
+          </div>
+
+          <div class="space-y-4 text-xs">
+            <div class="flex items-center justify-between">
+              <span class="text-hotel-muted">Residence</span>
+              <span id="folio-room-name" class="text-hotel-sand font-medium">Savanna Presidential Sanctuary</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-hotel-muted">Duration</span>
+              <span id="folio-duration" class="text-hotel-sand font-mono">3 Nights</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-hotel-muted">Nightly Rate</span>
+              <span id="folio-rate" class="text-hotel-sand font-mono">$1,250</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-hotel-muted">Government Taxes & Service</span>
+              <span class="text-hotel-sand font-mono">Included</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-hotel-muted">Daily Savanna Breakfast</span>
+              <span class="text-hotel-sand font-mono">Included</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-hotel-muted">24-Hour Butler</span>
+              <span class="text-hotel-sand font-mono">Included</span>
+            </div>
+          </div>
+
+          <div class="border-t border-white/10 pt-4 flex items-baseline justify-between">
+            <span class="text-xs uppercase tracking-wider text-hotel-gold font-medium">Estimated Total</span>
+            <span id="folio-total" class="font-serif text-3xl text-hotel-gold font-semibold">$3,750</span>
+          </div>
+
+          <div class="border-t border-white/10 pt-4 text-[11px] text-hotel-muted font-light leading-relaxed">
+            No upfront charge. Credit card pre-authorization is completed securely during concierge confirmation.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const pageForm = document.getElementById('full-reserve-form');
+  const pageSuccess = document.getElementById('page-reserve-success');
+  const inDate = document.getElementById('page-checkin') as HTMLInputElement;
+  const outDate = document.getElementById('page-checkout') as HTMLInputElement;
+  const roomRadios = document.querySelectorAll('.residence-radio');
+
+  const folioName = document.getElementById('folio-room-name');
+  const folioDur = document.getElementById('folio-duration');
+  const folioRate = document.getElementById('folio-rate');
+  const folioTotal = document.getElementById('folio-total');
+
+  // Set initial dates
+  const today = new Date();
+  const dIn = new Date(today);
+  dIn.setDate(dIn.getDate() + 2);
+  const dOut = new Date(today);
+  dOut.setDate(dOut.getDate() + 5);
+
+  if (inDate && outDate) {
+    inDate.min = dIn.toISOString().split('T')[0];
+    inDate.value = dIn.toISOString().split('T')[0];
+    outDate.min = dOut.toISOString().split('T')[0];
+    outDate.value = dOut.toISOString().split('T')[0];
+  }
+
+  function calculateFolio() {
+    if (!inDate || !outDate) return;
+    const i = new Date(inDate.value);
+    const o = new Date(outDate.value);
+
+    let nights = 1;
+    if (o > i) {
+      const diff = Math.abs(o.getTime() - i.getTime());
+      nights = Math.ceil(diff / (1000 * 60 * 60 * 24));
+    }
+
+    let selectedRadio: HTMLInputElement | null = null;
+    roomRadios.forEach((r) => {
+      if ((r as HTMLInputElement).checked) {
+        selectedRadio = r as HTMLInputElement;
+      }
+    });
+
+    const price = selectedRadio ? parseInt(selectedRadio.getAttribute('data-price') || '1250') : 1250;
+    const name = selectedRadio ? selectedRadio.getAttribute('data-name') || 'Savanna Suite' : 'Savanna Suite';
+
+    if (folioName) folioName.textContent = name;
+    if (folioDur) folioDur.textContent = `${nights} ${nights === 1 ? 'Night' : 'Nights'}`;
+    if (folioRate) folioRate.textContent = `$${price.toLocaleString()}`;
+    if (folioTotal) folioTotal.textContent = `$${(nights * price).toLocaleString()}`;
+  }
+
+  inDate?.addEventListener('change', calculateFolio);
+  outDate?.addEventListener('change', calculateFolio);
+  roomRadios.forEach((r) => r.addEventListener('change', calculateFolio));
+  calculateFolio();
+
+  pageForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (pageForm && pageSuccess) {
+      pageForm.classList.add('hidden');
+      pageSuccess.classList.remove('hidden');
+    }
+  });
+</script>

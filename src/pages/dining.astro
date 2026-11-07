@@ -1,0 +1,223 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { DINING_VENUES } from '../data/hotelData';
+---
+
+<Layout
+  title="Dining & Lounges | The Northern Grand Hotel, Gulu"
+  description="Experience wood-fired northern gastronomy at The Savanna Hearth, sunset libations at Churchill Terrace Bar, and bespoke private terrace dining."
+  currentPath="/dining"
+>
+  <!-- Page Header -->
+  <section class="relative pt-36 pb-20 px-4 sm:px-6 lg:px-12 bg-hotel-dark overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=2200&q=80"
+        alt="The Savanna Hearth Dining Atmosphere"
+        class="w-full h-full object-cover filter brightness-[0.38] contrast-110"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-hotel-dark via-hotel-dark/60 to-hotel-dark/80"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 glass-panel px-4 py-1.5 rounded-full mb-4 border border-hotel-gold/30">
+        <span class="w-1.5 h-1.5 rounded-full bg-hotel-gold"></span>
+        <span class="text-[11px] uppercase tracking-[0.25em] text-hotel-gold font-semibold">Gastronomic Program</span>
+      </div>
+      <h1 class="font-serif text-4xl sm:text-6xl text-hotel-sand-light tracking-tight mb-4">
+        Earth, Ember & Rare Cellar
+      </h1>
+      <p class="text-xs sm:text-base text-hotel-sand/90 font-light leading-relaxed max-w-2xl mx-auto">
+        A celebration of Northern Uganda agricultural heritage. Heirloom grains, pasture-raised beef, smoked river catches, and foraged botanicals transformed over open coals.
+      </p>
+    </div>
+  </section>
+
+  <!-- Detailed Venues Section -->
+  <section class="py-20 px-4 sm:px-6 lg:px-12 bg-hotel-dark">
+    <div class="max-w-7xl mx-auto space-y-24">
+      {
+        DINING_VENUES.map((venue, idx) => {
+          const isReversed = idx % 2 === 1;
+          return (
+            <div class="glass-panel p-6 sm:p-12 rounded-xl border border-hotel-border/40 space-y-10">
+              <div class={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center ${isReversed ? 'lg:flex-row-reverse' : ''}`}>
+                <!-- Photo (6 Cols) -->
+                <div class={`lg:col-span-6 ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}>
+                  <div class="relative rounded-lg overflow-hidden border border-hotel-border/40 shadow-2xl h-[360px] sm:h-[440px]">
+                    <img
+                      src={venue.image}
+                      alt={venue.name}
+                      class="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-hotel-dark/70 via-transparent to-transparent"></div>
+                    <div class="absolute top-4 left-4 glass-panel px-3 py-1.5 rounded-sm">
+                      <span class="text-[10px] uppercase tracking-wider text-hotel-gold font-semibold">
+                        {venue.type}
+                      </span>
+                    </div>
+                    <div class="absolute bottom-4 left-4 right-4 glass-panel p-3 rounded-sm">
+                      <span class="text-[11px] text-hotel-sand font-serif italic">"{venue.atmosphere}"</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Text & Hours (6 Cols) -->
+                <div class={`lg:col-span-6 space-y-5 ${isReversed ? 'lg:order-1' : 'lg:order-2'}`}>
+                  <div>
+                    <span class="text-[10px] uppercase font-mono tracking-widest text-hotel-gold block mb-1">
+                      {venue.hours}
+                    </span>
+                    <h2 class="font-serif text-3xl sm:text-4xl text-hotel-sand-light tracking-wide mb-2">
+                      {venue.name}
+                    </h2>
+                    <div class="text-xs uppercase tracking-wider text-hotel-gold/85 font-medium mb-4">
+                      {venue.subtitle}
+                    </div>
+                  </div>
+
+                  <p class="text-xs sm:text-sm text-hotel-muted font-light leading-relaxed">
+                    {venue.description}
+                  </p>
+
+                  <div class="space-y-2 pt-2 border-t border-white/10">
+                    {venue.highlights.map((h) => (
+                      <div class="flex items-center gap-2 text-xs text-hotel-sand/90">
+                        <span class="w-1.5 h-1.5 rounded-full bg-hotel-gold"></span>
+                        <span>{h}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Menu Showcase for the venue -->
+              <div class="border-t border-white/10 pt-8">
+                <div class="flex items-center justify-between mb-6">
+                  <span class="text-xs uppercase tracking-[0.2em] text-hotel-gold font-semibold">
+                    Sample Tasting Selections
+                  </span>
+                  <span class="text-xs text-hotel-muted font-sans font-light">
+                    Ingredients subject to seasonal harvest
+                  </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {venue.sampleMenu.map((cat) => (
+                    <div class="glass-card p-5 rounded-sm border border-white/5 space-y-4">
+                      <h3 class="text-xs uppercase tracking-widest text-hotel-sand-light font-semibold border-b border-white/10 pb-2">
+                        {cat.category}
+                      </h3>
+                      <div class="space-y-4">
+                        {cat.items.map((item) => (
+                          <div>
+                            <div class="flex items-baseline justify-between gap-2 mb-1">
+                              <span class="font-serif text-sm text-hotel-sand-light font-medium">{item.title}</span>
+                              <span class="font-mono text-xs text-hotel-gold font-semibold">{item.price}</span>
+                            </div>
+                            <p class="text-[11px] text-hotel-muted font-light leading-relaxed">{item.notes}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </section>
+
+  <!-- Table Reservation & Private Dining Section -->
+  <section class="py-20 px-4 sm:px-6 lg:px-12 bg-hotel-surface border-t border-white/5">
+    <div class="max-w-4xl mx-auto glass-panel p-8 sm:p-12 rounded-xl border border-hotel-border/40">
+      <div class="text-center max-w-xl mx-auto mb-8">
+        <span class="text-[11px] uppercase tracking-[0.25em] text-hotel-gold font-semibold block mb-2">
+          Table & Private Dining Reservations
+        </span>
+        <h2 class="font-serif text-3xl text-hotel-sand-light tracking-wide mb-3">
+          Reserve an Intimate Evening
+        </h2>
+        <p class="text-xs sm:text-sm text-hotel-muted font-light">
+          Whether you desire a corner table at The Savanna Hearth or a private candlelit feast on your residence deck, our culinary concierge coordinates every detail.
+        </p>
+      </div>
+
+      <form id="dining-reserve-form" class="space-y-5">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label for="dining-date" class="block text-[11px] uppercase tracking-wider text-hotel-sand font-medium mb-1">Date</label>
+            <input type="date" id="dining-date" required class="w-full glass-input px-3 py-2.5 rounded-sm text-xs text-hotel-sand" />
+          </div>
+          <div>
+            <label for="dining-time" class="block text-[11px] uppercase tracking-wider text-hotel-sand font-medium mb-1">Preferred Time</label>
+            <select id="dining-time" class="w-full glass-input px-3 py-2.5 rounded-sm text-xs text-hotel-sand bg-hotel-charcoal">
+              <option value="18:30">18:30 Dinner</option>
+              <option value="19:30" selected>19:30 Dinner</option>
+              <option value="20:30">20:30 Dinner</option>
+              <option value="12:30">12:30 Lunch</option>
+            </select>
+          </div>
+          <div>
+            <label for="dining-venue" class="block text-[11px] uppercase tracking-wider text-hotel-sand font-medium mb-1">Venue Preference</label>
+            <select id="dining-venue" class="w-full glass-input px-3 py-2.5 rounded-sm text-xs text-hotel-sand bg-hotel-charcoal">
+              <option value="The Savanna Hearth">The Savanna Hearth</option>
+              <option value="Churchill Terrace">Churchill Terrace & Bar</option>
+              <option value="Private Deck">Private In-Suite Deck Dining</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="dining-name" class="block text-[11px] uppercase tracking-wider text-hotel-sand font-medium mb-1">Name</label>
+            <input type="text" id="dining-name" placeholder="Guest Name" required class="w-full glass-input px-3 py-2.5 rounded-sm text-xs text-hotel-sand" />
+          </div>
+          <div>
+            <label for="dining-contact" class="block text-[11px] uppercase tracking-wider text-hotel-sand font-medium mb-1">Email or Phone</label>
+            <input type="text" id="dining-contact" placeholder="Email / Phone" required class="w-full glass-input px-3 py-2.5 rounded-sm text-xs text-hotel-sand" />
+          </div>
+        </div>
+
+        <div class="text-center pt-2">
+          <button
+            type="submit"
+            class="bg-hotel-gold hover:bg-hotel-gold-light text-hotel-dark font-sans text-xs tracking-[0.2em] uppercase font-semibold px-8 py-3 rounded-sm transition-colors shadow-lg"
+          >
+            Inquire Table Reservation
+          </button>
+        </div>
+      </form>
+
+      <div id="dining-feedback" class="hidden text-center py-6 animate-fade-in">
+        <span class="text-xs font-mono text-hotel-gold block mb-1">Table Inquiry Logged</span>
+        <h3 class="font-serif text-xl text-hotel-sand-light">Our Maître d' Will Confirm Shortly</h3>
+        <p class="text-xs text-hotel-muted mt-2">Thank you. An email notification has been dispatched to our restaurant reservation team.</p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const diningForm = document.getElementById('dining-reserve-form');
+  const diningFeedback = document.getElementById('dining-feedback');
+
+  const diningDate = document.getElementById('dining-date') as HTMLInputElement;
+  if (diningDate) {
+    const today = new Date();
+    today.setDate(today.getDate() + 1);
+    diningDate.min = today.toISOString().split('T')[0];
+    diningDate.value = today.toISOString().split('T')[0];
+  }
+
+  diningForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (diningForm && diningFeedback) {
+      diningForm.classList.add('hidden');
+      diningFeedback.classList.remove('hidden');
+    }
+  });
+</script>

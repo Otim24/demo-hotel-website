@@ -1,0 +1,17 @@
+{
+  "name": "the-northern-hotel",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "ASTRO_TELEMETRY_DISABLED=1 XDG_CONFIG_HOME=/tmp astro dev --host 0.0.0.0",
+    "start": "npm run dev",
+    "build": "ASTRO_TELEMETRY_DISABLED=1 XDG_CONFIG_HOME=/tmp astro build",
+    "preview": "ASTRO_TELEMETRY_DISABLED=1 XDG_CONFIG_HOME=/tmp astro preview --host 0.0.0.0",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/tailwind": "^5.1.5",
+    "astro": "^5.1.5",
+    "tailwindcss": "^3.4.17"
+  }
+}
