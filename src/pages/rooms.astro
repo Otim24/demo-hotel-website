@@ -48,36 +48,38 @@ import { ROOMS } from '../data/hotelData';
     </div>
 
     <div class="max-w-7xl mx-auto relative z-10">
-      <!-- Filter Switcher -->
-      <div class="flex items-center justify-center gap-3 mb-16 overflow-x-auto pb-2">
-        <button
-          type="button"
-          data-filter="all"
-          class="filter-btn px-6 py-2.5 rounded-full text-xs uppercase tracking-[0.2em] font-medium transition-all duration-300 bg-hotel-gold text-hotel-dark shadow-lg"
-        >
-          All Residences
-        </button>
-        <button
-          type="button"
-          data-filter="suite"
-          class="filter-btn px-6 py-2.5 rounded-full text-xs uppercase tracking-[0.2em] font-medium transition-all duration-300 glass-card text-hotel-sand/80 hover:text-hotel-gold"
-        >
-          Signature Suites
-        </button>
-        <button
-          type="button"
-          data-filter="villa"
-          class="filter-btn px-6 py-2.5 rounded-full text-xs uppercase tracking-[0.2em] font-medium transition-all duration-300 glass-card text-hotel-sand/80 hover:text-hotel-gold"
-        >
-          Private Villas
-        </button>
-        <button
-          type="button"
-          data-filter="executive"
-          class="filter-btn px-6 py-2.5 rounded-full text-xs uppercase tracking-[0.2em] font-medium transition-all duration-300 glass-card text-hotel-sand/80 hover:text-hotel-gold"
-        >
-          Executive Folio
-        </button>
+      <!-- Filter Switcher (Mobile Touch-Optimized, Left Aligned on Mobile with Zero Cutoff) -->
+      <div class="w-full overflow-x-auto scrollbar-none pb-4 mb-12 -mx-4 px-4 sm:mx-0 sm:px-0">
+        <div class="flex items-center justify-start sm:justify-center gap-2.5 sm:gap-3.5 min-w-max">
+          <button
+            type="button"
+            data-filter="all"
+            class="filter-btn px-5 sm:px-6 py-2.5 rounded-full text-xs uppercase tracking-[0.16em] font-medium transition-all duration-300 bg-hotel-gold text-hotel-dark shadow-lg whitespace-nowrap cursor-pointer touch-manipulation active:scale-95"
+          >
+            All Residences
+          </button>
+          <button
+            type="button"
+            data-filter="suite"
+            class="filter-btn px-5 sm:px-6 py-2.5 rounded-full text-xs uppercase tracking-[0.16em] font-medium transition-all duration-300 glass-card text-hotel-sand/90 hover:text-hotel-gold whitespace-nowrap cursor-pointer touch-manipulation active:scale-95"
+          >
+            Signature Suites
+          </button>
+          <button
+            type="button"
+            data-filter="villa"
+            class="filter-btn px-5 sm:px-6 py-2.5 rounded-full text-xs uppercase tracking-[0.16em] font-medium transition-all duration-300 glass-card text-hotel-sand/90 hover:text-hotel-gold whitespace-nowrap cursor-pointer touch-manipulation active:scale-95"
+          >
+            Private Villas
+          </button>
+          <button
+            type="button"
+            data-filter="executive"
+            class="filter-btn px-5 sm:px-6 py-2.5 rounded-full text-xs uppercase tracking-[0.16em] font-medium transition-all duration-300 glass-card text-hotel-sand/90 hover:text-hotel-gold whitespace-nowrap cursor-pointer touch-manipulation active:scale-95"
+          >
+            Executive Folio
+          </button>
+        </div>
       </div>
 
       <!-- Dynamic Room Showcases (Alternating Editorial Spreads) -->
@@ -288,13 +290,10 @@ import { ROOMS } from '../data/hotelData';
       </div>
     </div>
   </section>
-      </div>
-    </div>
-  </section>
 </Layout>
 
 <script>
-  // Filter switching logic
+  // Filter switching logic with instant glitch-free toggling
   const filterBtns = document.querySelectorAll('.filter-btn');
   const roomItems = document.querySelectorAll('.room-card-item');
 
@@ -305,24 +304,22 @@ import { ROOMS } from '../data/hotelData';
 
       filterBtns.forEach((b) => {
         b.classList.remove('bg-hotel-gold', 'text-hotel-dark', 'shadow-lg');
-        b.classList.add('glass-card', 'text-hotel-sand/80');
+        b.classList.add('glass-card', 'text-hotel-sand/90');
       });
 
       btn.classList.add('bg-hotel-gold', 'text-hotel-dark', 'shadow-lg');
-      btn.classList.remove('glass-card', 'text-hotel-sand/80');
+      btn.classList.remove('glass-card', 'text-hotel-sand/90');
 
       roomItems.forEach((item) => {
         const itemCat = item.getAttribute('data-category');
-        if (filter === 'all' || itemCat === filter) {
+        const shouldShow = filter === 'all' || itemCat === filter;
+
+        if (shouldShow) {
           (item as HTMLElement).style.display = 'grid';
-          setTimeout(() => {
-            (item as HTMLElement).style.opacity = '1';
-          }, 30);
+          (item as HTMLElement).style.opacity = '1';
         } else {
+          (item as HTMLElement).style.display = 'none';
           (item as HTMLElement).style.opacity = '0';
-          setTimeout(() => {
-            (item as HTMLElement).style.display = 'none';
-          }, 250);
         }
       });
     });

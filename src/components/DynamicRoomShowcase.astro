@@ -44,9 +44,9 @@ import { ROOMS } from '../data/hotelData';
       </div>
     </div>
 
-    <!-- Room Selection Tabs (Horizontal Scrollable on Mobile) -->
-    <div class="mb-10 overflow-x-auto pb-3 scrollbar-none">
-      <div class="flex items-center gap-3 sm:gap-4 min-w-max" role="tablist" aria-label="Room showcases">
+    <!-- Room Selection Tabs (Horizontal Scrollable on Mobile with Zero Cutoff) -->
+    <div class="mb-10 overflow-x-auto scrollbar-none pb-3 -mx-4 px-4 sm:mx-0 sm:px-0">
+      <div class="flex items-center justify-start sm:justify-start gap-2.5 sm:gap-3.5 min-w-max" role="tablist" aria-label="Room showcases">
         {
           ROOMS.map((room, index) => (
             <button
@@ -56,10 +56,10 @@ import { ROOMS } from '../data/hotelData';
               aria-controls={`room-panel-${room.id}`}
               id={`room-tab-${room.id}`}
               data-tab-target={room.id}
-              class={`room-tab-btn px-5 sm:px-6 py-3 rounded-full text-xs uppercase tracking-[0.18em] transition-all duration-300 font-medium flex items-center gap-3 ${
+              class={`room-tab-btn px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-xs uppercase tracking-[0.16em] transition-all duration-300 font-medium flex items-center gap-2.5 whitespace-nowrap cursor-pointer touch-manipulation active:scale-95 ${
                 index === 0
                   ? 'bg-hotel-gold text-hotel-dark shadow-[0_0_20px_rgba(197,160,89,0.35)]'
-                  : 'glass-card text-hotel-sand/80 hover:text-hotel-gold hover:border-hotel-gold/40'
+                  : 'glass-card text-hotel-sand/90 hover:text-hotel-gold hover:border-hotel-gold/40'
               }`}
             >
               <span class="w-1.5 h-1.5 rounded-full bg-current"></span>

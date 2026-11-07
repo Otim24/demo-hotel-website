@@ -33,9 +33,21 @@ import { ROOMS } from '../data/hotelData';
     </div>
   </section>
 
-  <!-- Reservation Workflow Engine -->
-  <section class="py-16 px-4 sm:px-6 lg:px-12 bg-hotel-dark">
-    <div class="max-w-6xl mx-auto">
+  <!-- Reservation Workflow Engine with Atmospheric Image Backdrop -->
+  <section class="relative py-20 px-4 sm:px-6 lg:px-12 bg-hotel-dark overflow-hidden">
+    <!-- Atmospheric Background Image Layer -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=2200&q=80"
+        alt="The Northern Suite Serenity"
+        class="w-full h-full object-cover filter brightness-[0.16] contrast-125"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-hotel-dark via-hotel-dark/90 to-hotel-dark"></div>
+      <div class="ambient-glow -top-32 right-1/4 opacity-25"></div>
+    </div>
+
+    <div class="max-w-6xl mx-auto relative z-10">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <!-- Main Form (8 Cols) -->
         <div class="lg:col-span-8 glass-panel p-6 sm:p-10 rounded-xl border border-hotel-border/40">

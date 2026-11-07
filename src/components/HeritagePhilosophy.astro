@@ -1,8 +1,20 @@
 ---
 ---
 
-<section id="heritage" class="relative py-28 px-4 sm:px-6 lg:px-12 bg-hotel-surface overflow-hidden border-t border-white/5">
-  <div class="max-w-7xl mx-auto">
+<section id="heritage" class="relative py-28 px-4 sm:px-6 lg:px-12 bg-hotel-dark overflow-hidden border-t border-white/5">
+  <!-- Atmospheric background image layer with glass overlay -->
+  <div class="absolute inset-0 z-0">
+    <img
+      src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=2200&q=80"
+      alt="Atmospheric Stonework Texture"
+      class="w-full h-full object-cover opacity-10 filter contrast-125"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-hotel-dark via-hotel-charcoal/90 to-hotel-dark"></div>
+    <div class="ambient-glow top-0 right-1/4 opacity-20"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto relative z-10">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
       <!-- Left Column: Photography Composition -->
       <div class="lg:col-span-6 relative">

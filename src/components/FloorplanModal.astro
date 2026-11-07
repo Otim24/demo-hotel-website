@@ -38,23 +38,25 @@ import { ROOMS } from '../data/hotelData';
       </p>
     </div>
 
-    <!-- Active Room Switcher inside Modal -->
-    <div class="flex items-center gap-2 mb-8 overflow-x-auto pb-2">
-      {
-        ROOMS.map((room, idx) => (
-          <button
-            type="button"
-            data-fp-room={room.id}
-            class={`floorplan-tab-btn px-4 py-2 rounded-sm text-[11px] uppercase tracking-wider transition-all font-medium whitespace-nowrap ${
-              idx === 0
-                ? 'bg-hotel-gold text-hotel-dark font-semibold'
-                : 'glass-card text-hotel-sand/80 hover:text-hotel-gold'
-            }`}
-          >
-            {room.name}
-          </button>
-        ))
-      }
+    <!-- Active Room Switcher inside Modal (Scrollable with Zero Cutoff) -->
+    <div class="w-full overflow-x-auto scrollbar-none pb-2 mb-8">
+      <div class="flex items-center gap-2 min-w-max">
+        {
+          ROOMS.map((room, idx) => (
+            <button
+              type="button"
+              data-fp-room={room.id}
+              class={`floorplan-tab-btn px-4 py-2 rounded-sm text-[11px] uppercase tracking-wider transition-all font-medium whitespace-nowrap cursor-pointer touch-manipulation active:scale-95 ${
+                idx === 0
+                  ? 'bg-hotel-gold text-hotel-dark font-semibold'
+                  : 'glass-card text-hotel-sand/80 hover:text-hotel-gold'
+              }`}
+            >
+              {room.name}
+            </button>
+          ))
+        }
+      </div>
     </div>
 
     <!-- Room Layout Display Area -->
