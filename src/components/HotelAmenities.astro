@@ -1,8 +1,8 @@
 ---
-import { EXPERIENCES } from '../data/hotelData';
+import { HOTEL_AMENITIES } from '../data/hotelData';
 ---
 
-<section id="experiences" class="relative py-28 px-4 sm:px-6 lg:px-12 bg-hotel-dark overflow-hidden">
+<section id="amenities" class="relative py-28 px-4 sm:px-6 lg:px-12 bg-hotel-dark overflow-hidden">
   <!-- Ambient background glow -->
   <div class="ambient-glow bottom-0 right-0 opacity-20"></div>
 
@@ -12,22 +12,22 @@ import { EXPERIENCES } from '../data/hotelData';
       <div>
         <div class="flex items-center gap-2 mb-3">
           <span class="w-8 h-[1px] bg-hotel-gold"></span>
-          <span class="text-xs uppercase tracking-[0.3em] text-hotel-gold font-semibold">Bespoke Expeditions</span>
+          <span class="text-xs uppercase tracking-[0.3em] text-hotel-gold font-semibold">Hotel Life & Leisure</span>
         </div>
         <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-hotel-sand-light tracking-tight max-w-xl">
-          Into the Untamed Heart of the North
+          Wellness, Rejuvenation & Quiet Solitude
         </h2>
       </div>
 
       <div class="mt-6 md:mt-0 max-w-md">
         <p class="text-xs sm:text-sm text-hotel-muted font-light leading-relaxed mb-3">
-          From private bush plane flights into Kidepo Valley to tranquil waterfall treks and celestial stargazing in the savanna darkness.
+          From our 30-meter heated horizon lap pool and holistic hydrotherapy spa to 24-hour Technogym fitness and the executive library salon.
         </p>
         <a
-          href="/experiences"
+          href="/amenities"
           class="text-xs uppercase tracking-[0.2em] text-hotel-gold hover:text-hotel-sand-light font-medium transition-colors inline-flex items-center gap-2"
         >
-          <span>View All 8 Excursions</span>
+          <span>Explore All Hotel Facilities</span>
           <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
@@ -35,17 +35,17 @@ import { EXPERIENCES } from '../data/hotelData';
       </div>
     </div>
 
-    <!-- Dynamic Experience Grid with Asymmetric Highlights -->
+    <!-- Dynamic Hotel Amenities Grid (Asymmetric Editorial Cards) -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
       {
-        EXPERIENCES.map((exp, index) => (
+        HOTEL_AMENITIES.map((amenity) => (
           <div class="glass-panel rounded-lg overflow-hidden border border-hotel-border/40 hover:border-hotel-gold/50 transition-all duration-500 group flex flex-col justify-between">
             <div>
-              <!-- Hero Photo with Glassmorphic Badges -->
+              <!-- Hero Photo with Badges -->
               <div class="relative h-64 sm:h-72 overflow-hidden">
                 <img
-                  src={exp.image}
-                  alt={exp.title}
+                  src={amenity.image}
+                  alt={amenity.title}
                   class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                   loading="lazy"
                 />
@@ -53,36 +53,42 @@ import { EXPERIENCES } from '../data/hotelData';
 
                 <div class="absolute top-4 left-4 flex gap-2">
                   <span class="glass-panel text-hotel-gold text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-sm font-semibold">
-                    {exp.badge}
+                    {amenity.badge}
                   </span>
                   <span class="glass-panel text-hotel-sand-light text-[10px] font-mono px-3 py-1.5 rounded-sm">
-                    {exp.duration}
+                    {amenity.category}
                   </span>
                 </div>
 
                 <div class="absolute bottom-3 left-4">
-                  <span class="text-[11px] uppercase tracking-wider text-hotel-muted font-sans font-medium">
-                    {exp.category}
+                  <span class="text-[11px] uppercase tracking-wider text-hotel-sand-light font-sans font-medium">
+                    {amenity.hours}
                   </span>
                 </div>
               </div>
 
               <!-- Content Body -->
               <div class="p-6 sm:p-8 space-y-4">
-                <h3 class="font-serif text-2xl text-hotel-sand-light group-hover:text-hotel-gold transition-colors">
-                  {exp.title}
-                </h3>
+                <div>
+                  <h3 class="font-serif text-2xl text-hotel-sand-light group-hover:text-hotel-gold transition-colors">
+                    {amenity.title}
+                  </h3>
+                  <div class="text-xs uppercase tracking-wider text-hotel-gold/85 mt-1 font-medium">
+                    {amenity.subtitle}
+                  </div>
+                </div>
+
                 <p class="text-xs sm:text-sm text-hotel-muted font-light leading-relaxed">
-                  {exp.description}
+                  {amenity.description}
                 </p>
 
-                <!-- Inclusions -->
+                <!-- Highlights -->
                 <div class="border-t border-white/10 pt-4 space-y-2">
                   <div class="text-[10px] uppercase tracking-[0.2em] text-hotel-gold font-semibold">
-                    Included Provisions
+                    Facility Highlights
                   </div>
                   <ul class="space-y-1.5">
-                    {exp.included.map((item) => (
+                    {amenity.highlights.map((item) => (
                       <li class="flex items-center gap-2 text-xs text-hotel-sand/85">
                         <svg class="w-3.5 h-3.5 text-hotel-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
@@ -98,18 +104,17 @@ import { EXPERIENCES } from '../data/hotelData';
             <!-- Card Bottom Bar -->
             <div class="p-6 sm:px-8 border-t border-white/10 flex items-center justify-between bg-black/20">
               <span class="text-[11px] font-mono text-hotel-muted">
-                {exp.schedule}
+                Available to all hotel residents
               </span>
-              <button
-                type="button"
-                data-open-reserve-modal
+              <a
+                href="/amenities"
                 class="text-xs uppercase tracking-[0.18em] text-hotel-gold hover:text-hotel-sand-light font-semibold transition-colors flex items-center gap-1.5"
               >
-                <span>Reserve Expedition</span>
+                <span>View Details</span>
                 <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>
-              </button>
+              </a>
             </div>
           </div>
         ))

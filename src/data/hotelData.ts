@@ -32,16 +32,16 @@ export interface DiningVenue {
   }[];
 }
 
-export interface Experience {
+export interface HotelAmenity {
   id: string;
   title: string;
-  duration: string;
+  subtitle: string;
   category: string;
   description: string;
   image: string;
   badge: string;
-  schedule: string;
-  included: string[];
+  hours: string;
+  highlights: string[];
 }
 
 export interface EventSpace {
@@ -58,8 +58,10 @@ export interface EventSpace {
 
 export const HOTEL_INFO = {
   name: 'The Northern',
-  subtitle: 'Grand Hotel & Safari Sanctuary',
-  tagline: 'Refined hospitality at the edge of the great northern savanna.',
+  subtitle: 'Grand Hotel, Gulu',
+  tagline: 'Refined modern luxury and quiet hospitality in Northern Uganda.',
+  isDemo: true,
+  demoNotice: 'Demonstration Purpose Only: Conceptual hospitality design and digital prototype.',
   location: {
     city: 'Gulu City',
     region: 'Northern Province, Uganda',
@@ -68,9 +70,9 @@ export const HOTEL_INFO = {
     mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127503.22097067885!2d32.23171801289196!3d2.774577881029278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1771a646c26a4b13%3A0xb304b5f81f185ef3!2sGulu%2C%20Uganda!5e0!3m2!1sen!2sug!4v1700000000000!5m2!1sen!2sug',
     elevation: '1,100 m above sea level',
     access: [
-      { mode: 'Charter Flight', detail: '45 minutes from Entebbe to Gulu Airport or Pakuba Airstrip' },
-      { mode: 'Chauffeured Cruiser', detail: 'Scenic 4.5 hour private transfer via Karuma Parkway from Kampala' },
-      { mode: 'Helipad on Grounds', detail: 'Direct executive helipad coordinates provided upon reservation confirmation' },
+      { mode: 'Gulu Airport Transfer', detail: '10 minutes private chauffeured transfer from Gulu Airport' },
+      { mode: 'Kampala Highway', detail: 'Direct access via Karuma Parkway connecting central Uganda to Gulu City' },
+      { mode: 'Private Estate Helipad', detail: 'On-site helipad with secure arrival clearance for VIP delegations' },
     ],
   },
   contact: {
@@ -86,15 +88,15 @@ export const HOTEL_INFO = {
 export const ROOMS: Room[] = [
   {
     id: 'savanna-presidential-sanctuary',
-    name: 'Savanna Presidential Sanctuary',
+    name: 'Presidential Penthouse Suite',
     category: 'suite',
-    tagline: 'Private infinity plunge pool with panoramic views of the northern horizon.',
+    tagline: 'Private infinity plunge pool with panoramic city and northern horizon views.',
     description:
-      'Spanning 240 square meters of secluded luxury, the Presidential Sanctuary commands uninterrupted vistas over the northern savanna. Featuring hand-carved local teak accents, a dual-sided stone fireplace, an expansive open-air mahogany terrace, and dedicated around-the-clock private butler service.',
+      'Spanning 240 square meters of secluded luxury on the top floor of the hotel. Featuring hand-carved local teak accents, a dual-sided stone fireplace, an expansive open-air mahogany terrace, and dedicated around-the-clock private butler service.',
     sizeSqM: 240,
     occupancy: 'Up to 4 Guests',
     bed: 'King Grand Master & Optional Twin Suite',
-    view: 'Unobstructed Savanna & Sunset Horizon',
+    view: 'Unobstructed Northern Horizon & Skyline',
     pricePerNight: 1250,
     featured: true,
     heroImage: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1920&q=85',
@@ -120,15 +122,15 @@ export const ROOMS: Room[] = [
   },
   {
     id: 'acholi-heritage-villa',
-    name: 'Acholi Heritage Villa',
+    name: 'Acholi Garden Villa',
     category: 'villa',
     tagline: 'Contemporary architectural homage to indigenous craftsmanship and volcanic stone.',
     description:
-      'Constructed with indigenous quarry stones and hand-woven thatch overhangs, the Acholi Heritage Villa blends timeless regional vernacular with crisp modern hospitality. Includes an enclosed courtyard garden, sunken daybeds, and floor-to-ceiling glass that folds away into the wilderness.',
+      'Constructed with indigenous quarry stones and hand-woven thatch accents, the Acholi Garden Villa blends timeless regional vernacular with crisp modern hospitality. Includes an enclosed courtyard garden, sunken daybeds, and floor-to-ceiling glass that folds away into lush grounds.',
     sizeSqM: 175,
     occupancy: '2 to 3 Guests',
     bed: 'Sculpted Teak California King',
-    view: 'Private Garden & Acacia Woodlands',
+    view: 'Private Garden & Courtyard Grounds',
     pricePerNight: 850,
     featured: true,
     heroImage: 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1920&q=85',
@@ -138,11 +140,11 @@ export const ROOMS: Room[] = [
       'https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&w=1200&q=80',
     ],
     amenities: [
-      'Enclosed Tropical Courtyard with Outdoor Rainfall Bath',
+      'Enclosed Courtyard with Outdoor Rainfall Bath',
       'Custom African Mahogany Furnishings',
       'Signature Botanical Bath Amenities by Local Herbalists',
       'Espresso Bar & Northern Botanical Tea Selection',
-      'Personal Golf Cart for Property Exploration',
+      'Complimentary Hotel Chauffeur Service',
       'Twice-Daily Housekeeping with Evening Turndown',
     ],
     highlights: [
@@ -156,13 +158,13 @@ export const ROOMS: Room[] = [
     id: 'executive-horizon-suite',
     name: 'Executive Horizon Suite',
     category: 'executive',
-    tagline: 'Tailored for senior diplomats, leaders, and discerning international travelers.',
+    tagline: 'Tailored for senior diplomats, leaders, and discerning business travelers.',
     description:
       'Designed for focus, rest, and private meetings. Features an ergonomic solid-oak executive study, secure encrypted communications, sound-insulated architectural glazing, and an elegant parlor for hosting intimate briefings or private dining.',
     sizeSqM: 120,
     occupancy: '2 Guests',
     bed: 'Plush Feather-Top Super King',
-    view: 'Gulu City Skyline & Distant Hills',
+    view: 'Gulu City Skyline & Hills',
     pricePerNight: 580,
     featured: true,
     heroImage: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1920&q=85',
@@ -190,13 +192,13 @@ export const ROOMS: Room[] = [
     id: 'terrace-deluxe-room',
     name: 'Terrace Deluxe Room',
     category: 'suite',
-    tagline: 'Effortless serenity with private balcony overlooking the manicured grounds.',
+    tagline: 'Effortless serenity with private balcony overlooking the hotel grounds.',
     description:
       'An intimate sanctuary filled with soft natural light, tactile linen drapes, and earth-toned ceramics. Guests enjoy an expansive private covered terrace, deep goose-down bedding, and handcrafted furniture sourced from Northern artisans.',
     sizeSqM: 85,
     occupancy: '2 Guests',
     bed: 'King Bed or Twin Beds',
-    view: 'Pool Gardens & Indigenous Flora',
+    view: 'Pool Gardens & Courtyard',
     pricePerNight: 390,
     featured: false,
     heroImage: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1920&q=85',
@@ -224,13 +226,13 @@ export const ROOMS: Room[] = [
 export const DINING_VENUES: DiningVenue[] = [
   {
     id: 'the-savanna-hearth',
-    name: 'The Savanna Hearth',
-    subtitle: 'Fine Gastronomy & Regional Culinary Reimagining',
+    name: 'The Hearth Restaurant',
+    subtitle: 'Fine Dining & Regional Culinary Excellence',
     type: 'Signature Restaurant',
     hours: 'Breakfast: 06:30 - 10:30 | Dinner: 18:30 - 22:30',
     atmosphere: 'Intimate candlelit dining beneath soaring cathedral timber ceilings',
     description:
-      'Showcasing heirloom grains, pasture-raised northern beef, smoked river fish, and freshly foraged indigenous herbs prepared over wood-fired embers. Our executive chef crafts a progressive tasting menu paired with exceptional vintage wines.',
+      'Showcasing heirloom grains, pasture-raised beef, fresh river fish, and locally sourced herbs prepared over wood-fired embers. Our executive chef crafts a progressive tasting menu paired with exceptional vintage wines.',
     image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80',
     highlights: [
       'Six-Course Tasting Menu Available Nightly',
@@ -257,7 +259,7 @@ export const DINING_VENUES: DiningVenue[] = [
         category: 'Main Courses',
         items: [
           {
-            title: 'Wood-Fired Karamoja Grass-Fed Tenderloin',
+            title: 'Wood-Fired Grass-Fed Tenderloin',
             notes: 'Smoked sweet potato puree, marrow reduction, baby charred greens, mustard seed jus',
             price: '$48',
           },
@@ -272,7 +274,7 @@ export const DINING_VENUES: DiningVenue[] = [
         category: 'Confections',
         items: [
           {
-            title: 'Dark Semuliki Forest Cocoa Tart',
+            title: 'Dark Forest Cocoa Tart',
             notes: 'Cardamom salted caramel, wild honeycomb gelato, roasted coffee nibs',
             price: '$18',
           },
@@ -288,11 +290,11 @@ export const DINING_VENUES: DiningVenue[] = [
     hours: '12:00 - 00:00 Daily',
     atmosphere: 'Sunken velvet banquettes, low teak tables, fire pits under the stars',
     description:
-      'Perched high over the western gardens to capture northern sunsets. Enjoy handcrafted infusions made with indigenous botanicals, rare Japanese and Scottish single malts, and small sharing plates.',
+      'Perched high over the hotel western gardens to capture northern sunsets. Enjoy handcrafted infusions made with indigenous botanicals, rare Japanese and Scottish single malts, and small sharing plates.',
     image: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1600&q=80',
     highlights: [
-      'Sunset Aperitivo Hour with Live Acoustic Cello',
-      'Curated Humidor with Hand-Rolled Cuban & Dominican Cigars',
+      'Sunset Aperitivo Hour with Live Acoustic Music',
+      'Curated Humidor with Hand-Rolled Cigars',
       'Artisanal Negronis Infused with Local Tamarind & Hibiscus',
     ],
     sampleMenu: [
@@ -305,7 +307,7 @@ export const DINING_VENUES: DiningVenue[] = [
             price: '$19',
           },
           {
-            title: 'Kidepo Dusk',
+            title: 'Gulu Twilight',
             notes: 'Dry gin, northern hibiscus cordial, fresh yuzu, sparkling wine float',
             price: '$17',
           },
@@ -357,71 +359,73 @@ export const DINING_VENUES: DiningVenue[] = [
   },
 ];
 
-export const EXPERIENCES: Experience[] = [
+export const HOTEL_AMENITIES: HotelAmenity[] = [
   {
-    id: 'kidepo-fly-in-safari',
-    title: 'Kidepo Valley Private Fly-In Expedition',
-    duration: 'Full Day or Overnight',
-    category: 'Wildlife & Safari',
+    id: 'horizon-swimming-pool',
+    title: '30-Meter Infinity Horizon Pool',
+    subtitle: 'Heated waters, private cabanas, and sun terraces',
+    category: 'Wellness & Leisure',
     description:
-      'Board our private charter aircraft for an effortless morning flight over the rugged wilderness of north-eastern Karamoja. Land directly inside Kidepo Valley National Park, widely regarded as Africa’s most pristine wildlife theater, to observe massive buffalo herds, lions resting on granite kopjes, and rare cheetahs.',
-    image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1600&q=80',
-    badge: 'Exclusive Signature',
-    schedule: 'Departures upon guest request at 07:00',
-    included: [
-      'Private Twin-Engine Air Charter with Bush Pilot',
-      'Custom Open-Roof Land Cruiser & Expert Park Ranger',
-      'Gourmet Bush Picnic Prepared by Our Culinary Team',
-      'Champagne Sundowner Over Narus Valley',
+      'An expansive heated outdoor lap and leisure pool lined with basalt stone and surrounded by private cabanas, fragrant frangipani, and full poolside dining service.',
+    image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1600&q=80',
+    badge: 'Signature Feature',
+    hours: '06:00 - 21:00 Daily',
+    highlights: [
+      'Temperature Controlled Heated Water',
+      'Private Cushioned Daybed Cabanas with Curtains',
+      'Dedicated Poolside Steward Service',
+      'Complimentary Sun Protection & Chilled Botanicals',
     ],
   },
   {
-    id: 'aruu-falls-private-excursion',
-    title: 'Aruu Cascades & Forest Trek',
-    duration: 'Half Day (5 Hours)',
-    category: 'Nature & Adventure',
+    id: 'aswa-wellness-spa',
+    title: 'The Aswa Holistic Wellness Spa',
+    subtitle: 'Therapeutic massage, herbal hydrotherapy, and steam suites',
+    category: 'Spa & Recovery',
     description:
-      'A chauffeured scenic drive through rolling landscapes brings you to the dramatic stepped granite cascades of Aruu Falls. Enjoy a guided forest trail, swim in crystal-clear freshwater pools, and relax with an artisanal cold picnic prepared by our chef.',
-    image: 'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=1600&q=80',
-    badge: 'Guest Favorite',
-    schedule: 'Daily at 08:30 or 13:30',
-    included: [
-      'Private 4x4 Luxury Chauffeur Transfer',
-      'Dedicated Wilderness Guide & Safety Specialist',
-      'Artisanal Refreshment Hamper & Ice Box',
-      'Towels, Walking Sticks & Waterproof Gear Provided',
+      'A sanctuary dedicated to rejuvenation and physical restoration. Features five private treatment suites, granite soaking baths, eucalyptus steam rooms, and botanical treatments.',
+    image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1600&q=80',
+    badge: 'Holistic Spa',
+    hours: '08:00 - 20:00 Daily',
+    highlights: [
+      'Five Individual & Couple Treatment Suites',
+      'Heated Basalt Stone Soaking Baths',
+      'Swedish, Deep Tissue & Aromatherapy Massage',
+      'Herbal Steam Rooms & Cedar Saunas',
     ],
   },
   {
-    id: 'cultural-acholi-heritage-saloon',
-    title: 'Living Heritage & Artisanal Workshop',
-    duration: '3 Hours',
-    category: 'Culture & Arts',
+    id: 'executive-fitness-center',
+    title: 'Executive Fitness & Movement Studio',
+    subtitle: 'Technogym cardio, free weights, and private yoga deck',
+    category: 'Fitness & Health',
     description:
-      'An intimate encounter with master potters, instrument sculptors, and storytellers preserving ancestral Acholi heritage. Held in our open-air courtyard, guests discover ancient music traditions, pottery firing techniques, and historical archives.',
-    image: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1600&q=80',
-    badge: 'Cultural Immersion',
-    schedule: 'Tuesday, Thursday, and Saturday at 16:00',
-    included: [
-      'Intimate Discussion with Regional Historians & Elders',
-      'Hands-On Pottery & Musical Instrument Demonstrations',
-      'Traditional Botanical Herbal Tea Tasting',
+      'Equipped with state-of-the-art Italian Technogym machinery, panoramic glass overlooking landscaped gardens, Olympic free weights, and personal training upon request.',
+    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1600&q=80',
+    badge: '24/7 Access',
+    hours: 'Open 24 Hours for Hotel Residents',
+    highlights: [
+      'Technogym Connected Treadmills & Ellipticals',
+      'Free Weight Zone with Dumbbells & Olympic Benches',
+      'Sunrise Yoga Deck with Complimentary Mats',
+      'Chilled Towels, Fresh Fruit & Electrolyte Station',
     ],
   },
   {
-    id: 'stargazing-savanna-boma',
-    title: 'Stargazing at the Savanna Boma',
-    duration: '2 Hours',
-    category: 'Night Wonder',
+    id: 'private-executive-lounge',
+    title: 'The Northern Club Lounge & Library',
+    subtitle: 'Quiet meeting parlor, private bar, and concierge office',
+    category: 'Business & Privilege',
     description:
-      'Northern skies offer some of the clearest celestial views in East Africa, completely free from industrial light pollution. Gather around our stone boma fire pit with a high-powered equatorial telescope and our resident astronomy naturalist.',
-    image: 'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=1600&q=80',
-    badge: 'Evening Magic',
-    schedule: 'Nightly at 20:30 (Weather Permitting)',
-    included: [
-      'Astronomy Guide with Equatorial Refractor Telescope',
-      'Fine Brandies, Hot Spiced Chocolates & Small Sweets',
-      'Warm Cashmere Blankets around the Hearth',
+      'A reserved club salon for suite guests and executive delegates, offering quiet meeting areas, high-speed encrypted Wi-Fi, afternoon high tea, and evening digestifs.',
+    image: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80',
+    badge: 'Executive Privilege',
+    hours: '07:00 - 23:00 Daily',
+    highlights: [
+      'Dedicated Executive Concierge & Meeting Assistance',
+      'Complimentary Afternoon Tea & Canapés',
+      'Private High-Definition Video Conference Nook',
+      'Selection of International Newspapers & Literature',
     ],
   },
 ];
@@ -483,14 +487,14 @@ export const EVENT_SPACES: EventSpace[] = [
 export const TESTIMONIALS = [
   {
     quote:
-      'The Northern sets a formidable standard for luxury hospitality in East Africa. The precision of the butler service, the architectural restraint, and the stillness of the northern plains create an unforgettable stay.',
+      'The Northern sets a formidable standard for luxury hotel hospitality in East Africa. The precision of the butler service, the architectural restraint, and the calm of the executive suites create an unforgettable stay.',
     author: 'Ambassador Marcus Vance',
     role: 'Diplomatic Mission Chief',
     location: 'Geneva',
   },
   {
     quote:
-      'Not merely a luxury hotel, but a dignified cultural landmark. From the private fly-in safari to Kidepo to dinner at Savanna Hearth, every detail was handled with discretion and grace.',
+      'Not merely a luxury hotel, but a dignified cultural landmark. Dinner at The Hearth and the tranquility of the garden villa made our stay seamless in every respect.',
     author: 'Dr. Evelyn Atim',
     role: 'Conservation Architect & Heritage Fellow',
     location: 'Nairobi',
