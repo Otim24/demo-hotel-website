@@ -126,33 +126,40 @@ import { ROOMS } from '../data/hotelData';
 </section>
 
 <script>
-  // Setup quick book defaults and submission
-  const heroForm = document.getElementById('hero-quick-book');
-  const heroIn = document.getElementById('hero-checkin') as HTMLInputElement;
-  const heroOut = document.getElementById('hero-checkout') as HTMLInputElement;
-  const heroCat = document.getElementById('hero-category') as HTMLSelectElement;
+  function initHero() {
+    const heroForm = document.getElementById('hero-quick-book');
+    const heroIn = document.getElementById('hero-checkin') as HTMLInputElement;
+    const heroOut = document.getElementById('hero-checkout') as HTMLInputElement;
+    const heroCat = document.getElementById('hero-category') as HTMLSelectElement;
 
-  const now = new Date();
-  const nextDay = new Date(now);
-  nextDay.setDate(nextDay.getDate() + 1);
-  const nextThreeDays = new Date(now);
-  nextThreeDays.setDate(nextThreeDays.getDate() + 4);
+    const now = new Date();
+    const nextDay = new Date(now);
+    nextDay.setDate(nextDay.getDate() + 1);
+    const nextThreeDays = new Date(now);
+    nextThreeDays.setDate(nextThreeDays.getDate() + 4);
 
-  if (heroIn && heroOut) {
-    heroIn.min = nextDay.toISOString().split('T')[0];
-    heroIn.value = nextDay.toISOString().split('T')[0];
-    heroOut.min = nextThreeDays.toISOString().split('T')[0];
-    heroOut.value = nextThreeDays.toISOString().split('T')[0];
+    if (heroIn && heroOut && !heroIn.value) {
+      heroIn.min = nextDay.toISOString().split('T')[0];
+      heroIn.value = nextDay.toISOString().split('T')[0];
+      heroOut.min = nextThreeDays.toISOString().split('T')[0];
+      heroOut.value = nextThreeDays.toISOString().split('T')[0];
+    }
+
+    heroForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const selectedRoom = heroCat?.value;
+      if (typeof (window as any).__openBookingModal === 'function') {
+        (window as any).__openBookingModal(selectedRoom || undefined);
+      } else {
+        const modalTrigger = document.querySelector('[data-open-reserve-modal]') as HTMLElement;
+        if (modalTrigger) {
+          modalTrigger.setAttribute('data-room-id', selectedRoom || '');
+          modalTrigger.click();
+        }
+      }
+    });
   }
 
-  heroForm?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const selectedRoom = heroCat?.value;
-    const modalTrigger = document.querySelector('[data-open-reserve-modal]') as HTMLElement;
-    if (modalTrigger) {
-      modalTrigger.setAttribute('data-room-id', selectedRoom || '');
-      modalTrigger.click();
-    }
-  });
+  document.addEventListener('astro:page-load', initHero);
 </script>
 

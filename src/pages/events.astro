@@ -219,14 +219,18 @@ import { EVENT_SPACES } from '../data/hotelData';
 </Layout>
 
 <script>
-  const eventForm = document.getElementById('event-form');
-  const eventFeedback = document.getElementById('event-feedback');
-  eventForm?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (eventForm && eventFeedback) {
-      eventForm.classList.add('hidden');
-      eventFeedback.classList.remove('hidden');
-    }
-  });
+  function initEvents() {
+    const eventForm = document.getElementById('event-form');
+    const eventFeedback = document.getElementById('event-feedback');
+    eventForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (eventForm && eventFeedback) {
+        eventForm.classList.add('hidden');
+        eventFeedback.classList.remove('hidden');
+      }
+    });
+  }
+
+  document.addEventListener('astro:page-load', initEvents);
 </script>
 

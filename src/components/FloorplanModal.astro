@@ -130,83 +130,100 @@ import { ROOMS } from '../data/hotelData';
 </div>
 
 <script>
-  const fpBackdrop = document.getElementById('floorplan-modal-backdrop');
-  const fpBox = document.getElementById('floorplan-modal-box');
-  const fpCloseBtn = document.getElementById('floorplan-close-btn');
-  const fpTabBtns = document.querySelectorAll('.floorplan-tab-btn');
-  const fpPanels = document.querySelectorAll('.floorplan-panel');
+  function setupFloorplanModal() {
+    const fpBackdrop = document.getElementById('floorplan-modal-backdrop');
+    const fpBox = document.getElementById('floorplan-modal-box');
+    const fpCloseBtn = document.getElementById('floorplan-close-btn');
+    const fpTabBtns = document.querySelectorAll('.floorplan-tab-btn');
+    const fpPanels = document.querySelectorAll('.floorplan-panel');
 
-  function openFloorplan(roomId?: string) {
-    if (!fpBackdrop || !fpBox) return;
+    function openFloorplan(roomId?: string) {
+      if (!fpBackdrop || !fpBox) return;
 
-    if (roomId) {
-      switchFloorplanTab(roomId);
+      if (roomId) {
+        switchFloorplanTab(roomId);
+      }
+
+      fpBackdrop.classList.remove('opacity-0', 'pointer-events-none');
+      fpBackdrop.classList.add('opacity-100', 'pointer-events-auto');
+
+      fpBox.classList.remove('scale-95', 'opacity-0');
+      fpBox.classList.add('scale-100', 'opacity-100');
+
+      document.body.style.overflow = 'hidden';
     }
 
-    fpBackdrop.classList.remove('opacity-0', 'pointer-events-none');
-    fpBackdrop.classList.add('opacity-100', 'pointer-events-auto');
+    function closeFloorplan() {
+      if (!fpBackdrop || !fpBox) return;
 
-    fpBox.classList.remove('scale-95', 'opacity-0');
-    fpBox.classList.add('scale-100', 'opacity-100');
+      fpBox.classList.remove('scale-100', 'opacity-100');
+      fpBox.classList.add('scale-95', 'opacity-0');
 
-    document.body.style.overflow = 'hidden';
-  }
+      fpBackdrop.classList.remove('opacity-100');
+      fpBackdrop.classList.add('opacity-0');
 
-  function closeFloorplan() {
-    if (!fpBackdrop || !fpBox) return;
+      setTimeout(() => {
+        fpBackdrop.classList.add('pointer-events-none');
+        fpBackdrop.classList.remove('pointer-events-auto');
+        document.body.style.overflow = '';
+      }, 400);
+    }
 
-    fpBox.classList.remove('scale-100', 'opacity-100');
-    fpBox.classList.add('scale-95', 'opacity-0');
+    function switchFloorplanTab(targetId: string) {
+      fpTabBtns.forEach((btn) => {
+        const isTarget = btn.getAttribute('data-fp-room') === targetId;
+        if (isTarget) {
+          btn.classList.add('bg-hotel-gold', 'text-hotel-dark', 'font-semibold');
+          btn.classList.remove('glass-card', 'text-hotel-sand/80');
+        } else {
+          btn.classList.remove('bg-hotel-gold', 'text-hotel-dark', 'font-semibold');
+          btn.classList.add('glass-card', 'text-hotel-sand/80');
+        }
+      });
 
-    fpBackdrop.classList.remove('opacity-100');
-    fpBackdrop.classList.add('opacity-0');
+      fpPanels.forEach((panel) => {
+        if (panel.id === `fp-panel-${targetId}`) {
+          panel.classList.remove('hidden');
+        } else {
+          panel.classList.add('hidden');
+        }
+      });
+    }
 
-    setTimeout(() => {
-      fpBackdrop.classList.add('pointer-events-none');
-      fpBackdrop.classList.remove('pointer-events-auto');
-      document.body.style.overflow = '';
-    }, 400);
-  }
-
-  function switchFloorplanTab(targetId: string) {
     fpTabBtns.forEach((btn) => {
-      const isTarget = btn.getAttribute('data-fp-room') === targetId;
-      if (isTarget) {
-        btn.classList.add('bg-hotel-gold', 'text-hotel-dark', 'font-semibold');
-        btn.classList.remove('glass-card', 'text-hotel-sand/80');
-      } else {
-        btn.classList.remove('bg-hotel-gold', 'text-hotel-dark', 'font-semibold');
-        btn.classList.add('glass-card', 'text-hotel-sand/80');
+      btn.addEventListener('click', () => {
+        const roomId = btn.getAttribute('data-fp-room');
+        if (roomId) switchFloorplanTab(roomId);
+      });
+    });
+
+    fpCloseBtn?.addEventListener('click', closeFloorplan);
+    fpBackdrop?.addEventListener('click', (e) => {
+      if (e.target === fpBackdrop) closeFloorplan();
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && fpBackdrop && !fpBackdrop.classList.contains('pointer-events-none')) {
+        closeFloorplan();
       }
     });
 
-    fpPanels.forEach((panel) => {
-      if (panel.id === `fp-panel-${targetId}`) {
-        panel.classList.remove('hidden');
-      } else {
-        panel.classList.add('hidden');
-      }
-    });
+    // Expose openFloorplan on window for global delegation
+    (window as any).__openFloorplanModal = openFloorplan;
   }
 
-  fpTabBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const roomId = btn.getAttribute('data-fp-room');
-      if (roomId) switchFloorplanTab(roomId);
-    });
-  });
+  document.addEventListener('astro:page-load', setupFloorplanModal);
 
-  // Attach trigger listeners
-  document.querySelectorAll('[data-open-floorplan]').forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      const target = e.currentTarget as HTMLElement;
-      const roomId = target.getAttribute('data-room-id') || undefined;
-      openFloorplan(roomId);
-    });
-  });
-
-  fpCloseBtn?.addEventListener('click', closeFloorplan);
-  fpBackdrop?.addEventListener('click', (e) => {
-    if (e.target === fpBackdrop) closeFloorplan();
+  // Global document-level click delegation for all floorplan triggers
+  document.addEventListener('click', (e) => {
+    const trigger = (e.target as HTMLElement).closest('[data-open-floorplan]');
+    if (trigger) {
+      e.preventDefault();
+      const roomId = trigger.getAttribute('data-room-id') || undefined;
+      if (typeof (window as any).__openFloorplanModal === 'function') {
+        (window as any).__openFloorplanModal(roomId);
+      }
+    }
   });
 </script>

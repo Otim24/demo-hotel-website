@@ -214,23 +214,27 @@ import { DINING_VENUES } from '../data/hotelData';
 </Layout>
 
 <script>
-  const diningForm = document.getElementById('dining-reserve-form');
-  const diningFeedback = document.getElementById('dining-feedback');
+  function initDining() {
+    const diningForm = document.getElementById('dining-reserve-form');
+    const diningFeedback = document.getElementById('dining-feedback');
 
-  const diningDate = document.getElementById('dining-date') as HTMLInputElement;
-  if (diningDate) {
-    const today = new Date();
-    today.setDate(today.getDate() + 1);
-    diningDate.min = today.toISOString().split('T')[0];
-    diningDate.value = today.toISOString().split('T')[0];
+    const diningDate = document.getElementById('dining-date') as HTMLInputElement;
+    if (diningDate && !diningDate.value) {
+      const today = new Date();
+      today.setDate(today.getDate() + 1);
+      diningDate.min = today.toISOString().split('T')[0];
+      diningDate.value = today.toISOString().split('T')[0];
+    }
+
+    diningForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (diningForm && diningFeedback) {
+        diningForm.classList.add('hidden');
+        diningFeedback.classList.remove('hidden');
+      }
+    });
   }
 
-  diningForm?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (diningForm && diningFeedback) {
-      diningForm.classList.add('hidden');
-      diningFeedback.classList.remove('hidden');
-    }
-  });
+  document.addEventListener('astro:page-load', initDining);
 </script>
 

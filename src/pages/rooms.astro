@@ -293,55 +293,59 @@ import { ROOMS } from '../data/hotelData';
 </Layout>
 
 <script>
-  // Filter switching logic with instant glitch-free toggling
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const roomItems = document.querySelectorAll('.room-card-item');
+  function initRoomsFolio() {
+    // Filter switching logic with instant glitch-free toggling
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const roomItems = document.querySelectorAll('.room-card-item');
 
-  filterBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const filter = btn.getAttribute('data-filter');
-      if (!filter) return;
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+        if (!filter) return;
 
-      filterBtns.forEach((b) => {
-        b.classList.remove('bg-hotel-gold', 'text-hotel-dark', 'shadow-lg');
-        b.classList.add('glass-card', 'text-hotel-sand/90');
+        filterBtns.forEach((b) => {
+          b.classList.remove('bg-hotel-gold', 'text-hotel-dark', 'shadow-lg');
+          b.classList.add('glass-card', 'text-hotel-sand/90');
+        });
+
+        btn.classList.add('bg-hotel-gold', 'text-hotel-dark', 'shadow-lg');
+        btn.classList.remove('glass-card', 'text-hotel-sand/90');
+
+        roomItems.forEach((item) => {
+          const itemCat = item.getAttribute('data-category');
+          const shouldShow = filter === 'all' || itemCat === filter;
+
+          if (shouldShow) {
+            (item as HTMLElement).style.display = 'grid';
+            (item as HTMLElement).style.opacity = '1';
+          } else {
+            (item as HTMLElement).style.display = 'none';
+            (item as HTMLElement).style.opacity = '0';
+          }
+        });
       });
+    });
 
-      btn.classList.add('bg-hotel-gold', 'text-hotel-dark', 'shadow-lg');
-      btn.classList.remove('glass-card', 'text-hotel-sand/90');
+    // Photo switcher in room folio
+    const roomThumbs = document.querySelectorAll('.room-page-thumb');
+    roomThumbs.forEach((thumb) => {
+      thumb.addEventListener('click', () => {
+        const parentId = thumb.getAttribute('data-room-target');
+        const targetUrl = thumb.getAttribute('data-target-img');
+        if (!parentId || !targetUrl) return;
 
-      roomItems.forEach((item) => {
-        const itemCat = item.getAttribute('data-category');
-        const shouldShow = filter === 'all' || itemCat === filter;
-
-        if (shouldShow) {
-          (item as HTMLElement).style.display = 'grid';
-          (item as HTMLElement).style.opacity = '1';
-        } else {
-          (item as HTMLElement).style.display = 'none';
-          (item as HTMLElement).style.opacity = '0';
+        const mainImg = document.getElementById(`page-room-img-${parentId}`) as HTMLImageElement;
+        if (mainImg) {
+          mainImg.style.opacity = '0.3';
+          setTimeout(() => {
+            mainImg.src = targetUrl;
+            mainImg.style.opacity = '1';
+          }, 180);
         }
       });
     });
-  });
+  }
 
-  // Photo switcher in room folio
-  const roomThumbs = document.querySelectorAll('.room-page-thumb');
-  roomThumbs.forEach((thumb) => {
-    thumb.addEventListener('click', () => {
-      const parentId = thumb.getAttribute('data-room-target');
-      const targetUrl = thumb.getAttribute('data-target-img');
-      if (!parentId || !targetUrl) return;
-
-      const mainImg = document.getElementById(`page-room-img-${parentId}`) as HTMLImageElement;
-      if (mainImg) {
-        mainImg.style.opacity = '0.3';
-        setTimeout(() => {
-          mainImg.src = targetUrl;
-          mainImg.style.opacity = '1';
-        }, 180);
-      }
-    });
-  });
+  document.addEventListener('astro:page-load', initRoomsFolio);
 </script>
 

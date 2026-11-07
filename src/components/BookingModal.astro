@@ -203,115 +203,133 @@ import { ROOMS } from '../data/hotelData';
 </div>
 
 <script>
-  // Setup modal handling
-  const modalBackdrop = document.getElementById('reservation-modal-backdrop');
-  const modalBox = document.getElementById('reservation-modal-box');
-  const closeBtn = document.getElementById('modal-close-btn');
-  const cancelBtn = document.getElementById('btn-cancel');
-  const finishBtn = document.getElementById('btn-finish');
-  const bookingForm = document.getElementById('reservation-form');
-  const bookingSuccess = document.getElementById('booking-success');
+  function setupBookingModal() {
+    const modalBackdrop = document.getElementById('reservation-modal-backdrop');
+    const modalBox = document.getElementById('reservation-modal-box');
+    const closeBtn = document.getElementById('modal-close-btn');
+    const cancelBtn = document.getElementById('btn-cancel');
+    const finishBtn = document.getElementById('btn-finish');
+    const bookingForm = document.getElementById('reservation-form');
+    const bookingSuccess = document.getElementById('booking-success');
 
-  const checkinInput = document.getElementById('res-checkin') as HTMLInputElement;
-  const checkoutInput = document.getElementById('res-checkout') as HTMLInputElement;
-  const roomSelect = document.getElementById('res-room') as HTMLSelectElement;
-  const summaryPrice = document.getElementById('summary-price');
+    const checkinInput = document.getElementById('res-checkin') as HTMLInputElement;
+    const checkoutInput = document.getElementById('res-checkout') as HTMLInputElement;
+    const roomSelect = document.getElementById('res-room') as HTMLSelectElement;
+    const summaryPrice = document.getElementById('summary-price');
 
-  // Set default dates
-  const today = new Date();
-  const tomorrow = new Date(today);
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  const nextThree = new Date(today);
-  nextThree.setDate(nextThree.getDate() + 3);
+    // Set default dates if empty
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const nextThree = new Date(today);
+    nextThree.setDate(nextThree.getDate() + 3);
 
-  if (checkinInput && checkoutInput) {
-    checkinInput.min = tomorrow.toISOString().split('T')[0];
-    checkinInput.value = tomorrow.toISOString().split('T')[0];
-    checkoutInput.min = nextThree.toISOString().split('T')[0];
-    checkoutInput.value = nextThree.toISOString().split('T')[0];
-  }
-
-  function updatePrice() {
-    if (!checkinInput || !checkoutInput || !roomSelect || !summaryPrice) return;
-    const checkin = new Date(checkinInput.value);
-    const checkout = new Date(checkoutInput.value);
-
-    let nights = 1;
-    if (checkout > checkin) {
-      const diffTime = Math.abs(checkout.getTime() - checkin.getTime());
-      nights = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    if (checkinInput && checkoutInput && !checkinInput.value) {
+      checkinInput.min = tomorrow.toISOString().split('T')[0];
+      checkinInput.value = tomorrow.toISOString().split('T')[0];
+      checkoutInput.min = nextThree.toISOString().split('T')[0];
+      checkoutInput.value = nextThree.toISOString().split('T')[0];
     }
-    const selectedOption = roomSelect.options[roomSelect.selectedIndex];
-    const pricePerNight = selectedOption ? parseInt(selectedOption.getAttribute('data-price') || '500') : 500;
-    const total = nights * pricePerNight;
-    summaryPrice.textContent = `$${total.toLocaleString()}`;
-  }
 
-  checkinInput?.addEventListener('change', updatePrice);
-  checkoutInput?.addEventListener('change', updatePrice);
-  roomSelect?.addEventListener('change', updatePrice);
+    function updatePrice() {
+      if (!checkinInput || !checkoutInput || !roomSelect || !summaryPrice) return;
+      const checkin = new Date(checkinInput.value);
+      const checkout = new Date(checkoutInput.value);
 
-  function openModal(preselectRoomId?: string) {
-    if (preselectRoomId && roomSelect) {
-      roomSelect.value = preselectRoomId;
-    }
-    updatePrice();
-    if (!modalBackdrop || !modalBox) return;
-
-    modalBackdrop.classList.remove('opacity-0', 'pointer-events-none');
-    modalBackdrop.classList.add('opacity-100', 'pointer-events-auto');
-
-    modalBox.classList.remove('scale-95', 'opacity-0');
-    modalBox.classList.add('scale-100', 'opacity-100');
-
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal() {
-    if (!modalBackdrop || !modalBox) return;
-
-    modalBox.classList.remove('scale-100', 'opacity-100');
-    modalBox.classList.add('scale-95', 'opacity-0');
-
-    modalBackdrop.classList.remove('opacity-100');
-    modalBackdrop.classList.add('opacity-0');
-
-    setTimeout(() => {
-      modalBackdrop.classList.add('pointer-events-none');
-      modalBackdrop.classList.remove('pointer-events-auto');
-      document.body.style.overflow = '';
-      if (bookingForm && bookingSuccess) {
-        bookingForm.classList.remove('hidden');
-        bookingSuccess.classList.add('hidden');
+      let nights = 1;
+      if (checkout > checkin) {
+        const diffTime = Math.abs(checkout.getTime() - checkin.getTime());
+        nights = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       }
-    }, 400);
+      const selectedOption = roomSelect.options[roomSelect.selectedIndex];
+      const pricePerNight = selectedOption ? parseInt(selectedOption.getAttribute('data-price') || '500') : 500;
+      const total = nights * pricePerNight;
+      summaryPrice.textContent = `$${total.toLocaleString()}`;
+    }
+
+    checkinInput?.addEventListener('change', updatePrice);
+    checkoutInput?.addEventListener('change', updatePrice);
+    roomSelect?.addEventListener('change', updatePrice);
+    updatePrice();
+
+    function openModal(preselectRoomId?: string) {
+      if (preselectRoomId && roomSelect) {
+        roomSelect.value = preselectRoomId;
+      }
+      updatePrice();
+      if (!modalBackdrop || !modalBox) return;
+
+      modalBackdrop.classList.remove('opacity-0', 'pointer-events-none');
+      modalBackdrop.classList.add('opacity-100', 'pointer-events-auto');
+
+      modalBox.classList.remove('scale-95', 'opacity-0');
+      modalBox.classList.add('scale-100', 'opacity-100');
+
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      if (!modalBackdrop || !modalBox) return;
+
+      modalBox.classList.remove('scale-100', 'opacity-100');
+      modalBox.classList.add('scale-95', 'opacity-0');
+
+      modalBackdrop.classList.remove('opacity-100');
+      modalBackdrop.classList.add('opacity-0');
+
+      setTimeout(() => {
+        modalBackdrop.classList.add('pointer-events-none');
+        modalBackdrop.classList.remove('pointer-events-auto');
+        document.body.style.overflow = '';
+        if (bookingForm && bookingSuccess) {
+          bookingForm.classList.remove('hidden');
+          bookingSuccess.classList.add('hidden');
+        }
+      }, 400);
+    }
+
+    closeBtn?.addEventListener('click', closeModal);
+    cancelBtn?.addEventListener('click', closeModal);
+    finishBtn?.addEventListener('click', closeModal);
+
+    modalBackdrop?.addEventListener('click', (e) => {
+      if (e.target === modalBackdrop) {
+        closeModal();
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modalBackdrop && !modalBackdrop.classList.contains('pointer-events-none')) {
+        closeModal();
+      }
+    });
+
+    // Handle submit
+    bookingForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (bookingForm && bookingSuccess) {
+        bookingForm.classList.add('hidden');
+        bookingSuccess.classList.remove('hidden');
+      }
+    });
+
+    // Expose openModal on window so event delegation can call it anytime
+    (window as any).__openBookingModal = openModal;
   }
 
-  // Attach open listeners
-  document.querySelectorAll('[data-open-reserve-modal]').forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      const target = e.currentTarget as HTMLElement;
-      const roomId = target.getAttribute('data-room-id') || undefined;
-      openModal(roomId);
-    });
-  });
+  // Setup modal on page load
+  document.addEventListener('astro:page-load', setupBookingModal);
 
-  closeBtn?.addEventListener('click', closeModal);
-  cancelBtn?.addEventListener('click', closeModal);
-  finishBtn?.addEventListener('click', closeModal);
-
-  modalBackdrop?.addEventListener('click', (e) => {
-    if (e.target === modalBackdrop) {
-      closeModal();
-    }
-  });
-
-  // Handle submit
-  bookingForm?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (bookingForm && bookingSuccess) {
-      bookingForm.classList.add('hidden');
-      bookingSuccess.classList.remove('hidden');
+  // Global document-level click delegation for all reservation trigger buttons
+  document.addEventListener('click', (e) => {
+    const trigger = (e.target as HTMLElement).closest('[data-open-reserve-modal]');
+    if (trigger) {
+      e.preventDefault();
+      const roomId = trigger.getAttribute('data-room-id') || undefined;
+      if (typeof (window as any).__openBookingModal === 'function') {
+        (window as any).__openBookingModal(roomId);
+      }
     }
   });
 </script>

@@ -313,47 +313,51 @@ import { HOTEL_INFO } from '../data/hotelData';
 </Layout>
 
 <script>
-  // FAQ accordion logic
-  const faqTriggers = document.querySelectorAll('.faq-trigger');
-  faqTriggers.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const parent = btn.closest('.faq-item');
-      const content = parent?.querySelector('.faq-content') as HTMLElement;
-      const icon = btn.querySelector('.faq-icon') as HTMLElement;
-      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+  function initContact() {
+    // FAQ accordion logic
+    const faqTriggers = document.querySelectorAll('.faq-trigger');
+    faqTriggers.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const parent = btn.closest('.faq-item');
+        const content = parent?.querySelector('.faq-content') as HTMLElement;
+        const icon = btn.querySelector('.faq-icon') as HTMLElement;
+        const isExpanded = btn.getAttribute('aria-expanded') === 'true';
 
-      // Close all other items
-      faqTriggers.forEach((otherBtn) => {
-        if (otherBtn !== btn) {
-          otherBtn.setAttribute('aria-expanded', 'false');
-          const otherParent = otherBtn.closest('.faq-item');
-          const otherContent = otherParent?.querySelector('.faq-content') as HTMLElement;
-          const otherIcon = otherBtn.querySelector('.faq-icon') as HTMLElement;
-          if (otherContent) otherContent.style.maxHeight = '0px';
-          if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+        // Close all other items
+        faqTriggers.forEach((otherBtn) => {
+          if (otherBtn !== btn) {
+            otherBtn.setAttribute('aria-expanded', 'false');
+            const otherParent = otherBtn.closest('.faq-item');
+            const otherContent = otherParent?.querySelector('.faq-content') as HTMLElement;
+            const otherIcon = otherBtn.querySelector('.faq-icon') as HTMLElement;
+            if (otherContent) otherContent.style.maxHeight = '0px';
+            if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+          }
+        });
+
+        if (isExpanded) {
+          btn.setAttribute('aria-expanded', 'false');
+          if (content) content.style.maxHeight = '0px';
+          if (icon) icon.style.transform = 'rotate(0deg)';
+        } else {
+          btn.setAttribute('aria-expanded', 'true');
+          if (content) content.style.maxHeight = `${content.scrollHeight}px`;
+          if (icon) icon.style.transform = 'rotate(180deg)';
         }
       });
+    });
 
-      if (isExpanded) {
-        btn.setAttribute('aria-expanded', 'false');
-        if (content) content.style.maxHeight = '0px';
-        if (icon) icon.style.transform = 'rotate(0deg)';
-      } else {
-        btn.setAttribute('aria-expanded', 'true');
-        if (content) content.style.maxHeight = `${content.scrollHeight}px`;
-        if (icon) icon.style.transform = 'rotate(180deg)';
+    const contactForm = document.getElementById('contact-inquiry-form');
+    const contactFeedback = document.getElementById('contact-feedback');
+    contactForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (contactForm && contactFeedback) {
+        contactForm.classList.add('hidden');
+        contactFeedback.classList.remove('hidden');
       }
     });
-  });
+  }
 
-  const contactForm = document.getElementById('contact-inquiry-form');
-  const contactFeedback = document.getElementById('contact-feedback');
-  contactForm?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (contactForm && contactFeedback) {
-      contactForm.classList.add('hidden');
-      contactFeedback.classList.remove('hidden');
-    }
-  });
+  document.addEventListener('astro:page-load', initContact);
 </script>
 

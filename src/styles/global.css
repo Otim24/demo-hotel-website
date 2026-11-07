@@ -109,6 +109,69 @@
   transform: translateY(0);
 }
 
+/* ========================================================
+   Seamless Luxury View Transitions (Laptops & Mobile)
+   ======================================================== */
+
+/* Pin the header firmly in place across page transitions */
+#main-header {
+  view-transition-name: site-header;
+}
+
+::view-transition-old(site-header),
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+/* Page Crossfade Animation */
+::view-transition-old(root) {
+  animation: 0.26s cubic-bezier(0.4, 0, 0.2, 1) both luxuryFadeOut;
+}
+
+::view-transition-new(root) {
+  animation: 0.36s cubic-bezier(0.16, 1, 0.3, 1) both luxuryFadeIn;
+}
+
+@keyframes luxuryFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes luxuryFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fallback support for mobile browsers without native View Transitions API */
+[data-astro-transition-fallback="old"] {
+  animation: 0.26s cubic-bezier(0.4, 0, 0.2, 1) both luxuryFadeOut;
+}
+
+[data-astro-transition-fallback="new"] {
+  animation: 0.36s cubic-bezier(0.16, 1, 0.3, 1) both luxuryFadeIn;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root),
+  [data-astro-transition-fallback="old"],
+  [data-astro-transition-fallback="new"] {
+    animation-duration: 0.01ms !important;
+  }
+}
+
 /* Custom Luxury Scrollbar */
 ::-webkit-scrollbar {
   width: 7px;

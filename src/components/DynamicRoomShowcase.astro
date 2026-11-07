@@ -222,63 +222,67 @@ import { ROOMS } from '../data/hotelData';
 </section>
 
 <script>
-  // Tab switching logic with silky smooth fade in / out
-  const tabButtons = document.querySelectorAll('.room-tab-btn');
-  const panels = document.querySelectorAll('.room-panel');
+  function initRoomShowcase() {
+    // Tab switching logic with silky smooth fade in / out
+    const tabButtons = document.querySelectorAll('.room-tab-btn');
+    const panels = document.querySelectorAll('.room-panel');
 
-  tabButtons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const targetId = btn.getAttribute('data-tab-target');
-      if (!targetId) return;
+    tabButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-tab-target');
+        if (!targetId) return;
 
-      // Update button states
-      tabButtons.forEach((b) => {
-        b.setAttribute('aria-selected', 'false');
-        b.classList.remove('bg-hotel-gold', 'text-hotel-dark', 'shadow-[0_0_20px_rgba(197,160,89,0.35)]');
-        b.classList.add('glass-card', 'text-hotel-sand/80');
+        // Update button states
+        tabButtons.forEach((b) => {
+          b.setAttribute('aria-selected', 'false');
+          b.classList.remove('bg-hotel-gold', 'text-hotel-dark', 'shadow-[0_0_20px_rgba(197,160,89,0.35)]');
+          b.classList.add('glass-card', 'text-hotel-sand/80');
+        });
+
+        btn.setAttribute('aria-selected', 'true');
+        btn.classList.add('bg-hotel-gold', 'text-hotel-dark', 'shadow-[0_0_20px_rgba(197,160,89,0.35)]');
+        btn.classList.remove('glass-card', 'text-hotel-sand/80');
+
+        // Fade out active panel and fade in target panel
+        panels.forEach((panel) => {
+          const isTarget = panel.id === `room-panel-${targetId}`;
+          if (isTarget) {
+            panel.classList.remove('hidden');
+            setTimeout(() => {
+              panel.classList.remove('opacity-0');
+              panel.classList.add('opacity-100');
+            }, 30);
+          } else {
+            panel.classList.remove('opacity-100');
+            panel.classList.add('opacity-0');
+            setTimeout(() => {
+              panel.classList.add('hidden');
+            }, 300);
+          }
+        });
       });
+    });
 
-      btn.setAttribute('aria-selected', 'true');
-      btn.classList.add('bg-hotel-gold', 'text-hotel-dark', 'shadow-[0_0_20px_rgba(197,160,89,0.35)]');
-      btn.classList.remove('glass-card', 'text-hotel-sand/80');
+    // Thumbnail switcher inside each room view
+    const thumbButtons = document.querySelectorAll('.thumb-btn');
+    thumbButtons.forEach((thumb) => {
+      thumb.addEventListener('click', () => {
+        const parentRoom = thumb.getAttribute('data-parent-room');
+        const targetImgSrc = thumb.getAttribute('data-img-target');
+        if (!parentRoom || !targetImgSrc) return;
 
-      // Fade out active panel and fade in target panel
-      panels.forEach((panel) => {
-        const isTarget = panel.id === `room-panel-${targetId}`;
-        if (isTarget) {
-          panel.classList.remove('hidden');
+        const mainImg = document.getElementById(`main-img-${parentRoom}`) as HTMLImageElement;
+        if (mainImg) {
+          mainImg.style.opacity = '0.3';
           setTimeout(() => {
-            panel.classList.remove('opacity-0');
-            panel.classList.add('opacity-100');
-          }, 30);
-        } else {
-          panel.classList.remove('opacity-100');
-          panel.classList.add('opacity-0');
-          setTimeout(() => {
-            panel.classList.add('hidden');
-          }, 300);
+            mainImg.src = targetImgSrc;
+            mainImg.style.opacity = '1';
+          }, 180);
         }
       });
     });
-  });
+  }
 
-  // Thumbnail switcher inside each room view
-  const thumbButtons = document.querySelectorAll('.thumb-btn');
-  thumbButtons.forEach((thumb) => {
-    thumb.addEventListener('click', () => {
-      const parentRoom = thumb.getAttribute('data-parent-room');
-      const targetImgSrc = thumb.getAttribute('data-img-target');
-      if (!parentRoom || !targetImgSrc) return;
-
-      const mainImg = document.getElementById(`main-img-${parentRoom}`) as HTMLImageElement;
-      if (mainImg) {
-        mainImg.style.opacity = '0.3';
-        setTimeout(() => {
-          mainImg.src = targetImgSrc;
-          mainImg.style.opacity = '1';
-        }, 180);
-      }
-    });
-  });
+  document.addEventListener('astro:page-load', initRoomShowcase);
 </script>
 

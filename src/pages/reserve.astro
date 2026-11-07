@@ -233,69 +233,73 @@ import { ROOMS } from '../data/hotelData';
 </Layout>
 
 <script>
-  const pageForm = document.getElementById('full-reserve-form');
-  const pageSuccess = document.getElementById('page-reserve-success');
-  const inDate = document.getElementById('page-checkin') as HTMLInputElement;
-  const outDate = document.getElementById('page-checkout') as HTMLInputElement;
-  const roomRadios = document.querySelectorAll('.residence-radio');
+  function initReserve() {
+    const pageForm = document.getElementById('full-reserve-form');
+    const pageSuccess = document.getElementById('page-reserve-success');
+    const inDate = document.getElementById('page-checkin') as HTMLInputElement;
+    const outDate = document.getElementById('page-checkout') as HTMLInputElement;
+    const roomRadios = document.querySelectorAll('.residence-radio');
 
-  const folioName = document.getElementById('folio-room-name');
-  const folioDur = document.getElementById('folio-duration');
-  const folioRate = document.getElementById('folio-rate');
-  const folioTotal = document.getElementById('folio-total');
+    const folioName = document.getElementById('folio-room-name');
+    const folioDur = document.getElementById('folio-duration');
+    const folioRate = document.getElementById('folio-rate');
+    const folioTotal = document.getElementById('folio-total');
 
-  // Set initial dates
-  const today = new Date();
-  const dIn = new Date(today);
-  dIn.setDate(dIn.getDate() + 2);
-  const dOut = new Date(today);
-  dOut.setDate(dOut.getDate() + 5);
+    // Set initial dates if not set
+    const today = new Date();
+    const dIn = new Date(today);
+    dIn.setDate(dIn.getDate() + 2);
+    const dOut = new Date(today);
+    dOut.setDate(dOut.getDate() + 5);
 
-  if (inDate && outDate) {
-    inDate.min = dIn.toISOString().split('T')[0];
-    inDate.value = dIn.toISOString().split('T')[0];
-    outDate.min = dOut.toISOString().split('T')[0];
-    outDate.value = dOut.toISOString().split('T')[0];
-  }
-
-  function calculateFolio() {
-    if (!inDate || !outDate) return;
-    const i = new Date(inDate.value);
-    const o = new Date(outDate.value);
-
-    let nights = 1;
-    if (o > i) {
-      const diff = Math.abs(o.getTime() - i.getTime());
-      nights = Math.ceil(diff / (1000 * 60 * 60 * 24));
+    if (inDate && outDate && !inDate.value) {
+      inDate.min = dIn.toISOString().split('T')[0];
+      inDate.value = dIn.toISOString().split('T')[0];
+      outDate.min = dOut.toISOString().split('T')[0];
+      outDate.value = dOut.toISOString().split('T')[0];
     }
 
-    let selectedRadio: HTMLInputElement | null = null;
-    roomRadios.forEach((r) => {
-      if ((r as HTMLInputElement).checked) {
-        selectedRadio = r as HTMLInputElement;
+    function calculateFolio() {
+      if (!inDate || !outDate) return;
+      const i = new Date(inDate.value);
+      const o = new Date(outDate.value);
+
+      let nights = 1;
+      if (o > i) {
+        const diff = Math.abs(o.getTime() - i.getTime());
+        nights = Math.ceil(diff / (1000 * 60 * 60 * 24));
+      }
+
+      let selectedRadio: HTMLInputElement | null = null;
+      roomRadios.forEach((r) => {
+        if ((r as HTMLInputElement).checked) {
+          selectedRadio = r as HTMLInputElement;
+        }
+      });
+
+      const price = selectedRadio ? parseInt(selectedRadio.getAttribute('data-price') || '1250') : 1250;
+      const name = selectedRadio ? selectedRadio.getAttribute('data-name') || 'Savanna Suite' : 'Savanna Suite';
+
+      if (folioName) folioName.textContent = name;
+      if (folioDur) folioDur.textContent = `${nights} ${nights === 1 ? 'Night' : 'Nights'}`;
+      if (folioRate) folioRate.textContent = `$${price.toLocaleString()}`;
+      if (folioTotal) folioTotal.textContent = `$${(nights * price).toLocaleString()}`;
+    }
+
+    inDate?.addEventListener('change', calculateFolio);
+    outDate?.addEventListener('change', calculateFolio);
+    roomRadios.forEach((r) => r.addEventListener('change', calculateFolio));
+    calculateFolio();
+
+    pageForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (pageForm && pageSuccess) {
+        pageForm.classList.add('hidden');
+        pageSuccess.classList.remove('hidden');
       }
     });
-
-    const price = selectedRadio ? parseInt(selectedRadio.getAttribute('data-price') || '1250') : 1250;
-    const name = selectedRadio ? selectedRadio.getAttribute('data-name') || 'Savanna Suite' : 'Savanna Suite';
-
-    if (folioName) folioName.textContent = name;
-    if (folioDur) folioDur.textContent = `${nights} ${nights === 1 ? 'Night' : 'Nights'}`;
-    if (folioRate) folioRate.textContent = `$${price.toLocaleString()}`;
-    if (folioTotal) folioTotal.textContent = `$${(nights * price).toLocaleString()}`;
   }
 
-  inDate?.addEventListener('change', calculateFolio);
-  outDate?.addEventListener('change', calculateFolio);
-  roomRadios.forEach((r) => r.addEventListener('change', calculateFolio));
-  calculateFolio();
-
-  pageForm?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (pageForm && pageSuccess) {
-      pageForm.classList.add('hidden');
-      pageSuccess.classList.remove('hidden');
-    }
-  });
+  document.addEventListener('astro:page-load', initReserve);
 </script>
 

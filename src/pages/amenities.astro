@@ -277,23 +277,27 @@ const SPA_TREATMENTS = [
 </Layout>
 
 <script>
-  const spaForm = document.getElementById('spa-form');
-  const spaFeedback = document.getElementById('spa-feedback');
-  const spaDate = document.getElementById('spa-date') as HTMLInputElement;
+  function initAmenities() {
+    const spaForm = document.getElementById('spa-form');
+    const spaFeedback = document.getElementById('spa-feedback');
+    const spaDate = document.getElementById('spa-date') as HTMLInputElement;
 
-  if (spaDate) {
-    const today = new Date();
-    today.setDate(today.getDate() + 1);
-    spaDate.min = today.toISOString().split('T')[0];
-    spaDate.value = today.toISOString().split('T')[0];
+    if (spaDate && !spaDate.value) {
+      const today = new Date();
+      today.setDate(today.getDate() + 1);
+      spaDate.min = today.toISOString().split('T')[0];
+      spaDate.value = today.toISOString().split('T')[0];
+    }
+
+    spaForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (spaForm && spaFeedback) {
+        spaForm.classList.add('hidden');
+        spaFeedback.classList.remove('hidden');
+      }
+    });
   }
 
-  spaForm?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (spaForm && spaFeedback) {
-      spaForm.classList.add('hidden');
-      spaFeedback.classList.remove('hidden');
-    }
-  });
+  document.addEventListener('astro:page-load', initAmenities);
 </script>
 

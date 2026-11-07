@@ -1,4 +1,5 @@
 ---
+import { ClientRouter, fade } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import BookingModal from '../components/BookingModal.astro';
@@ -28,6 +29,9 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#0b0e0c" />
+
+    <!-- Seamless Client-Side Router for Silky Smooth Page Transitions -->
+    <ClientRouter />
 
     <!-- Open Graph / Social Tags -->
     <meta property="og:type" content="website" />
@@ -65,43 +69,48 @@ const {
   </head>
   <body class="bg-hotel-dark text-hotel-sand selection:bg-hotel-gold/30 selection:text-white flex flex-col min-h-screen">
     <!-- Header with dynamic blur and smooth mobile drawer -->
-    <Header currentPath={currentPath} />
+    <Header currentPath={currentPath} transition:persist="site-header" />
 
-    <!-- Main Content -->
-    <main class="flex-grow">
+    <!-- Main Content with Silky Smooth Fade Transition -->
+    <main class="flex-grow" transition:animate={fade({ duration: '0.36s' })}>
       <slot />
     </main>
 
     <!-- Footer -->
-    <Footer />
+    <Footer transition:persist="site-footer" />
 
     <!-- Global Reservation Engine Modal -->
-    <BookingModal />
+    <BookingModal transition:persist="booking-modal" />
 
     <!-- Floorplan & Spatial Configuration Modal -->
-    <FloorplanModal />
+    <FloorplanModal transition:persist="floorplan-modal" />
 
-    <!-- Scroll Reveal and Seamless Fade Script -->
+    <!-- Scroll Reveal and Seamless Fade Script on Page Load -->
     <script>
-      const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.12,
-      };
+      function initScrollReveals() {
+        const observerOptions = {
+          root: null,
+          rootMargin: '0px',
+          threshold: 0.12,
+        };
 
-      const revealCallback: IntersectionObserverCallback = (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('reveal-visible');
-            observer.unobserve(entry.target);
-          }
+        const revealCallback: IntersectionObserverCallback = (entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('reveal-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        };
+
+        const observer = new IntersectionObserver(revealCallback, observerOptions);
+        document.querySelectorAll('.reveal-init').forEach((el) => {
+          observer.observe(el);
         });
-      };
+      }
 
-      const observer = new IntersectionObserver(revealCallback, observerOptions);
-      document.querySelectorAll('.reveal-init').forEach((el) => {
-        observer.observe(el);
-      });
+      // Run on initial load and on every client navigation
+      document.addEventListener('astro:page-load', initScrollReveals);
     </script>
   </body>
 </html>

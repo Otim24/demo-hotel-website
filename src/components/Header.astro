@@ -15,7 +15,7 @@ const navLinks = [
 ---
 
 <!-- Fixed Header Container (Always visible, perfectly positioned) -->
-<header id="main-header" class="fixed top-0 left-0 right-0 z-40 w-full transition-all duration-300">
+<header id="main-header" class="fixed top-0 left-0 right-0 z-40 w-full transition-all duration-300" transition:persist="main-header">
   <!-- Top Demo Purpose Utility Ribbon (Integrated in header, never overlaps) -->
   <aside class="bg-hotel-dark/95 border-b border-hotel-gold/20 py-1.5 px-4 text-center backdrop-blur-md" aria-label="Demo Disclaimer">
     <div class="max-w-7xl mx-auto flex items-center justify-center gap-2 text-[10px] sm:text-[11px] uppercase tracking-[0.18em] text-hotel-sand/90 font-medium">
@@ -136,6 +136,7 @@ const navLinks = [
   aria-hidden="true"
   role="dialog"
   aria-modal="true"
+  transition:persist="mobile-nav-drawer"
 >
   <!-- Backdrop Blur Overlay -->
   <div
@@ -238,53 +239,94 @@ const navLinks = [
 </div>
 
 <script>
-  // Mobile drawer management
-  const toggleBtn = document.getElementById('mobile-menu-toggle');
-  const closeBtn = document.getElementById('mobile-menu-close');
-  const drawer = document.getElementById('mobile-nav-drawer');
-  const panel = document.getElementById('mobile-nav-panel');
+  function setupHeader() {
+    const toggleBtn = document.getElementById('mobile-menu-toggle');
+    const drawer = document.getElementById('mobile-nav-drawer');
+    const panel = document.getElementById('mobile-nav-panel');
 
-  function openDrawer(e?: Event) {
-    if (e) e.preventDefault();
-    if (!drawer || !panel) return;
+    function openDrawer() {
+      if (!drawer || !panel) return;
 
-    drawer.classList.remove('pointer-events-none', 'opacity-0');
-    drawer.classList.add('pointer-events-auto', 'opacity-100');
-    drawer.setAttribute('aria-hidden', 'false');
-    toggleBtn?.setAttribute('aria-expanded', 'true');
+      drawer.classList.remove('pointer-events-none', 'opacity-0');
+      drawer.classList.add('pointer-events-auto', 'opacity-100');
+      drawer.setAttribute('aria-hidden', 'false');
+      toggleBtn?.setAttribute('aria-expanded', 'true');
 
-    panel.classList.remove('-translate-y-4');
-    panel.classList.add('translate-y-0');
+      panel.classList.remove('-translate-y-4');
+      panel.classList.add('translate-y-0');
 
-    document.body.style.overflow = 'hidden';
-  }
+      document.body.style.overflow = 'hidden';
+    }
 
-  function closeDrawer(e?: Event) {
-    if (e) e.preventDefault();
-    if (!drawer || !panel) return;
+    function closeDrawer() {
+      if (!drawer || !panel) return;
 
-    panel.classList.remove('translate-y-0');
-    panel.classList.add('-translate-y-4');
+      panel.classList.remove('translate-y-0');
+      panel.classList.add('-translate-y-4');
 
-    drawer.classList.remove('opacity-100');
-    drawer.classList.add('opacity-0');
+      drawer.classList.remove('opacity-100');
+      drawer.classList.add('opacity-0');
 
-    setTimeout(() => {
-      drawer.classList.remove('pointer-events-auto');
-      drawer.classList.add('pointer-events-none');
+      setTimeout(() => {
+        drawer.classList.remove('pointer-events-auto');
+        drawer.classList.add('pointer-events-none');
+        drawer.setAttribute('aria-hidden', 'true');
+        toggleBtn?.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }, 280);
+    }
+
+    // Always ensure drawer is closed and body scroll is restored on page load
+    if (drawer && panel) {
+      panel.classList.remove('translate-y-0');
+      panel.classList.add('-translate-y-4');
+      drawer.classList.remove('pointer-events-auto', 'opacity-100');
+      drawer.classList.add('pointer-events-none', 'opacity-0');
       drawer.setAttribute('aria-hidden', 'true');
       toggleBtn?.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
-    }, 280);
+    }
+
+    // Expose drawer controls for global delegation
+    (window as any).__openMobileDrawer = openDrawer;
+    (window as any).__closeMobileDrawer = closeDrawer;
+
+    // Attach delegated click listener once
+    if (!(window as any).__mobileNavInitialized) {
+      (window as any).__mobileNavInitialized = true;
+      document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        if (target.closest('#mobile-menu-toggle')) {
+          e.preventDefault();
+          if (typeof (window as any).__openMobileDrawer === 'function') {
+            (window as any).__openMobileDrawer();
+          }
+        } else if (target.closest('#mobile-menu-close') || target.closest('.mobile-nav-link')) {
+          if (typeof (window as any).__closeMobileDrawer === 'function') {
+            (window as any).__closeMobileDrawer();
+          }
+        }
+      });
+    }
+
+    // Update active state based on current location
+    const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+    document.querySelectorAll('.nav-anim-link').forEach((link) => {
+      const href = (link.getAttribute('href') || '').replace(/\/$/, '') || '/';
+      const underline = link.querySelector('span:last-child');
+      if (href === currentPath) {
+        link.classList.add('text-hotel-gold', 'bg-hotel-gold/10', 'font-semibold');
+        link.classList.remove('text-hotel-sand/85');
+        underline?.classList.add('opacity-100', 'scale-x-100');
+        underline?.classList.remove('opacity-0', 'scale-x-0');
+      } else {
+        link.classList.remove('text-hotel-gold', 'bg-hotel-gold/10', 'font-semibold');
+        link.classList.add('text-hotel-sand/85');
+        underline?.classList.remove('opacity-100', 'scale-x-100');
+        underline?.classList.add('opacity-0', 'scale-x-0');
+      }
+    });
   }
 
-  toggleBtn?.addEventListener('click', openDrawer);
-  closeBtn?.addEventListener('click', closeDrawer);
-
-  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-  mobileNavLinks.forEach((link) => {
-    link.addEventListener('click', () => {
-      closeDrawer();
-    });
-  });
+  document.addEventListener('astro:page-load', setupHeader);
 </script>
