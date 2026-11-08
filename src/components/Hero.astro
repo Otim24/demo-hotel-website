@@ -11,7 +11,6 @@ const heroSlides = [
     alt: 'The Northern Hotel grand twilight estate architecture and reflective waters',
     caption: 'Estate Twilight Elevation',
     primaryCta: 'Reserve Your Stay',
-    primaryHref: '/reserve',
     secondaryCta: 'Explore Accommodations',
     secondaryHref: '/rooms',
   },
@@ -24,7 +23,6 @@ const heroSlides = [
     alt: 'The Northern luxury presidential suite with panoramic views',
     caption: 'Horizon Presidential Suite',
     primaryCta: 'Reserve Suite',
-    primaryHref: '/reserve',
     secondaryCta: 'View Suites Folio',
     secondaryHref: '/rooms',
   },
@@ -37,7 +35,6 @@ const heroSlides = [
     alt: '30-meter heated horizon lap pool with private cabanas',
     caption: '30m Heated Horizon Pool',
     primaryCta: 'Book Experience',
-    primaryHref: '/reserve',
     secondaryCta: 'Discover Amenities',
     secondaryHref: '/amenities',
   },
@@ -50,7 +47,6 @@ const heroSlides = [
     alt: 'The Savanna Hearth open ember dining room atmosphere',
     caption: 'The Savanna Hearth',
     primaryCta: 'Reserve Table',
-    primaryHref: '/dining',
     secondaryCta: 'Explore Gastronomy',
     secondaryHref: '/dining',
   },
@@ -63,7 +59,6 @@ const heroSlides = [
     alt: 'Acholi garden villa bedroom opening onto private stone courtyard',
     caption: 'Acholi Garden Villa',
     primaryCta: 'Reserve Villa',
-    primaryHref: '/reserve',
     secondaryCta: 'Explore Private Villas',
     secondaryHref: '/rooms',
   },
@@ -76,7 +71,6 @@ const heroSlides = [
     alt: 'Churchill Terrace and bar overlooking twilight northern skyline',
     caption: 'Churchill Terrace & Bar',
     primaryCta: 'Reserve Evening',
-    primaryHref: '/dining',
     secondaryCta: 'View Lounges',
     secondaryHref: '/dining',
   },
@@ -85,11 +79,11 @@ const heroSlides = [
 
 <section
   id="hero-carousel-section"
-  class="relative min-h-[96vh] lg:min-h-screen flex flex-col justify-between pt-32 pb-10 px-4 sm:px-6 lg:px-12 overflow-hidden bg-hotel-dark select-none"
+  class="relative min-h-[92vh] lg:min-h-screen flex flex-col justify-between pt-24 xs:pt-28 sm:pt-32 pb-6 sm:pb-10 px-3 xs:px-4 sm:px-6 lg:px-12 overflow-hidden bg-hotel-dark select-none"
   aria-label="Hotel Highlights Carousel"
 >
   <!-- 6-Image Cinematic Carousel Background Layer -->
-  <div class="absolute inset-0 z-0 overflow-hidden" id="hero-slides-container">
+  <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none" id="hero-slides-container">
     {
       heroSlides.map((slide, idx) => (
         <div
@@ -141,53 +135,53 @@ const heroSlides = [
     </svg>
   </button>
 
-  <!-- Top spacing anchor -->
+  <!-- Top spacing dummy for layout balance -->
   <div></div>
 
-  <!-- Dynamic Center Hero Text Content (Transitions with Active Slide) -->
-  <div class="relative z-10 max-w-5xl mx-auto text-center py-6 sm:py-12 flex-grow flex items-center justify-center">
-    <div class="relative w-full">
+  <!-- Dynamic Center Hero Text Content (Stacked in stable Grid track: ZERO layout shift) -->
+  <div class="relative z-10 max-w-5xl mx-auto text-center py-4 sm:py-8 md:py-12 flex-grow flex items-center justify-center w-full">
+    <div class="relative w-full grid grid-cols-1 grid-rows-1 items-center justify-items-center">
       {
         heroSlides.map((slide, idx) => (
           <div
-            class={`hero-text-item transition-all duration-700 ease-out ${
+            class={`col-start-1 row-start-1 w-full flex flex-col items-center justify-center transition-all duration-700 ease-out hero-text-item ${
               idx === 0
-                ? 'opacity-100 translate-y-0 relative'
-                : 'opacity-0 translate-y-4 absolute inset-0 pointer-events-none'
+                ? 'opacity-100 translate-y-0 pointer-events-auto z-10'
+                : 'opacity-0 translate-y-4 pointer-events-none z-0'
             }`}
             data-text-index={idx}
           >
             <!-- Category Tag -->
-            <div class="inline-flex items-center gap-2 glass-panel px-3.5 py-1 rounded-full mb-4 border border-hotel-gold/30">
+            <div class="inline-flex items-center gap-2 glass-panel px-3 py-1 rounded-full mb-3 sm:mb-4 border border-hotel-gold/30">
               <span class="w-1.5 h-1.5 rounded-full bg-hotel-gold animate-pulse"></span>
-              <span class="text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-hotel-gold font-semibold">
+              <span class="text-[9px] xs:text-[10px] sm:text-[11px] uppercase tracking-[0.22em] sm:tracking-[0.25em] text-hotel-gold font-semibold">
                 {slide.tag}
               </span>
             </div>
 
-            <!-- Slide Headline -->
-            <h1 class="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-hotel-sand-light tracking-tight font-normal leading-[1.08] mb-5 drop-shadow-xl max-w-4xl mx-auto">
+            <!-- Slide Headline (Fluid scale for mobile) -->
+            <h1 class="font-serif text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-hotel-sand-light tracking-tight font-normal leading-[1.14] sm:leading-[1.08] mb-3 sm:mb-5 drop-shadow-xl max-w-4xl mx-auto px-2">
               {slide.title}
             </h1>
 
             <!-- Slide Description -->
-            <p class="max-w-2xl mx-auto text-xs sm:text-base md:text-lg text-hotel-sand/90 font-light font-sans leading-relaxed mb-8 drop-shadow">
+            <p class="max-w-2xl mx-auto text-xs xs:text-sm sm:text-base md:text-lg text-hotel-sand/90 font-light font-sans leading-relaxed mb-6 sm:mb-8 drop-shadow line-clamp-3 sm:line-clamp-none px-3">
               {slide.description}
             </p>
 
-            <!-- Action CTAs -->
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4">
+            <!-- Action CTAs: Responsive side-by-side on mobile, never clips -->
+            <div class="flex flex-row items-center justify-center gap-2.5 sm:gap-4 w-full sm:w-auto px-2">
               <button
                 type="button"
                 data-open-reserve-modal
-                class="w-full sm:w-auto bg-hotel-gold hover:bg-hotel-gold-light text-hotel-dark font-sans text-xs tracking-[0.25em] uppercase font-semibold py-3.5 sm:py-4 px-8 sm:px-9 rounded-sm transition-all duration-300 shadow-2xl hover:shadow-[0_0_25px_rgba(197,160,89,0.45)] cursor-pointer"
+                class="flex-1 sm:flex-none bg-hotel-gold hover:bg-hotel-gold-light text-hotel-dark font-sans text-[11px] sm:text-xs tracking-[0.16em] sm:tracking-[0.22em] uppercase font-semibold py-3 sm:py-4 px-4 sm:px-9 rounded-sm transition-all duration-300 shadow-2xl hover:shadow-[0_0_25px_rgba(197,160,89,0.45)] cursor-pointer text-center whitespace-nowrap active:scale-95"
               >
                 {slide.primaryCta}
               </button>
 
               <a
                 href={slide.secondaryHref}
-                class="w-full sm:w-auto glass-panel hover:bg-white/10 text-hotel-sand-light font-sans text-xs tracking-[0.2em] uppercase font-medium py-3.5 sm:py-4 px-8 rounded-sm transition-all duration-300 text-center"
+                class="flex-1 sm:flex-none glass-panel hover:bg-white/10 text-hotel-sand-light font-sans text-[11px] sm:text-xs tracking-[0.16em] sm:tracking-[0.2em] uppercase font-medium py-3 sm:py-4 px-3 sm:px-8 rounded-sm transition-all duration-300 text-center whitespace-nowrap active:scale-95"
               >
                 {slide.secondaryCta}
               </a>
@@ -198,15 +192,15 @@ const heroSlides = [
     </div>
   </div>
 
-  <!-- Bottom Interactive Carousel Navigation HUD -->
-  <div class="relative z-10 max-w-5xl mx-auto w-full mb-5">
-    <div class="flex items-center justify-between gap-3 glass-panel-heavy px-4 sm:px-6 py-2.5 rounded-full border border-hotel-border/40 shadow-xl">
+  <!-- Bottom Interactive Carousel Navigation HUD (Optimized for Mobile Touch) -->
+  <div class="relative z-10 max-w-5xl mx-auto w-full mb-3 sm:mb-5">
+    <div class="flex items-center justify-between gap-2 sm:gap-3 glass-panel-heavy px-3 sm:px-6 py-2 rounded-full border border-hotel-border/40 shadow-xl">
       <!-- Left: Mobile Arrow + Slide Caption & Counter -->
-      <div class="flex items-center gap-2 sm:gap-3">
+      <div class="flex items-center gap-1.5 sm:gap-3 min-w-0">
         <button
           type="button"
           id="hero-mobile-prev"
-          class="flex md:hidden w-8 h-8 rounded-full glass-panel text-hotel-sand hover:text-hotel-gold items-center justify-center cursor-pointer focus:outline-none"
+          class="flex md:hidden w-9 h-9 rounded-full glass-panel text-hotel-sand hover:text-hotel-gold items-center justify-center cursor-pointer focus:outline-none active:scale-90 transition-transform flex-shrink-0"
           aria-label="Previous Slide"
         >
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -217,34 +211,36 @@ const heroSlides = [
         <span id="hero-slide-counter" class="font-mono text-xs text-hotel-gold font-semibold tracking-wider whitespace-nowrap">
           01 / 06
         </span>
-        <span class="text-white/20 hidden xs:inline">|</span>
-        <span id="hero-slide-caption" class="font-serif italic text-xs text-hotel-sand-light truncate max-w-[150px] sm:max-w-xs">
+        <span class="text-white/20 hidden sm:inline">|</span>
+        <span id="hero-slide-caption" class="font-serif italic text-xs text-hotel-sand-light truncate max-w-[120px] sm:max-w-xs hidden xs:inline">
           {heroSlides[0].caption}
         </span>
       </div>
 
-      <!-- Center: Segmented Interactive Progress Indicators (Clickable) -->
-      <div class="flex items-center gap-1.5 sm:gap-2">
+      <!-- Center: Segmented Interactive Progress Indicators (Clickable, 44px touch area) -->
+      <div class="flex items-center gap-1 sm:gap-2">
         {
           heroSlides.map((_, idx) => (
             <button
               type="button"
-              class="hero-indicator-btn group relative h-2 sm:h-2.5 w-6 sm:w-10 rounded-full bg-white/15 overflow-hidden transition-all duration-300 hover:bg-white/30 cursor-pointer focus:outline-none"
+              class="hero-indicator-btn group relative py-3 px-0.5 sm:px-1 cursor-pointer focus:outline-none"
               data-indicator-index={idx}
               aria-label={`Jump to slide ${idx + 1}`}
             >
-              <span
-                class={`hero-indicator-bar absolute inset-0 bg-hotel-gold rounded-full origin-left transition-transform duration-300 ${
-                  idx === 0 ? 'scale-x-100' : 'scale-x-0'
-                }`}
-              ></span>
+              <span class="block h-1.5 sm:h-2 w-5 xs:w-7 sm:w-10 rounded-full bg-white/20 overflow-hidden relative transition-colors duration-300 group-hover:bg-white/35">
+                <span
+                  class={`hero-indicator-bar absolute inset-0 bg-hotel-gold rounded-full origin-left transition-transform duration-300 ${
+                    idx === 0 ? 'scale-x-100' : 'scale-x-0'
+                  }`}
+                ></span>
+              </span>
             </button>
           ))
         }
       </div>
 
       <!-- Right: Mobile Next Arrow + Autoplay Status -->
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
         <button
           type="button"
           id="hero-autoplay-toggle"
@@ -258,7 +254,7 @@ const heroSlides = [
         <button
           type="button"
           id="hero-mobile-next"
-          class="flex md:hidden w-8 h-8 rounded-full glass-panel text-hotel-sand hover:text-hotel-gold items-center justify-center cursor-pointer focus:outline-none"
+          class="flex md:hidden w-9 h-9 rounded-full glass-panel text-hotel-sand hover:text-hotel-gold items-center justify-center cursor-pointer focus:outline-none active:scale-90 transition-transform flex-shrink-0"
           aria-label="Next Slide"
         >
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -269,41 +265,41 @@ const heroSlides = [
     </div>
   </div>
 
-  <!-- Glassmorphic Booking Search Bar (Integrated at Bottom) -->
+  <!-- Glassmorphic Booking Search Bar (Responsive: Compact grid on Mobile, Full on Desktop) -->
   <div class="relative z-10 max-w-6xl w-full mx-auto">
-    <div class="glass-panel-heavy p-4 sm:p-6 rounded-lg shadow-2xl border border-hotel-border/50">
-      <form id="hero-quick-book" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
-        <div>
-          <label for="hero-checkin" class="block text-[11px] uppercase tracking-[0.2em] text-hotel-gold font-medium mb-1.5">
+    <div class="glass-panel-heavy p-3 sm:p-5 rounded-lg sm:rounded-xl shadow-2xl border border-hotel-border/50">
+      <form id="hero-quick-book" class="grid grid-cols-2 lg:grid-cols-5 gap-2.5 sm:gap-4 items-end">
+        <div class="col-span-1">
+          <label for="hero-checkin" class="block text-[10px] sm:text-[11px] uppercase tracking-[0.16em] sm:tracking-[0.2em] text-hotel-gold font-medium mb-1">
             Arrival Date
           </label>
           <input
             type="date"
             id="hero-checkin"
-            class="w-full glass-input px-3 py-2.5 rounded-sm text-xs text-hotel-sand font-mono"
+            class="w-full glass-input px-2.5 sm:px-3 py-2 sm:py-2.5 rounded-sm text-xs text-hotel-sand font-mono"
             required
           />
         </div>
 
-        <div>
-          <label for="hero-checkout" class="block text-[11px] uppercase tracking-[0.2em] text-hotel-gold font-medium mb-1.5">
+        <div class="col-span-1">
+          <label for="hero-checkout" class="block text-[10px] sm:text-[11px] uppercase tracking-[0.16em] sm:tracking-[0.2em] text-hotel-gold font-medium mb-1">
             Departure Date
           </label>
           <input
             type="date"
             id="hero-checkout"
-            class="w-full glass-input px-3 py-2.5 rounded-sm text-xs text-hotel-sand font-mono"
+            class="w-full glass-input px-2.5 sm:px-3 py-2 sm:py-2.5 rounded-sm text-xs text-hotel-sand font-mono"
             required
           />
         </div>
 
-        <div>
-          <label for="hero-category" class="block text-[11px] uppercase tracking-[0.2em] text-hotel-gold font-medium mb-1.5">
+        <div class="col-span-2 sm:col-span-1">
+          <label for="hero-category" class="block text-[10px] sm:text-[11px] uppercase tracking-[0.16em] sm:tracking-[0.2em] text-hotel-gold font-medium mb-1">
             Suite Category
           </label>
           <select
             id="hero-category"
-            class="w-full glass-input px-3 py-2.5 rounded-sm text-xs text-hotel-sand bg-hotel-charcoal"
+            class="w-full glass-input px-2.5 sm:px-3 py-2 sm:py-2.5 rounded-sm text-xs text-hotel-sand bg-hotel-charcoal"
           >
             {
               ROOMS.map((r) => (
@@ -313,13 +309,13 @@ const heroSlides = [
           </select>
         </div>
 
-        <div>
-          <label for="hero-guests" class="block text-[11px] uppercase tracking-[0.2em] text-hotel-gold font-medium mb-1.5">
+        <div class="col-span-1 sm:col-span-1">
+          <label for="hero-guests" class="block text-[10px] sm:text-[11px] uppercase tracking-[0.16em] sm:tracking-[0.2em] text-hotel-gold font-medium mb-1">
             Guests
           </label>
           <select
             id="hero-guests"
-            class="w-full glass-input px-3 py-2.5 rounded-sm text-xs text-hotel-sand bg-hotel-charcoal"
+            class="w-full glass-input px-2.5 sm:px-3 py-2 sm:py-2.5 rounded-sm text-xs text-hotel-sand bg-hotel-charcoal"
           >
             <option value="1">1 Guest</option>
             <option value="2" selected>2 Guests</option>
@@ -328,13 +324,13 @@ const heroSlides = [
           </select>
         </div>
 
-        <div>
+        <div class="col-span-1 sm:col-span-2 lg:col-span-1">
           <button
             type="submit"
-            class="w-full bg-hotel-gold hover:bg-hotel-gold-light text-hotel-dark font-sans text-xs tracking-[0.2em] uppercase font-semibold py-3 px-4 rounded-sm transition-all duration-300 shadow-md flex items-center justify-center gap-2 cursor-pointer"
+            class="w-full bg-hotel-gold hover:bg-hotel-gold-light text-hotel-dark font-sans text-[11px] sm:text-xs tracking-[0.16em] sm:tracking-[0.2em] uppercase font-semibold py-2.5 sm:py-3 px-3 sm:px-4 rounded-sm transition-all duration-300 shadow-md flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer active:scale-95 whitespace-nowrap h-[38px] sm:h-[42px]"
           >
             <span>Inquire Stay</span>
-            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
           </button>
@@ -381,7 +377,6 @@ const heroSlides = [
     function goToSlide(targetIndex: number) {
       if (targetIndex === currentIndex) return;
 
-      const prevIndex = currentIndex;
       currentIndex = (targetIndex + totalSlides) % totalSlides;
 
       // Update background slides with slow Ken Burns zoom
@@ -404,14 +399,14 @@ const heroSlides = [
         }
       });
 
-      // Update foreground text with smooth staggered fade
+      // Update foreground text in stable grid track
       textItems.forEach((item, idx) => {
         if (idx === currentIndex) {
-          item.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none', 'absolute');
-          item.classList.add('opacity-100', 'translate-y-0', 'relative');
+          item.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none', 'z-0');
+          item.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto', 'z-10');
         } else {
-          item.classList.remove('opacity-100', 'translate-y-0', 'relative');
-          item.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none', 'absolute');
+          item.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto', 'z-10');
+          item.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none', 'z-0');
         }
       });
 
@@ -494,15 +489,19 @@ const heroSlides = [
       if (autoplayActive) startAutoplay();
     });
 
-    // Mobile touch / swipe gestures
+    // Enhanced touch / swipe gestures for mobile
     let touchStartX = 0;
     let touchStartY = 0;
+    let touchStartTime = 0;
 
     section?.addEventListener(
       'touchstart',
       (e) => {
-        touchStartX = e.changedTouches[0].clientX;
-        touchStartY = e.changedTouches[0].clientY;
+        if (e.touches.length === 1) {
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+          touchStartTime = Date.now();
+        }
       },
       { passive: true }
     );
@@ -510,17 +509,20 @@ const heroSlides = [
     section?.addEventListener(
       'touchend',
       (e) => {
-        const touchEndX = e.changedTouches[0].clientX;
-        const touchEndY = e.changedTouches[0].clientY;
-        const deltaX = touchEndX - touchStartX;
-        const deltaY = touchEndY - touchStartY;
+        if (e.changedTouches.length === 1) {
+          const touchEndX = e.changedTouches[0].clientX;
+          const touchEndY = e.changedTouches[0].clientY;
+          const deltaX = touchEndX - touchStartX;
+          const deltaY = touchEndY - touchStartY;
+          const elapsed = Date.now() - touchStartTime;
 
-        // Check if horizontal swipe is prominent enough
-        if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY)) {
-          if (deltaX < 0) {
-            nextSlide();
-          } else {
-            prevSlide();
+          // Only trigger if horizontal swipe is intentional (greater than vertical swipe and > 35px)
+          if (Math.abs(deltaX) > 35 && Math.abs(deltaX) > Math.abs(deltaY) && elapsed < 800) {
+            if (deltaX < 0) {
+              nextSlide();
+            } else {
+              prevSlide();
+            }
           }
         }
       },

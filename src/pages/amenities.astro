@@ -83,10 +83,10 @@ const SPA_TREATMENTS = [
         HOTEL_AMENITIES.map((amenity, idx) => {
           const isReversed = idx % 2 === 1;
           return (
-            <div class="glass-panel p-6 sm:p-10 rounded-xl border border-hotel-border/40">
+            <div class="glass-panel p-6 sm:p-10 rounded-xl border border-hotel-border/40 kinetic-block">
               <div class={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center ${isReversed ? 'lg:flex-row-reverse' : ''}`}>
                 <!-- Photo (6 Cols) -->
-                <div class={`lg:col-span-6 ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}>
+                <div class={`lg:col-span-6 ${isReversed ? 'lg:order-2 kinetic-right' : 'lg:order-1 kinetic-left'}`}>
                   <div class="relative rounded-lg overflow-hidden border border-hotel-border/40 shadow-2xl h-[360px] sm:h-[440px]">
                     <img
                       src={amenity.image}
@@ -113,7 +113,7 @@ const SPA_TREATMENTS = [
                 </div>
 
                 <!-- Text & Specifications (6 Cols) -->
-                <div class={`lg:col-span-6 space-y-5 ${isReversed ? 'lg:order-1' : 'lg:order-2'}`}>
+                <div class={`lg:col-span-6 space-y-5 ${isReversed ? 'lg:order-1 kinetic-left' : 'lg:order-2 kinetic-right'}`}>
                   <div>
                     <span class="text-[10px] uppercase tracking-widest text-hotel-gold font-mono block mb-1">
                       {amenity.hours}

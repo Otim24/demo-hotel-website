@@ -85,32 +85,62 @@ const {
     <!-- Floorplan & Spatial Configuration Modal -->
     <FloorplanModal transition:persist="floorplan-modal" />
 
-    <!-- Scroll Reveal and Seamless Fade Script on Page Load -->
+    <!-- Scroll Reconstruct / Deconstruct Kinetic Engine on Page Load -->
     <script>
-      function initScrollReveals() {
-        const observerOptions = {
+      function initKineticScroll() {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const kineticElements = document.querySelectorAll<HTMLElement>(
+          '.kinetic-deconstruct, .kinetic-block, .kinetic-card, .kinetic-left, .kinetic-right, .reveal-init'
+        );
+
+        if (!kineticElements.length) return;
+
+        if (prefersReducedMotion) {
+          kineticElements.forEach((el) => {
+            el.classList.add('is-constructed', 'reveal-visible');
+          });
+          return;
+        }
+
+        const observerOptions: IntersectionObserverInit = {
           root: null,
-          rootMargin: '0px',
-          threshold: 0.12,
+          rootMargin: '-3% 0px -3% 0px',
+          threshold: [0, 0.08, 0.2],
         };
 
-        const revealCallback: IntersectionObserverCallback = (entries, observer) => {
+        const observerCallback: IntersectionObserverCallback = (entries) => {
           entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('reveal-visible');
-              observer.unobserve(entry.target);
+            const target = entry.target as HTMLElement;
+
+            if (entry.isIntersecting && entry.intersectionRatio > 0.03) {
+              // RECONSTRUCT: Smoothly assemble as visitor scrolls into view
+              target.classList.remove('is-deconstructed-up', 'is-deconstructed-down');
+              target.classList.add('is-constructed', 'reveal-visible');
+            } else if (!entry.isIntersecting) {
+              // DECONSTRUCT: Smoothly dissolve and separate as visitor scrolls away
+              target.classList.remove('is-constructed', 'reveal-visible');
+              const rect = entry.boundingClientRect;
+              if (rect.top < 0) {
+                // Scrolled past the top
+                target.classList.add('is-deconstructed-up');
+                target.classList.remove('is-deconstructed-down');
+              } else {
+                // Scrolled away past the bottom
+                target.classList.add('is-deconstructed-down');
+                target.classList.remove('is-deconstructed-up');
+              }
             }
           });
         };
 
-        const observer = new IntersectionObserver(revealCallback, observerOptions);
-        document.querySelectorAll('.reveal-init').forEach((el) => {
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+        kineticElements.forEach((el) => {
           observer.observe(el);
         });
       }
 
       // Run on initial load and on every client navigation
-      document.addEventListener('astro:page-load', initScrollReveals);
+      document.addEventListener('astro:page-load', initKineticScroll);
     </script>
   </body>
 </html>

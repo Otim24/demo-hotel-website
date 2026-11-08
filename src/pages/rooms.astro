@@ -91,10 +91,10 @@ import { ROOMS } from '../data/hotelData';
               <div
                 id={room.id}
                 data-category={room.category}
-                class="room-card-item scroll-mt-28 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
+                class="room-card-item scroll-mt-28 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center kinetic-block"
               >
                 <!-- Image & Mini Gallery (7 Cols) -->
-                <div class={`lg:col-span-7 ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}>
+                <div class={`lg:col-span-7 ${isReversed ? 'lg:order-2 kinetic-right' : 'lg:order-1 kinetic-left'}`}>
                   <div class="relative rounded-lg overflow-hidden border border-hotel-border/40 shadow-2xl group h-[400px] sm:h-[480px]">
                     <img
                       id={`page-room-img-${room.id}`}
@@ -138,7 +138,7 @@ import { ROOMS } from '../data/hotelData';
                 </div>
 
                 <!-- Editorial Specifications (5 Cols) -->
-                <div class={`lg:col-span-5 glass-panel p-6 sm:p-10 rounded-lg border border-hotel-border/40 space-y-6 ${isReversed ? 'lg:order-1' : 'lg:order-2'}`}>
+                <div class={`lg:col-span-5 glass-panel p-6 sm:p-10 rounded-lg border border-hotel-border/40 space-y-6 ${isReversed ? 'lg:order-1 kinetic-left' : 'lg:order-2 kinetic-right'}`}>
                   <div>
                     <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-4">
                       <span class="text-[10px] font-mono uppercase tracking-[0.25em] text-hotel-gold">
@@ -239,8 +239,8 @@ import { ROOMS } from '../data/hotelData';
         </p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="glass-panel p-7 rounded-lg text-center space-y-3.5 border border-hotel-border/40 hover:border-hotel-gold/50 transition-colors">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 kinetic-stagger-parent">
+        <div class="glass-panel p-7 rounded-lg text-center space-y-3.5 border border-hotel-border/40 hover:border-hotel-gold/50 transition-colors kinetic-card">
           <div class="w-12 h-12 mx-auto rounded-full border border-hotel-gold/30 flex items-center justify-center text-hotel-gold bg-hotel-gold/10">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -252,7 +252,7 @@ import { ROOMS } from '../data/hotelData';
           </p>
         </div>
 
-        <div class="glass-panel p-7 rounded-lg text-center space-y-3.5 border border-hotel-border/40 hover:border-hotel-gold/50 transition-colors">
+        <div class="glass-panel p-7 rounded-lg text-center space-y-3.5 border border-hotel-border/40 hover:border-hotel-gold/50 transition-colors kinetic-card">
           <div class="w-12 h-12 mx-auto rounded-full border border-hotel-gold/30 flex items-center justify-center text-hotel-gold bg-hotel-gold/10">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
@@ -264,7 +264,7 @@ import { ROOMS } from '../data/hotelData';
           </p>
         </div>
 
-        <div class="glass-panel p-7 rounded-lg text-center space-y-3.5 border border-hotel-border/40 hover:border-hotel-gold/50 transition-colors">
+        <div class="glass-panel p-7 rounded-lg text-center space-y-3.5 border border-hotel-border/40 hover:border-hotel-gold/50 transition-colors kinetic-card">
           <div class="w-12 h-12 mx-auto rounded-full border border-hotel-gold/30 flex items-center justify-center text-hotel-gold bg-hotel-gold/10">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
@@ -276,7 +276,7 @@ import { ROOMS } from '../data/hotelData';
           </p>
         </div>
 
-        <div class="glass-panel p-7 rounded-lg text-center space-y-3.5 border border-hotel-border/40 hover:border-hotel-gold/50 transition-colors">
+        <div class="glass-panel p-7 rounded-lg text-center space-y-3.5 border border-hotel-border/40 hover:border-hotel-gold/50 transition-colors kinetic-card">
           <div class="w-12 h-12 mx-auto rounded-full border border-hotel-gold/30 flex items-center justify-center text-hotel-gold bg-hotel-gold/10">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />

@@ -163,7 +163,7 @@ const GALLERY_ITEMS = [
       </div>
 
       <!-- Masonry Editorial Photography Grid -->
-      <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+      <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 kinetic-stagger-parent">
         {
           GALLERY_ITEMS.map((item, idx) => (
             <div
@@ -172,7 +172,7 @@ const GALLERY_ITEMS = [
               data-img-title={item.title}
               data-img-caption={item.caption}
               data-img-index={idx}
-              class="gallery-item group relative rounded-lg overflow-hidden border border-hotel-border/40 bg-hotel-charcoal shadow-xl cursor-pointer h-72 sm:h-80 transition-all duration-500 hover:border-hotel-gold/60"
+              class="gallery-item group relative rounded-lg overflow-hidden border border-hotel-border/40 bg-hotel-charcoal shadow-xl cursor-pointer h-72 sm:h-80 transition-all duration-500 hover:border-hotel-gold/60 kinetic-card"
             >
               <img
                 src={item.url}
