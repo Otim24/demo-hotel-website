@@ -101,162 +101,149 @@
    Kinetic Construct / Deconstruct Scroll System
    ======================================================== */
 
-/* Base Kinetic Block: assembles on scroll-in, deconstructs on scroll-away */
+/* Base Kinetic Block, Cards, and Editorial Spreads */
 .kinetic-block,
+.kinetic-card,
 .kinetic-deconstruct,
+.kinetic-spread,
 .reveal-init {
-  opacity: 0;
-  filter: blur(8px);
-  transform: translateY(36px) scale(0.97);
-  transition:
-    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity, filter;
   backface-visibility: hidden;
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.75s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Constructed State: assembled, crystal clear, sharp, in place */
+/* 1. Fully Constructed / Assembled (Inside Viewport) */
 .kinetic-block.is-constructed,
+.kinetic-card.is-constructed,
 .kinetic-deconstruct.is-constructed,
-.reveal-init.is-constructed,
-.reveal-init.reveal-visible {
-  opacity: 1;
-  filter: blur(0px);
-  transform: translateY(0) scale(1);
+.kinetic-spread.is-constructed,
+.reveal-init.is-constructed {
+  opacity: 1 !important;
+  filter: blur(0px) !important;
+  transform: translateY(0) scale(1) !important;
 }
 
-/* Deconstructed past top (scrolling down away from section) */
+/* 2. Actively Deconstructing as visitor scrolls away toward top (VISIBLE ON SCREEN!) */
+.kinetic-block.is-deconstructing-top,
+.kinetic-card.is-deconstructing-top,
+.kinetic-deconstruct.is-deconstructing-top,
+.kinetic-spread.is-deconstructing-top,
+.reveal-init.is-deconstructing-top {
+  opacity: 0.18 !important;
+  filter: blur(7px) !important;
+  transform: translateY(-28px) scale(0.95) !important;
+}
+
+/* 3. Fully Deconstructed above the screen */
 .kinetic-block.is-deconstructed-up,
+.kinetic-card.is-deconstructed-up,
 .kinetic-deconstruct.is-deconstructed-up,
+.kinetic-spread.is-deconstructed-up,
 .reveal-init.is-deconstructed-up {
-  opacity: 0;
-  filter: blur(6px);
-  transform: translateY(-32px) scale(0.97);
+  opacity: 0 !important;
+  filter: blur(8px) !important;
+  transform: translateY(-40px) scale(0.94) !important;
 }
 
-/* Deconstructed past bottom (scrolling up away from section) */
+/* 4. Deconstructed down below the screen (initial state before entering) */
 .kinetic-block.is-deconstructed-down,
+.kinetic-card.is-deconstructed-down,
 .kinetic-deconstruct.is-deconstructed-down,
+.kinetic-spread.is-deconstructed-down,
 .reveal-init.is-deconstructed-down {
-  opacity: 0;
-  filter: blur(6px);
-  transform: translateY(36px) scale(0.97);
-}
-
-/* Kinetic Card: for floating cards, room cards, testimonials, and feature panels */
-.kinetic-card {
-  opacity: 0;
-  filter: blur(6px);
-  transform: translateY(32px) scale(0.96);
-  transition:
-    opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.4s ease;
-  will-change: transform, opacity, filter;
-  backface-visibility: hidden;
-}
-
-.kinetic-card.is-constructed {
-  opacity: 1;
-  filter: blur(0px);
-  transform: translateY(0) scale(1);
-}
-
-.kinetic-card.is-deconstructed-up {
-  opacity: 0;
-  filter: blur(5px);
-  transform: translateY(-24px) scale(0.96);
-}
-
-.kinetic-card.is-deconstructed-down {
-  opacity: 0;
-  filter: blur(5px);
-  transform: translateY(28px) scale(0.96);
+  opacity: 0 !important;
+  filter: blur(8px) !important;
+  transform: translateY(36px) scale(0.95) !important;
 }
 
 /* Lateral Reconstruction: assembling from left or right */
 .kinetic-left {
-  opacity: 0;
-  filter: blur(6px);
-  transform: translateX(-40px) scale(0.97);
-  transition:
-    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity, filter;
-  backface-visibility: hidden;
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.75s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .kinetic-left.is-constructed {
-  opacity: 1;
-  filter: blur(0px);
-  transform: translateX(0) scale(1);
+  opacity: 1 !important;
+  filter: blur(0px) !important;
+  transform: translateX(0) scale(1) !important;
+}
+
+.kinetic-left.is-deconstructing-top {
+  opacity: 0.18 !important;
+  filter: blur(6px) !important;
+  transform: translateX(-24px) translateY(-20px) scale(0.96) !important;
 }
 
 .kinetic-left.is-deconstructed-up {
-  opacity: 0;
-  filter: blur(5px);
-  transform: translateY(-24px) scale(0.97);
+  opacity: 0 !important;
+  filter: blur(8px) !important;
+  transform: translateX(-35px) translateY(-28px) scale(0.95) !important;
 }
 
 .kinetic-left.is-deconstructed-down {
-  opacity: 0;
-  filter: blur(5px);
-  transform: translateX(-32px) scale(0.97);
+  opacity: 0 !important;
+  filter: blur(8px) !important;
+  transform: translateX(-35px) scale(0.95) !important;
 }
 
 .kinetic-right {
-  opacity: 0;
-  filter: blur(6px);
-  transform: translateX(40px) scale(0.97);
-  transition:
-    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity, filter;
-  backface-visibility: hidden;
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.75s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .kinetic-right.is-constructed {
-  opacity: 1;
-  filter: blur(0px);
-  transform: translateX(0) scale(1);
+  opacity: 1 !important;
+  filter: blur(0px) !important;
+  transform: translateX(0) scale(1) !important;
+}
+
+.kinetic-right.is-deconstructing-top {
+  opacity: 0.18 !important;
+  filter: blur(6px) !important;
+  transform: translateX(24px) translateY(-20px) scale(0.96) !important;
 }
 
 .kinetic-right.is-deconstructed-up {
-  opacity: 0;
-  filter: blur(5px);
-  transform: translateY(-24px) scale(0.97);
+  opacity: 0 !important;
+  filter: blur(8px) !important;
+  transform: translateX(35px) translateY(-28px) scale(0.95) !important;
 }
 
 .kinetic-right.is-deconstructed-down {
-  opacity: 0;
-  filter: blur(5px);
-  transform: translateX(32px) scale(0.97);
+  opacity: 0 !important;
+  filter: blur(8px) !important;
+  transform: translateX(35px) scale(0.95) !important;
 }
 
-/* Stagger delays for child items during reconstruction */
-.kinetic-stagger-parent.is-constructed > *:nth-child(1) { transition-delay: 0.05s; }
-.kinetic-stagger-parent.is-constructed > *:nth-child(2) { transition-delay: 0.12s; }
-.kinetic-stagger-parent.is-constructed > *:nth-child(3) { transition-delay: 0.19s; }
-.kinetic-stagger-parent.is-constructed > *:nth-child(4) { transition-delay: 0.26s; }
-.kinetic-stagger-parent.is-constructed > *:nth-child(5) { transition-delay: 0.33s; }
-.kinetic-stagger-parent.is-constructed > *:nth-child(6) { transition-delay: 0.40s; }
+/* Staggered cards spatial deconstruction / reconstruction */
+.kinetic-stagger-parent.is-constructed > *:nth-child(1) { transition-delay: 0.04s; }
+.kinetic-stagger-parent.is-constructed > *:nth-child(2) { transition-delay: 0.10s; }
+.kinetic-stagger-parent.is-constructed > *:nth-child(3) { transition-delay: 0.16s; }
+.kinetic-stagger-parent.is-constructed > *:nth-child(4) { transition-delay: 0.22s; }
+.kinetic-stagger-parent.is-constructed > *:nth-child(5) { transition-delay: 0.28s; }
+.kinetic-stagger-parent.is-constructed > *:nth-child(6) { transition-delay: 0.34s; }
 
-/* Immediate exit on deconstruction so scrolling away is responsive */
 .kinetic-stagger-parent:not(.is-constructed) > * {
   transition-delay: 0s !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .kinetic-block,
-  .kinetic-deconstruct,
-  .reveal-init,
   .kinetic-card,
+  .kinetic-deconstruct,
+  .kinetic-spread,
   .kinetic-left,
-  .kinetic-right {
+  .kinetic-right,
+  .reveal-init {
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;

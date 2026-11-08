@@ -239,50 +239,87 @@ import { ROOMS } from '../data/hotelData';
         </p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 kinetic-stagger-parent">
-        <div class="glass-panel p-7 rounded-lg text-center space-y-3.5 border border-hotel-border/40 hover:border-hotel-gold/50 transition-colors kinetic-card">
-          <div class="w-12 h-12 mx-auto rounded-full border border-hotel-gold/30 flex items-center justify-center text-hotel-gold bg-hotel-gold/10">
-            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
+      <!-- Unified Architectural Executive Inclusion Ribbon (Seamless Glass Console) -->
+      <div class="glass-panel rounded-xl border border-hotel-border/50 overflow-hidden divide-y lg:divide-y-0 lg:divide-x divide-white/10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 kinetic-block">
+        <!-- 01 Butler -->
+        <div class="p-8 sm:p-9 space-y-4 hover:bg-white/[0.03] transition-colors group">
+          <div class="flex items-center justify-between">
+            <div class="w-11 h-11 rounded-full border border-hotel-gold/30 flex items-center justify-center text-hotel-gold bg-hotel-gold/10 group-hover:scale-110 transition-transform">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-hotel-gold/70">01 / Valet</span>
           </div>
-          <h4 class="font-serif text-lg text-hotel-sand-light">24-Hour Butler Service</h4>
+          <div>
+            <h4 class="font-serif text-lg sm:text-xl text-hotel-sand-light group-hover:text-hotel-gold transition-colors">
+              24-Hour Butler Service
+            </h4>
+            <div class="text-[11px] font-mono text-hotel-gold/80 mt-1">Dedicated Personal Valet</div>
+          </div>
           <p class="text-xs text-hotel-muted font-light leading-relaxed">
             Unpacking, garment pressing, wardrobe coordination, and private in-suite dining arrangement.
           </p>
         </div>
 
-        <div class="glass-panel p-7 rounded-lg text-center space-y-3.5 border border-hotel-border/40 hover:border-hotel-gold/50 transition-colors kinetic-card">
-          <div class="w-12 h-12 mx-auto rounded-full border border-hotel-gold/30 flex items-center justify-center text-hotel-gold bg-hotel-gold/10">
-            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-            </svg>
+        <!-- 02 Breakfast -->
+        <div class="p-8 sm:p-9 space-y-4 hover:bg-white/[0.03] transition-colors group">
+          <div class="flex items-center justify-between">
+            <div class="w-11 h-11 rounded-full border border-hotel-gold/30 flex items-center justify-center text-hotel-gold bg-hotel-gold/10 group-hover:scale-110 transition-transform">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+              </svg>
+            </div>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-hotel-gold/70">02 / Dining</span>
           </div>
-          <h4 class="font-serif text-lg text-hotel-sand-light">Artisanal Breakfast</h4>
+          <div>
+            <h4 class="font-serif text-lg sm:text-xl text-hotel-sand-light group-hover:text-hotel-gold transition-colors">
+              Artisanal Breakfast
+            </h4>
+            <div class="text-[11px] font-mono text-hotel-gold/80 mt-1">Private Veranda or Hearth</div>
+          </div>
           <p class="text-xs text-hotel-muted font-light leading-relaxed">
             Daily gourmet breakfast served either on your private veranda or within The Hearth Restaurant.
           </p>
         </div>
 
-        <div class="glass-panel p-7 rounded-lg text-center space-y-3.5 border border-hotel-border/40 hover:border-hotel-gold/50 transition-colors kinetic-card">
-          <div class="w-12 h-12 mx-auto rounded-full border border-hotel-gold/30 flex items-center justify-center text-hotel-gold bg-hotel-gold/10">
-            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-            </svg>
+        <!-- 03 Connectivity -->
+        <div class="p-8 sm:p-9 space-y-4 hover:bg-white/[0.03] transition-colors group">
+          <div class="flex items-center justify-between">
+            <div class="w-11 h-11 rounded-full border border-hotel-gold/30 flex items-center justify-center text-hotel-gold bg-hotel-gold/10 group-hover:scale-110 transition-transform">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-hotel-gold/70">03 / Telecom</span>
           </div>
-          <h4 class="font-serif text-lg text-hotel-sand-light">Fiber Optic Network</h4>
+          <div>
+            <h4 class="font-serif text-lg sm:text-xl text-hotel-sand-light group-hover:text-hotel-gold transition-colors">
+              Fiber Optic Network
+            </h4>
+            <div class="text-[11px] font-mono text-hotel-gold/80 mt-1">1 Gbps Symmetric Encrypted</div>
+          </div>
           <p class="text-xs text-hotel-muted font-light leading-relaxed">
             Encrypted high-speed symmetric internet with private bandwidth allocations in every residence.
           </p>
         </div>
 
-        <div class="glass-panel p-7 rounded-lg text-center space-y-3.5 border border-hotel-border/40 hover:border-hotel-gold/50 transition-colors kinetic-card">
-          <div class="w-12 h-12 mx-auto rounded-full border border-hotel-gold/30 flex items-center justify-center text-hotel-gold bg-hotel-gold/10">
-            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-            </svg>
+        <!-- 04 Botanicals -->
+        <div class="p-8 sm:p-9 space-y-4 hover:bg-white/[0.03] transition-colors group">
+          <div class="flex items-center justify-between">
+            <div class="w-11 h-11 rounded-full border border-hotel-gold/30 flex items-center justify-center text-hotel-gold bg-hotel-gold/10 group-hover:scale-110 transition-transform">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+              </svg>
+            </div>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-hotel-gold/70">04 / Wellness</span>
           </div>
-          <h4 class="font-serif text-lg text-hotel-sand-light">Bespoke Botanicals</h4>
+          <div>
+            <h4 class="font-serif text-lg sm:text-xl text-hotel-sand-light group-hover:text-hotel-gold transition-colors">
+              Bespoke Botanicals
+            </h4>
+            <div class="text-[11px] font-mono text-hotel-gold/80 mt-1">Cold-Formulated Oils</div>
+          </div>
           <p class="text-xs text-hotel-muted font-light leading-relaxed">
             Organic skincare and bath oils cold-formulated by local herbalists from northern wild botanicals.
           </p>

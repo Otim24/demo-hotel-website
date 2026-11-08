@@ -87,56 +87,82 @@ const {
 
     <!-- Scroll Reconstruct / Deconstruct Kinetic Engine on Page Load -->
     <script>
+      let scrollListener: (() => void) | null = null;
+      let resizeListener: (() => void) | null = null;
+
       function initKineticScroll() {
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const kineticElements = document.querySelectorAll<HTMLElement>(
-          '.kinetic-deconstruct, .kinetic-block, .kinetic-card, .kinetic-left, .kinetic-right, .reveal-init'
+          '.kinetic-deconstruct, .kinetic-block, .kinetic-card, .kinetic-left, .kinetic-right, .kinetic-spread, .reveal-init'
         );
 
         if (!kineticElements.length) return;
 
         if (prefersReducedMotion) {
           kineticElements.forEach((el) => {
-            el.classList.add('is-constructed', 'reveal-visible');
+            el.classList.add('is-constructed');
+            el.classList.remove('is-deconstructing-top', 'is-deconstructed-up', 'is-deconstructed-down');
           });
           return;
         }
 
-        const observerOptions: IntersectionObserverInit = {
-          root: null,
-          rootMargin: '-3% 0px -3% 0px',
-          threshold: [0, 0.08, 0.2],
-        };
+        // Clean up previous listeners if attached
+        if (scrollListener) window.removeEventListener('scroll', scrollListener);
+        if (resizeListener) window.removeEventListener('resize', resizeListener);
 
-        const observerCallback: IntersectionObserverCallback = (entries) => {
-          entries.forEach((entry) => {
-            const target = entry.target as HTMLElement;
+        let ticking = false;
 
-            if (entry.isIntersecting && entry.intersectionRatio > 0.03) {
-              // RECONSTRUCT: Smoothly assemble as visitor scrolls into view
-              target.classList.remove('is-deconstructed-up', 'is-deconstructed-down');
-              target.classList.add('is-constructed', 'reveal-visible');
-            } else if (!entry.isIntersecting) {
-              // DECONSTRUCT: Smoothly dissolve and separate as visitor scrolls away
-              target.classList.remove('is-constructed', 'reveal-visible');
-              const rect = entry.boundingClientRect;
-              if (rect.top < 0) {
-                // Scrolled past the top
-                target.classList.add('is-deconstructed-up');
-                target.classList.remove('is-deconstructed-down');
-              } else {
-                // Scrolled away past the bottom
-                target.classList.add('is-deconstructed-down');
-                target.classList.remove('is-deconstructed-up');
-              }
+        function evaluateKineticPositions() {
+          const vh = window.innerHeight || document.documentElement.clientHeight;
+
+          kineticElements.forEach((el) => {
+            const rect = el.getBoundingClientRect();
+
+            // 1. Completely off-screen past the top
+            if (rect.bottom <= 0) {
+              el.classList.remove('is-constructed', 'is-deconstructing-top', 'is-deconstructed-down');
+              el.classList.add('is-deconstructed-up');
+            }
+            // 2. Actively deconstructing in upper 24% of the viewport (clearly visible as scrolling away)
+            else if (rect.bottom < vh * 0.24 || (rect.top < 0 && rect.bottom < vh * 0.5)) {
+              el.classList.remove('is-constructed', 'is-deconstructed-up', 'is-deconstructed-down');
+              el.classList.add('is-deconstructing-top');
+            }
+            // 3. Completely off-screen below the viewport
+            else if (rect.top >= vh) {
+              el.classList.remove('is-constructed', 'is-deconstructing-top', 'is-deconstructed-up');
+              el.classList.add('is-deconstructed-down');
+            }
+            // 4. Emerging from below viewport threshold
+            else if (rect.top > vh * 0.90) {
+              el.classList.remove('is-constructed', 'is-deconstructing-top', 'is-deconstructed-up');
+              el.classList.add('is-deconstructed-down');
+            }
+            // 5. Active focus viewport zone: fully reconstructed, crystal clear, sharp
+            else {
+              el.classList.remove('is-deconstructing-top', 'is-deconstructed-up', 'is-deconstructed-down');
+              el.classList.add('is-constructed');
             }
           });
-        };
 
-        const observer = new IntersectionObserver(observerCallback, observerOptions);
-        kineticElements.forEach((el) => {
-          observer.observe(el);
-        });
+          ticking = false;
+        }
+
+        function onScroll() {
+          if (!ticking) {
+            window.requestAnimationFrame(evaluateKineticPositions);
+            ticking = true;
+          }
+        }
+
+        scrollListener = onScroll;
+        resizeListener = onScroll;
+
+        // Run immediately to construct visible elements
+        evaluateKineticPositions();
+
+        window.addEventListener('scroll', scrollListener, { passive: true });
+        window.addEventListener('resize', resizeListener, { passive: true });
       }
 
       // Run on initial load and on every client navigation

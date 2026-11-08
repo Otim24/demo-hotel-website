@@ -80,13 +80,16 @@ import { HOTEL_INFO } from '../data/hotelData';
           ></iframe>
         </div>
 
-        <!-- Transit logistics pills -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+        <!-- Architectural Transit Logistics Console -->
+        <div class="glass-panel rounded-xl border border-white/10 divide-y sm:divide-y-0 sm:divide-x divide-white/10 grid grid-cols-1 sm:grid-cols-3 overflow-hidden kinetic-block">
           {
-            HOTEL_INFO.location.access.map((item) => (
-              <div class="glass-card p-4 rounded-sm border border-white/5">
-                <div class="text-[11px] uppercase tracking-wider text-hotel-gold font-medium mb-1">
-                  {item.mode}
+            HOTEL_INFO.location.access.map((item, idx) => (
+              <div class="p-5 sm:p-6 space-y-2 hover:bg-white/[0.03] transition-colors">
+                <div class="flex items-center justify-between">
+                  <div class="text-[11px] uppercase tracking-wider text-hotel-gold font-semibold font-mono">
+                    {item.mode}
+                  </div>
+                  <span class="text-[10px] font-mono text-hotel-muted">0{idx + 1}</span>
                 </div>
                 <p class="text-xs text-hotel-sand/80 font-light leading-relaxed">
                   {item.detail}

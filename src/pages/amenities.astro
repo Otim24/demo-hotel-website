@@ -184,20 +184,47 @@ const SPA_TREATMENTS = [
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Architectural Spa Monograph Menu (Editorial Split Presentation) -->
+      <div class="glass-panel rounded-xl border border-hotel-border/50 overflow-hidden divide-y divide-white/10 kinetic-block">
         {
-          SPA_TREATMENTS.map((treatment) => (
-            <div class="glass-panel p-6 sm:p-8 rounded-lg border border-hotel-border/40 hover:border-hotel-gold/40 transition-colors space-y-4">
-              <div class="flex items-baseline justify-between gap-4 border-b border-white/10 pb-3">
-                <div>
-                  <h4 class="font-serif text-xl text-hotel-sand-light">{treatment.name}</h4>
-                  <span class="text-[10px] uppercase font-mono tracking-wider text-hotel-gold">{treatment.category} | {treatment.duration}</span>
+          SPA_TREATMENTS.map((treatment, idx) => (
+            <div class="p-6 sm:p-8 hover:bg-white/[0.03] transition-colors group flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div class="space-y-2 max-w-2xl">
+                <div class="flex items-center gap-3">
+                  <span class="text-[10px] font-mono text-hotel-gold uppercase tracking-widest border border-hotel-gold/30 px-2.5 py-0.5 rounded-full">
+                    Ritual 0{idx + 1}
+                  </span>
+                  <span class="text-[11px] font-mono text-hotel-sand/70 uppercase tracking-wider">
+                    {treatment.category}
+                  </span>
+                  <span class="text-white/20">|</span>
+                  <span class="text-[11px] font-mono text-hotel-gold/90">
+                    {treatment.duration}
+                  </span>
                 </div>
-                <span class="font-serif text-2xl text-hotel-gold font-semibold">{treatment.price}</span>
+                <h4 class="font-serif text-xl sm:text-2xl text-hotel-sand-light group-hover:text-hotel-gold transition-colors">
+                  {treatment.name}
+                </h4>
+                <p class="text-xs sm:text-sm text-hotel-muted font-light leading-relaxed">
+                  {treatment.description}
+                </p>
               </div>
-              <p class="text-xs text-hotel-muted font-light leading-relaxed">
-                {treatment.description}
-              </p>
+
+              <div class="flex md:flex-col items-center md:items-end justify-between md:justify-center gap-3 border-t md:border-t-0 border-white/10 pt-4 md:pt-0">
+                <div class="text-left md:text-right">
+                  <span class="text-[10px] uppercase font-mono tracking-wider text-hotel-muted block">Session Investment</span>
+                  <span class="font-serif text-2xl sm:text-3xl text-hotel-gold font-semibold">{treatment.price}</span>
+                </div>
+                <a
+                  href="#spa-inquiry"
+                  class="text-[11px] uppercase tracking-[0.18em] text-hotel-gold hover:text-hotel-sand-light font-semibold transition-colors flex items-center gap-1.5"
+                >
+                  <span>Select Ritual</span>
+                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
             </div>
           ))
         }

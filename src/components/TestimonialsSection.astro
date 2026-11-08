@@ -1,5 +1,8 @@
 ---
 import { TESTIMONIALS } from '../data/hotelData';
+
+const primaryTestimonial = TESTIMONIALS[0];
+const secondaryTestimonials = TESTIMONIALS.slice(1);
 ---
 
 <section class="relative py-28 px-4 sm:px-6 lg:px-12 bg-hotel-dark overflow-hidden border-t border-white/5">
@@ -15,42 +18,105 @@ import { TESTIMONIALS } from '../data/hotelData';
     <div class="ambient-glow bottom-0 left-1/4 opacity-20"></div>
   </div>
 
-  <div class="max-w-7xl mx-auto relative z-10">
-    <div class="text-center max-w-xl mx-auto mb-16">
+  <div class="max-w-7xl mx-auto relative z-10 space-y-16">
+    <!-- Header -->
+    <div class="text-center max-w-xl mx-auto kinetic-block">
       <div class="inline-flex items-center gap-2 mb-3">
         <span class="w-6 h-[1px] bg-hotel-gold"></span>
         <span class="text-xs uppercase tracking-[0.3em] text-hotel-gold font-semibold">Distinguished Impressions</span>
         <span class="w-6 h-[1px] bg-hotel-gold"></span>
       </div>
-      <h2 class="font-serif text-3xl sm:text-4xl text-hotel-sand-light tracking-tight">
+      <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-hotel-sand-light tracking-tight">
         Words from Our Guests
       </h2>
+      <p class="text-xs sm:text-sm text-hotel-muted font-light mt-3">
+        Reflections from ambassadors, architects, and international summit directors.
+      </p>
     </div>
 
-    <!-- Testimonials Layout -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch kinetic-stagger-parent">
-      {
-        TESTIMONIALS.map((t) => (
-          <div class="glass-panel p-8 sm:p-10 rounded-lg border border-hotel-border/40 flex flex-col justify-between hover:border-hotel-gold/40 transition-colors duration-300 kinetic-card">
-            <div>
-              <!-- Quotation Mark -->
-              <svg class="w-8 h-8 text-hotel-gold/30 mb-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-              </svg>
-              <p class="font-serif italic text-base sm:text-lg text-hotel-sand-light/95 leading-relaxed mb-6 font-light">
-                "{t.quote}"
-              </p>
-            </div>
+    <!-- Editorial Diplomatic Monograph Spread (Asymmetric Magazine Folio) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
+      <!-- Left Column: Diplomatic Monograph Centerpiece (7 Cols) -->
+      <div class="lg:col-span-7 glass-panel p-8 sm:p-12 rounded-xl border border-hotel-border/50 flex flex-col justify-between relative overflow-hidden group kinetic-left">
+        <!-- Subtle gold corner glow -->
+        <div class="ambient-glow -top-24 -left-24 opacity-30"></div>
 
-            <div class="border-t border-white/10 pt-5">
-              <div class="font-sans text-sm font-semibold text-hotel-sand-light">{t.author}</div>
-              <div class="text-xs text-hotel-gold mt-0.5">{t.role}</div>
-              <div class="text-[11px] text-hotel-muted font-mono mt-0.5">{t.location}</div>
+        <div>
+          <!-- Top Monogram & Official Dispatch Tag -->
+          <div class="flex items-center justify-between border-b border-white/10 pb-6 mb-8">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full border border-hotel-gold/40 flex items-center justify-center text-hotel-gold font-serif text-sm bg-hotel-gold/10">
+                N
+              </div>
+              <span class="text-[10px] font-mono uppercase tracking-[0.25em] text-hotel-gold font-semibold">
+                Diplomatic Dispatch
+              </span>
+            </div>
+            <span class="text-[10px] font-mono text-hotel-muted">
+              Geneva / Gulu Protocol
+            </span>
+          </div>
+
+          <!-- Quotation Mark Accent -->
+          <svg class="w-10 h-10 text-hotel-gold/30 mb-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+          </svg>
+
+          <!-- Large Display Serif Quote -->
+          <p class="font-serif italic text-xl sm:text-2xl text-hotel-sand-light leading-relaxed font-light">
+            "{primaryTestimonial.quote}"
+          </p>
+        </div>
+
+        <!-- Monograph Author Footer -->
+        <div class="border-t border-white/10 pt-6 mt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="font-serif text-lg text-hotel-sand-light font-medium tracking-wide">
+              {primaryTestimonial.author}
+            </div>
+            <div class="text-xs text-hotel-gold font-mono mt-0.5">
+              {primaryTestimonial.role}
             </div>
           </div>
-        ))
-      }
+          <div class="text-right">
+            <span class="inline-block text-[10px] font-mono uppercase tracking-widest text-hotel-muted border border-white/10 px-3 py-1 rounded-sm bg-black/30">
+              {primaryTestimonial.location}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Stacked Architectural & Summit Monographs (5 Cols) -->
+      <div class="lg:col-span-5 flex flex-col gap-6 sm:gap-8 justify-between kinetic-right">
+        {
+          secondaryTestimonials.map((t, idx) => (
+            <div class="glass-panel p-7 sm:p-8 rounded-xl border border-hotel-border/40 hover:border-hotel-gold/40 transition-all duration-300 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-[10px] font-mono uppercase tracking-widest text-hotel-gold/80">
+                    0{idx + 2} Monograph
+                  </span>
+                  <span class="text-[10px] font-mono text-hotel-muted">
+                    {t.location}
+                  </span>
+                </div>
+                <p class="font-serif italic text-sm sm:text-base text-hotel-sand-light/95 leading-relaxed font-light mb-6">
+                  "{t.quote}"
+                </p>
+              </div>
+
+              <div class="border-t border-white/10 pt-4">
+                <div class="font-sans text-sm font-semibold text-hotel-sand-light">
+                  {t.author}
+                </div>
+                <div class="text-xs text-hotel-gold mt-0.5">
+                  {t.role}
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
     </div>
   </div>
 </section>
-
